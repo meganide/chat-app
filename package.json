@@ -1,0 +1,19 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "npm run build --prefix client && npm run start --prefix server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meganide/chat-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meganide/chat-app/issues"
+  },
+  "homepage": "https://github.com/meganide/chat-app#readme"
+}
