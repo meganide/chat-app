@@ -1,0 +1,26 @@
+.register {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.register__author-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: .75rem;
+}
+.register__author-link {
+  text-decoration: none;
+}
+
+.register__created-by, .register__author-link {
+  color: #828282;
+  font-size: .875rem;
+}
+
+.register__created-by span {
+  text-decoration: underline;
+}
