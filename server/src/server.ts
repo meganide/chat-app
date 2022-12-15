@@ -1,5 +1,6 @@
 import { app } from './app.js';
 import https from 'https';
+import http from 'http';
 import dotenv from 'dotenv';
 import fs from 'fs';
 
@@ -14,10 +15,9 @@ if (process.env.NODE_ENV === 'DEVELOPMENT') {
     key: fs.readFileSync('key.pem'),
     cert: fs.readFileSync('cert.pem'),
   };
-
   server = https.createServer(KEYS, app);
 } else {
-  server = https.createServer(app);
+  server = http.createServer(app);
 }
 
 server.listen(PORT, () => {
