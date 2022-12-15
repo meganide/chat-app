@@ -1,7 +1,6 @@
 import express from 'express';
 import passport from 'passport';
 import { isAuthenticated } from './googleAuth.controller.js';
-import { config } from '../../config.js';
 
 const googleRouter = express.Router();
 
