@@ -1,6 +1,6 @@
 import express from 'express';
 import passport from 'passport';
-import { getUser } from './googleAuth.controller.js';
+import { isAuthenticated } from './googleAuth.controller.js';
 
 const googleRouter = express.Router();
 
@@ -22,7 +22,7 @@ googleRouter.get(
   })
 );
 
-googleRouter.get('/getUser', getUser)
+googleRouter.get('/authenticated', isAuthenticated)
 
 
 export { googleRouter };

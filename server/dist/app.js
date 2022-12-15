@@ -17,9 +17,6 @@ app.use(cookieSession({
         config.COOKIE_KEY_1 || 'PueNV4kuvv8dhhXZy6m1',
         config.COOKIE_KEY_2 || 'iCCpo3GUvAXMfewB7UV4',
     ],
-    sameSite: true,
-    secure: true,
-    httpOnly: true,
 }));
 initializeGoogleAuth(app);
 app.get('/', requireAuth);

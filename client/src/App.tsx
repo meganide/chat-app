@@ -1,6 +1,5 @@
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Cookies from 'js-cookie'
-
 
 import './app.css';
 import Home from './pages/Home/Home';
@@ -13,35 +12,53 @@ interface Props {
 }
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    async function HTTPisAuthenticated() {
+      try {
+        const response = await fetch('https://localhost:8000/api/auth/authenticated');
+        const data = await response.json();
+
+        setIsAuthenticated(data.isAuthenticated);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    HTTPisAuthenticated();
+  }, []);
 
   function RequireAuth({ children }: Props) {
-    const currentUser = Cookies.get('authSession');
-    console.log({currentUser})
-    console.log(Cookies.get())
-    return currentUser ? children : <Navigate to="/login" />;
+    console.log('Current user is: ', isAuthenticated);
+    return isAuthenticated ? children : <Navigate to="/login" />;
   }
 
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/">
-            <Route path="register" element={<Register />} />
-            <Route
-              index
-              element={
-                <RequireAuth>
-                  <Home />
-                </RequireAuth>
-              }
-            />
-          </Route>
-          <Route path="login" element={<Login />} />
-          <Route path="*" element={<NoPage />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+  if (isAuthenticated === true || isAuthenticated === false) {
+    return (
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/">
+              <Route path="register" element={<Register />} />
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <Home />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="login" element={<Login />} />
+            <Route path="*" element={<NoPage />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    );
+  } else {
+    return <></>;
+  }
 }
 
 export default App;

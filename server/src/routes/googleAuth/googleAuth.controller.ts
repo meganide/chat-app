@@ -37,9 +37,9 @@ function verifyCallback(accessToken: any, refreshToken: any, profile: any, done:
   done(null, profile);
 }
 
-function getUser(req: any, res: any) {
-  const userId = req.user
-  return res.status(200).send({userId})
+function isAuthenticated(req: any, res: any) {
+  const isAuthenticated = req.isAuthenticated();
+  return res.status(200).json({ isAuthenticated });
 }
 
-export { initializeGoogleAuth, getUser };
+export { initializeGoogleAuth, isAuthenticated };

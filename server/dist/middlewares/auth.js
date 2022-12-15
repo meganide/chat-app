@@ -4,9 +4,9 @@ function requireAuth(req, res, next) {
     if (isLoggedIn) {
         return next();
     }
-    // return res.redirect('/login');
-    return res.send({
-        error: 'You must log in!',
-    });
+    return res.redirect('/login');
+    // return res.send({
+    //   error: 'You must log in!',
+    // });
 }
 export { requireAuth };
