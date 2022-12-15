@@ -14,7 +14,7 @@ function AuthForm(props: Props) {
     <section className="auth">
       <section className="auth__logo">
         <img src="images/icons/icons8-chat-room-48.png" alt="" />
-        <span className="auth__name">Chattify</span>
+        <span className="auth__name">Chatify</span>
       </section>
       <p className="auth__slogan">Chat with your best friends from anywhere!</p>
       <form className="auth__form" action="/auth" method="post">

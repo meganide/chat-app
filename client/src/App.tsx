@@ -56,8 +56,8 @@ function App() {
         </BrowserRouter>
       </div>
     );
-  } else {
-    return <></>;
+  } else { //TODO: add loading spinner
+    return <>Loading...</>;
   }
 }
 
