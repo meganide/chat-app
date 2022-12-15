@@ -1,6 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import { isAuthenticated } from './googleAuth.controller.js';
+import { config } from '../../config.js';
 
 const googleRouter = express.Router();
 
@@ -14,7 +15,7 @@ googleRouter.get(
 
 // Handle response from Google and authenticate the user
 googleRouter.get(
-  '/google/callback',
+  config.GOOGLE_REDIRECT_URI || '/google/callback',
   passport.authenticate('google', {
     failureRedirect: '/login',
     successRedirect: '/',
