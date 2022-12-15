@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     async function HTTPisAuthenticated() {
       try {
-        const response = await fetch('https://localhost:8000/api/auth/authenticated');
+        const response = await fetch('/api/auth/authenticated');
         const data = await response.json();
 
         setIsAuthenticated(data.isAuthenticated);
