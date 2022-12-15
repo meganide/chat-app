@@ -14,13 +14,8 @@ googleRouter.get(
 );
 
 // Handle response from Google and authenticate the user
-
-const REDIRECT_URI = config.GOOGLE_REDIRECT_URI || '/google/callback'
-
-console.log('Redirect URI: ', REDIRECT_URI)
-
 googleRouter.get(
-  REDIRECT_URI,
+  '/google/callback',
   passport.authenticate('google', {
     failureRedirect: '/login',
     successRedirect: '/',
