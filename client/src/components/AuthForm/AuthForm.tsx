@@ -30,7 +30,9 @@ function AuthForm(props: Props) {
       </form>
       <p className="auth__socialtext">or continue with these social profile</p>
       <section className="auth__socials">
-        <img src="images/icons/Google.svg" alt="google" />
+        <a href="/api/auth/google">
+          <img src="images/icons/Google.svg" alt="google" />
+        </a>
         <img src="images/icons/Facebook.svg" alt="facebook" />
         <img src="images/icons/Twitter.svg" alt="twitter" />
         <img src="images/icons/Github.svg" alt="github" />

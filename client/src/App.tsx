@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Cookies from 'js-cookie'
+
 
 import './app.css';
 import Home from './pages/Home/Home';
@@ -11,12 +13,13 @@ interface Props {
 }
 
 function App() {
+
   function RequireAuth({ children }: Props) {
-    // TODO get currentUser auth from server
-    const currentUser = false;
+    const currentUser = Cookies.get('authSession');
+    console.log({currentUser})
+    console.log(Cookies.get())
     return currentUser ? children : <Navigate to="/login" />;
   }
-
 
   return (
     <div className="App">
@@ -33,7 +36,7 @@ function App() {
               }
             />
           </Route>
-          <Route path='login' element={<Login />} />
+          <Route path="login" element={<Login />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
       </BrowserRouter>
