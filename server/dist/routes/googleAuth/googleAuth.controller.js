@@ -2,7 +2,7 @@ import { Strategy } from 'passport-google-oauth20';
 import passport from 'passport';
 import { config } from '../../config.js';
 const AUTH_OPTIONS = {
-    callbackURL: '/api/auth/google/callback',
+    callbackURL: config.GOOGLE_REDIRECT_URI || '/api/auth/google/callback',
     clientID: config.CLIENT_ID,
     clientSecret: config.CLIENT_SECRET,
 };
