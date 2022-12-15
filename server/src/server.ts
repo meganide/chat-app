@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'DEVELOPMENT') {
   };
   server = https.createServer(KEYS, app);
 } else {
-  server = http.createServer(app);
+  server = https.createServer(app);
 }
 
 server.listen(PORT, () => {
