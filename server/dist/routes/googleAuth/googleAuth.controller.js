@@ -26,6 +26,9 @@ function initializeGoogleAuth(app) {
 }
 // Function is called when user is authenticated
 function verifyCallback(accessToken, refreshToken, profile, done) {
+    // TODO: Upload profile to DB if user does not exist on DB already
+    // TODO: Create an api endpoint to getUserProfile
+    // TODO: Fetch userinfo from frontend and display
     console.log({ profile });
     done(null, profile);
 }

@@ -13,4 +13,8 @@ googleRouter.get('/google/callback', passport.authenticate('google', {
     session: true,
 }));
 googleRouter.get('/authenticated', isAuthenticated);
+googleRouter.get('/logout', (req, res) => {
+    req.logout();
+    return res.redirect('/login');
+});
 export { googleRouter };

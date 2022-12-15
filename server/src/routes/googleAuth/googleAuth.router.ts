@@ -22,7 +22,11 @@ googleRouter.get(
   })
 );
 
-googleRouter.get('/authenticated', isAuthenticated)
+googleRouter.get('/authenticated', isAuthenticated);
 
+googleRouter.get('/logout', (req: any, res) => {
+  req.logout();
+  return res.redirect('/login');
+});
 
 export { googleRouter };
