@@ -8,7 +8,9 @@ googleRouter.get('/google', passport.authenticate('google', {
     scope: ['profile'],
 }));
 // Handle response from Google and authenticate the user
-googleRouter.get(config.GOOGLE_REDIRECT_URI || '/google/callback', passport.authenticate('google', {
+const REDIRECT_URI = config.GOOGLE_REDIRECT_URI || '/google/callback';
+console.log('Redirect URI: ', REDIRECT_URI);
+googleRouter.get(REDIRECT_URI, passport.authenticate('google', {
     failureRedirect: '/login',
     successRedirect: '/',
     session: true,
