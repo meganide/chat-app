@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import './app.css';
+import { UserContext } from './contexts/UserContext';
 import EditProfile from './pages/EditProfile/EditProfile';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
@@ -13,8 +14,30 @@ interface Props {
   children: JSX.Element;
 }
 
+// export interface iUserData {
+//   id: number;
+//   userId: string;
+//   displayName: string;
+//   profilePic: string | undefined;
+//   provider: string;
+//   email: string;
+//   emailVerified: boolean;
+// }
+
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  // To DO: Create context for these global values
+  // const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  // const [userData, setUserData] = useState<any>({
+  //   id: 1,
+  //   userId: 1,
+  //   displayName: 'Name',
+  //   profilePic: '../images/dummypics/cat.png',
+  //   provider: 'google',
+  //   email: 'haha@gmail.com',
+  //   emailVerified: true,
+  // });
+
+  const { isAuthenticated, setIsAuthenticated, userData, setUserData } = useContext(UserContext);
 
   useEffect(() => {
     async function HTTPisAuthenticated() {
@@ -23,6 +46,19 @@ function App() {
         const data = await response.json();
 
         setIsAuthenticated(data.isAuthenticated);
+        HttpGetUserData(data.userId);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function HttpGetUserData(userID: any) {
+      try {
+        const response = await fetch('/api/auth/google/user/' + userID);
+        console.log('link is: ', '/api/auth/google/user/' + userID);
+        const data = await response.json();
+
+        setUserData(data[0]);
       } catch (err) {
         console.error(err);
       }
@@ -30,6 +66,8 @@ function App() {
 
     HTTPisAuthenticated();
   }, []);
+
+  console.log('bara userData', userData);
 
   // const isAuthenticated: any = true; // TODO: remove this when in production!
 
