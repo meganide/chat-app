@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import './app.css';
+import EditProfile from './pages/EditProfile/EditProfile';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import NoPage from './pages/NoPage/NoPage';
@@ -54,14 +55,24 @@ function App() {
               />
             </Route>
             <Route path="login" element={<Login />} />
-            <Route
-              path="profile"
-              element={
-                <RequireAuth>
-                  <Profile />
-                </RequireAuth>
-              }
-            />
+            <Route path="profile">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <Profile />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="edit"
+                element={
+                  <RequireAuth>
+                    <EditProfile />
+                  </RequireAuth>
+                }
+              />
+            </Route>
             <Route path="*" element={<NoPage />} />
           </Routes>
         </BrowserRouter>

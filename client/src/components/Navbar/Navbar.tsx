@@ -22,7 +22,7 @@ function Navbar(props: iNavbar) {
     <nav className="navbar">
       <Logo />
       <article className="navbar__profile">
-        <img className="navbar__profile-pic" src="images/dummypics/cat.png" alt="" />
+        <img className="navbar__profile-pic" src="../images/dummypics/cat.png" alt="" />
         <span className="navbar__username">Renas</span>
         <ArrowDropDownIcon ref={arrowDropdownRef} className="arrowDropDown" onClick={toggleDropdown} />
       </article>

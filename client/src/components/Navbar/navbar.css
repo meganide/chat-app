@@ -14,6 +14,8 @@
 
 .navbar__profile-pic {
   width: 2.8125rem;
+  height: 2.8125rem;
+  object-fit: cover;
   border-radius: .625rem;
 }
 

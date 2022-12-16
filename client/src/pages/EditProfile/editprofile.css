@@ -1,0 +1,23 @@
+.edit-profile__back {
+  color: #2D9CDB;
+  display: flex;
+  align-items: center;
+  gap: .875rem;
+  margin-bottom: 1.5rem;
+}
+
+
+
+@media screen and (max-width: 650px) {
+  .edit-profile__back {
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+    /* margin-left: 1rem; */
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 850px) {
+  .wrapper {
+    padding: 1rem;
+  }
+}
