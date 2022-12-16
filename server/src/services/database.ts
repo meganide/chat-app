@@ -1,12 +1,24 @@
 import { config } from '../config.js';
 import mysql from 'mysql2';
 
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: config.DB_PASSWORD,
-  database: 'chatify',
-});
+let dbOptions;
 
+if (process.env.NODE_ENV === 'DEVELOPMENT') {
+  dbOptions = {
+    host: 'localhost',
+    user: 'root',
+    password: config.DB_PASSWORD,
+    database: 'chatify',
+  };
+} else {
+  dbOptions = {
+    host: config.DB_AWS_HOST,
+    user: 'admin',
+    password: config.DB_AWS_PASSWORD,
+    database: 'chatify',
+  };
+}
 
-export {db}
+const db = mysql.createConnection(dbOptions);
+
+export { db };

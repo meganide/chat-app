@@ -9,6 +9,8 @@ const config = {
   COOKIE_KEY_2: process.env.COOKIE_KEY_2,
   GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI,
   DB_PASSWORD: process.env.DB_PASSWORD,
+  DB_AWS_PASSWORD: process.env.DB_AWS_PASSWORD,
+  DB_AWS_HOST: process.env.DB_AWS_HOST,
 };
 
 export { config };
