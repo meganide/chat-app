@@ -15,6 +15,7 @@ interface Props {
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [userId, setUserId] = useState<number | null>(null);
 
   useEffect(() => {
     async function HTTPisAuthenticated() {
@@ -23,6 +24,7 @@ function App() {
         const data = await response.json();
 
         setIsAuthenticated(data.isAuthenticated);
+        setUserId(data.userId);
       } catch (err) {
         console.error(err);
       }

@@ -4,7 +4,7 @@ import { isAuthenticated } from './googleAuth.controller.js';
 const googleRouter = express.Router();
 // Redirect user to the google auth/login page
 googleRouter.get('/google', passport.authenticate('google', {
-    scope: ['profile'],
+    scope: ['profile', 'email'],
 }));
 // Handle response from Google and authenticate the user
 googleRouter.get('/google/callback', passport.authenticate('google', {

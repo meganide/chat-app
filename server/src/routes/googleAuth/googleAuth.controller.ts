@@ -1,6 +1,7 @@
 import { Strategy } from 'passport-google-oauth20';
 import passport from 'passport';
 import { config } from '../../config.js';
+import { addUserToDb, findUserWithGoogleId, iFindUser } from '../../models/googleAuth/googleAuth.model.js';
 
 const AUTH_OPTIONS: any = {
   callbackURL: config.GOOGLE_REDIRECT_URI || '/api/auth/google/callback',
@@ -14,13 +15,11 @@ function initializeGoogleAuth(app: any) {
 
   // Save session to cookie
   passport.serializeUser((user: any, done) => {
-    console.log({ user });
     done(null, user.id);
   });
 
   // Read cookie
   passport.deserializeUser((id: string, done) => {
-    console.log({ id });
     done(null, id);
   });
 
@@ -31,18 +30,28 @@ function initializeGoogleAuth(app: any) {
   app.use(passport.session());
 }
 
+
+
 // Function is called when user is authenticated
-function verifyCallback(accessToken: any, refreshToken: any, profile: any, done: any) {
+async function verifyCallback(accessToken: any, refreshToken: any, profile: any, done: any) {
   // TODO: Upload profile to DB if user does not exist on DB already
   // TODO: Create an api endpoint to getUserProfile
   // TODO: Fetch userinfo from frontend and display
-  console.log({ profile });
+  const userId: string = profile.id;
+  const findUser: iFindUser[] | [] = await findUserWithGoogleId(userId);
+  if (findUser.length === 0) {
+    console.log('trying to add user!', profile);
+    addUserToDb(profile);
+  }
+
   done(null, profile);
 }
 
 function isAuthenticated(req: any, res: any) {
   const isAuthenticated = req.isAuthenticated();
-  return res.status(200).json({ isAuthenticated });
+  const userId = req.user
+  console.log('userid from isauth is: ', userId)
+  return res.status(200).json({ isAuthenticated, userId });
 }
 
 export { initializeGoogleAuth, isAuthenticated };
