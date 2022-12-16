@@ -5,6 +5,7 @@ import './app.css';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import NoPage from './pages/NoPage/NoPage';
+import Profile from './pages/Profile/Profile';
 import Register from './pages/Register/Register';
 
 interface Props {
@@ -29,8 +30,7 @@ function App() {
   //   HTTPisAuthenticated();
   // }, []);
 
-
-  const isAuthenticated = true; // TODO: remove this when in production!
+  const isAuthenticated: any = true; // TODO: remove this when in production!
 
   function RequireAuth({ children }: Props) {
     console.log('Current user is: ', isAuthenticated);
@@ -54,12 +54,21 @@ function App() {
               />
             </Route>
             <Route path="login" element={<Login />} />
+            <Route
+              path="profile"
+              element={
+                <RequireAuth>
+                  <Profile />
+                </RequireAuth>
+              }
+            />
             <Route path="*" element={<NoPage />} />
           </Routes>
         </BrowserRouter>
       </div>
     );
-  } else { //TODO: add loading spinner
+  } else {
+    //TODO: add loading spinner
     return <>Loading...</>;
   }
 }

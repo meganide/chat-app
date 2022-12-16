@@ -8,7 +8,6 @@
   display: flex;
   align-items: center;
   gap: .3125rem;
-  margin-bottom: 2.125rem;
 }
 
 .auth__logo span {
@@ -16,6 +15,7 @@
 }
 
 .auth__slogan {
+  margin-top: 2.125rem;
   margin-bottom: 2rem;
   font-weight: 600;
   font-size: 1.125rem;

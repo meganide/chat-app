@@ -1,0 +1,28 @@
+.wrapper {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.profile__heading {
+  text-align: center;
+  font-size: 2.25rem;
+  font-weight: 400;
+}
+
+.profile__subheading {
+  text-align: center;
+  font-weight: 300;
+  margin-bottom: 1.2rem;
+  font-size: 1.125rem;
+}
+
+@media screen and (max-width: 550px) {
+  .profile__heading {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .profile__subheading {
+    font-size: .875rem;
+  }
+}

@@ -24,22 +24,18 @@ app.use(
       config.COOKIE_KEY_2 || 'iCCpo3GUvAXMfewB7UV4',
     ],
   })
-  );
-  
-  initializeGoogleAuth(app);
-  
-  app.get('/', requireAuth)
-  
-  app.use(express.static(path.join(__dirname, '..', 'public')));
+);
 
-  app.use('/api', api);
-  
-  app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
-  });
-  
-  
+initializeGoogleAuth(app);
 
+app.get('/', requireAuth);
 
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
+app.use('/api', api);
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+});
 
 export { app };
