@@ -1,5 +1,6 @@
 import express from 'express';
 import passport from 'passport';
+import { findUserWithGoogleId } from '../../models/googleAuth/googleAuth.model.js';
 import { isAuthenticated } from './googleAuth.controller.js';
 
 const googleRouter = express.Router();
@@ -21,6 +22,19 @@ googleRouter.get(
     session: true,
   })
 );
+
+googleRouter.get('/google/user/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  const userData = await findUserWithGoogleId(userId);
+
+  if (!userData) {
+    return res.status(401).json({
+      error: 'Unauthorized!',
+    });
+  }
+
+  return res.status(200).json(userData);
+});
 
 googleRouter.get('/authenticated', isAuthenticated);
 

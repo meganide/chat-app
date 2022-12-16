@@ -13,9 +13,20 @@ interface Props {
   children: JSX.Element;
 }
 
+// export interface iUserData {
+//   id: number;
+//   userId: string;
+//   displayName: string;
+//   profilePic: string | undefined;
+//   provider: string;
+//   email: string;
+//   emailVerified: boolean;
+// }
+
 function App() {
+  // To DO: Create context for these global values
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [userId, setUserId] = useState<number | null>(null);
+  const [userData, setUserData] = useState<any>(null);
 
   useEffect(() => {
     async function HTTPisAuthenticated() {
@@ -24,7 +35,19 @@ function App() {
         const data = await response.json();
 
         setIsAuthenticated(data.isAuthenticated);
-        setUserId(data.userId);
+        HttpGetUserData(data.userId);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function HttpGetUserData(userID: any) {
+      try {
+        const response = await fetch('/api/auth/google/user/' + userID);
+        console.log('link is: ', '/api/auth/google/user/' + userID);
+        const data = await response.json();
+
+        setUserData(data[0]);
       } catch (err) {
         console.error(err);
       }
@@ -32,6 +55,8 @@ function App() {
 
     HTTPisAuthenticated();
   }, []);
+
+  console.log('bara userData', userData);
 
   // const isAuthenticated: any = true; // TODO: remove this when in production!
 
@@ -51,7 +76,7 @@ function App() {
                 index
                 element={
                   <RequireAuth>
-                    <Home />
+                    <Home userData={userData}/>
                   </RequireAuth>
                 }
               />

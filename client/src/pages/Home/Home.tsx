@@ -1,6 +1,11 @@
 import Navbar from '../../components/Navbar/Navbar';
 
-function Home() {
+
+
+function Home(props: any) {
+
+  console.log('home', props.userData.displayName)
+
   return (
     <div>
       <Navbar page='home'/>
