@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import './app.css';
+import EditProfile from './pages/EditProfile/EditProfile';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import NoPage from './pages/NoPage/NoPage';
+import Profile from './pages/Profile/Profile';
 import Register from './pages/Register/Register';
 
 interface Props {
@@ -12,25 +14,24 @@ interface Props {
 }
 
 function App() {
-  // const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
-  // useEffect(() => {
-  //   async function HTTPisAuthenticated() {
-  //     try {
-  //       const response = await fetch('/api/auth/authenticated');
-  //       const data = await response.json();
+  useEffect(() => {
+    async function HTTPisAuthenticated() {
+      try {
+        const response = await fetch('/api/auth/authenticated');
+        const data = await response.json();
 
-  //       setIsAuthenticated(data.isAuthenticated);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   }
+        setIsAuthenticated(data.isAuthenticated);
+      } catch (err) {
+        console.error(err);
+      }
+    }
 
-  //   HTTPisAuthenticated();
-  // }, []);
+    HTTPisAuthenticated();
+  }, []);
 
-
-  const isAuthenticated = true; // TODO: remove this when in production!
+  // const isAuthenticated: any = true; // TODO: remove this when in production!
 
   function RequireAuth({ children }: Props) {
     console.log('Current user is: ', isAuthenticated);
@@ -54,12 +55,31 @@ function App() {
               />
             </Route>
             <Route path="login" element={<Login />} />
+            <Route path="profile">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <Profile />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="edit"
+                element={
+                  <RequireAuth>
+                    <EditProfile />
+                  </RequireAuth>
+                }
+              />
+            </Route>
             <Route path="*" element={<NoPage />} />
           </Routes>
         </BrowserRouter>
       </div>
     );
-  } else { //TODO: add loading spinner
+  } else {
+    //TODO: add loading spinner
     return <>Loading...</>;
   }
 }

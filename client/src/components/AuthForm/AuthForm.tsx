@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import './authform.css';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
+import Logo from '../Logo/Logo';
 
 interface Props {
   btnText: string;
@@ -10,12 +11,10 @@ interface Props {
 }
 
 function AuthForm(props: Props) {
+  
   return (
     <section className="auth">
-      <section className="auth__logo">
-        <img src="images/icons/icons8-chat-room-48.png" alt="" />
-        <span className="auth__name">Chatify</span>
-      </section>
+      <Logo />
       <p className="auth__slogan">Chat with your best friends from anywhere!</p>
       <form className="auth__form" action="/auth" method="post">
         <div className="auth__input">

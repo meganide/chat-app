@@ -7,6 +7,7 @@
 body {
   background: #252329;
   width: 100vw;
+  max-width: 100%;
   min-height: 100vh;
   line-height: 1.5;
   font-family: 'Noto Sans', sans-serif;
@@ -24,4 +25,9 @@ input, button, textarea, select {
 
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
 }

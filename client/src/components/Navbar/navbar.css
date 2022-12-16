@@ -1,0 +1,39 @@
+.navbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 5rem;
+}
+
+.navbar__profile {
+  display: flex;
+  align-items: center;
+  gap: .6875rem;
+}
+
+.navbar__profile-pic {
+  width: 2.8125rem;
+  height: 2.8125rem;
+  object-fit: cover;
+  border-radius: .625rem;
+}
+
+.navbar__username {
+  font-weight: 700;
+}
+
+.arrowDropDown {
+  font-size: 2rem !important;
+}
+
+.arrowDropDown:hover {
+  color: rgb(111, 183, 245);
+  cursor: pointer;
+}
+
+@media screen and (max-width:800px) {
+  .navbar {
+    padding: 1.5rem 1rem;
+  }
+}

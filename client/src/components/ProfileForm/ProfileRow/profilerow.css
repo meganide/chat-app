@@ -1,0 +1,40 @@
+.profile-form__row {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  align-items: center;
+}
+
+.profile-form__key {
+  color: #BDBDBD;
+  text-transform: uppercase;
+  font-size: .8125rem;
+}
+
+.profile-form__pic {
+  height: 4.5rem;
+  width: 4.5rem;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.profile-form__value {
+  color: #c7c7c7;
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 780px) {
+  .profile-form__row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .profile-form__key {
+    margin-right: 2rem;
+  }
+
+  .profile-form__value {
+    color: #c7c7c7;
+    font-size: 0.9rem;
+  }
+
+}
