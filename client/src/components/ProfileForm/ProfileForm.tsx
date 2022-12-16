@@ -6,7 +6,7 @@ function ProfileForm() {
   const rowInfo = {
     photo: 'images/dummypics/cat.png',
     name: 'Renas Hassan',
-    bio: 'I am a fullstack web developer I am a fullstack web developer I am a fullstack web developer',
+    bio: 'I am a fullstack web developer',
     phone: '+46123123',
     email: 'test@gmail.com',
     password: '***********',

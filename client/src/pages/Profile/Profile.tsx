@@ -6,7 +6,7 @@ import "./profile.css"
 function Profile() {
   return (
     <section className='profile'>
-      <Navbar />
+      <Navbar page='profile'/>
       <div className="wrapper">
         <h1 className='profile__heading'>Personal info</h1>
         <p className='profile__subheading'>Basic info, like your name and photo</p>
