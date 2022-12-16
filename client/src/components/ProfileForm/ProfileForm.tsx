@@ -2,16 +2,21 @@ import './profileform.css';
 import ProfileRow from './ProfileRow/ProfileRow';
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 
 function ProfileForm() {
+  const { userData } = useContext(UserContext);
+
   const rowInfo = {
-    photo: 'images/dummypics/cat.png',
-    name: 'Renas Hassan',
-    bio: 'I am a fullstack web developer',
-    phone: '+46123123',
-    email: 'test@gmail.com',
+    photo: userData.profilePic || '../public/images/icons/avatar.png',
+    name: userData.displayName,
+    bio: userData.bio || 'No bio assigned...',
+    phone: '+123123123',
+    email: userData.email,
     password: '***********',
   };
+
   return (
     <section className="profile-form">
       <article className="profile-form__intro profile-form__padding">

@@ -1,14 +1,9 @@
 import Navbar from '../../components/Navbar/Navbar';
 
-
-
-function Home(props: any) {
-
-  console.log('home', props.userData.displayName)
-
+function Home() {
   return (
     <div>
-      <Navbar page='home'/>
+      <Navbar page="home" />
       <h1>Home</h1>
     </div>
   );

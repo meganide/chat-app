@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import './app.css';
+import { UserContext } from './contexts/UserContext';
 import EditProfile from './pages/EditProfile/EditProfile';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
@@ -25,8 +26,18 @@ interface Props {
 
 function App() {
   // To DO: Create context for these global values
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [userData, setUserData] = useState<any>(null);
+  // const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  // const [userData, setUserData] = useState<any>({
+  //   id: 1,
+  //   userId: 1,
+  //   displayName: 'Name',
+  //   profilePic: '../images/dummypics/cat.png',
+  //   provider: 'google',
+  //   email: 'haha@gmail.com',
+  //   emailVerified: true,
+  // });
+
+  const { isAuthenticated, setIsAuthenticated, userData, setUserData } = useContext(UserContext);
 
   useEffect(() => {
     async function HTTPisAuthenticated() {
@@ -76,7 +87,7 @@ function App() {
                 index
                 element={
                   <RequireAuth>
-                    <Home userData={userData}/>
+                    <Home />
                   </RequireAuth>
                 }
               />

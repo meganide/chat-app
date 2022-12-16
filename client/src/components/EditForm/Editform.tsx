@@ -1,9 +1,11 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 import "./editform.css"
 
 function Editform() {
   // TO DO: update the use state to get from DB/user. Put in a context for global access?
-  const [selectedFile, setSelectedFile] = useState('../images/dummypics/cat.png');
+  const { userData } = useContext(UserContext);
+  const [selectedFile, setSelectedFile] = useState(userData.profilePic || '../public/images/icons/avatar.png');
   const inputFileRef = useRef<any>(null);
 
   function handleOnClick() {
@@ -41,20 +43,20 @@ function Editform() {
           <input type="text" name="name" id="name" placeholder='Enter your name...' />
         </section>
         <section className="edit-form__input">
-          <label htmlFor="name">Bio</label>
+          <label htmlFor="bio">Bio</label>
           <textarea name="bio" id="bio" rows={3} cols={50} placeholder='Enter your bio...'/>
         </section>
         <section className="edit-form__input">
-          <label htmlFor="name">Phone</label>
-          <input type="number" name="name" id="name" placeholder='Enter your phone...' />
+          <label htmlFor="phone">Phone</label>
+          <input type="number" name="phone" id="phone" placeholder='Enter your phone...' />
         </section>
         <section className="edit-form__input">
-          <label htmlFor="name">Email</label>
-          <input type="email" name="name" id="name" placeholder='Enter your email...' />
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" id="email" placeholder='Enter your email...' />
         </section>
         <section className="edit-form__input">
-          <label htmlFor="name">Password</label>
-          <input type="password" name="name" id="name" placeholder='Enter your password...' />
+          <label htmlFor="password">Password</label>
+          <input type="password" name="password" id="password" placeholder='Enter your password...' />
         </section>
         <input className='edit-form__submit' type="submit" value="Save" />
       </form>
