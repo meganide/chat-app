@@ -11,17 +11,19 @@ function Dropdown(props: iNavbar) {
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (dropdownRef.current && props.arrowDropdownRef?.current && !dropdownRef.current.contains(event.target) && !props.arrowDropdownRef.current.contains(event.target)) {
         props.setShowDropdown && props.setShowDropdown(false);
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
+    if (dropdownRef) {
+      window.addEventListener('mousedown', handleClickOutside);
 
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [dropdownRef]);
+      return () => {
+        window.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
+  }, [dropdownRef, props.arrowDropdownRef]);
 
   return (
     <aside className="dropdown" ref={dropdownRef}>
