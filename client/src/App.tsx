@@ -14,24 +14,24 @@ interface Props {
 }
 
 function App() {
-  // const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
-  // useEffect(() => {
-  //   async function HTTPisAuthenticated() {
-  //     try {
-  //       const response = await fetch('/api/auth/authenticated');
-  //       const data = await response.json();
+  useEffect(() => {
+    async function HTTPisAuthenticated() {
+      try {
+        const response = await fetch('/api/auth/authenticated');
+        const data = await response.json();
 
-  //       setIsAuthenticated(data.isAuthenticated);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   }
+        setIsAuthenticated(data.isAuthenticated);
+      } catch (err) {
+        console.error(err);
+      }
+    }
 
-  //   HTTPisAuthenticated();
-  // }, []);
+    HTTPisAuthenticated();
+  }, []);
 
-  const isAuthenticated: any = true; // TODO: remove this when in production!
+  // const isAuthenticated: any = true; // TODO: remove this when in production!
 
   function RequireAuth({ children }: Props) {
     console.log('Current user is: ', isAuthenticated);
