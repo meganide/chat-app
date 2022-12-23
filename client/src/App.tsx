@@ -14,41 +14,16 @@ interface Props {
   children: JSX.Element;
 }
 
-// export interface iUserData {
-//   id: number;
-//   userId: string;
-//   displayName: string;
-//   profilePic: string | undefined;
-//   provider: string;
-//   email: string;
-//   emailVerified: boolean;
-// }
-
 function App() {
-  // To DO: Create context for these global values
-  // const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  // const [userData, setUserData] = useState<any>({
-  //   id: 1,
-  //   userId: 1,
-  //   displayName: 'Name',
-  //   profilePic: '../images/dummypics/cat.png',
-  //   provider: 'google',
-  //   email: 'haha@gmail.com',
-  //   emailVerified: true,
-  // });
-
-  const { isAuthenticated, userData, httpIsAuthenticated } = useContext(UserContext);
+  const { isAuthenticated, httpIsAuthenticated } = useContext(UserContext);
 
   useEffect(() => {
     httpIsAuthenticated();
   }, []);
 
-  console.log('bara userData', userData);
-
   // const isAuthenticated: any = true; // TODO: remove this when in production!
 
   function RequireAuth({ children }: Props) {
-    console.log('Current user is: ', isAuthenticated);
     return isAuthenticated ? children : <Navigate to="/login" />;
   }
 

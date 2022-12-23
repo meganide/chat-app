@@ -13,12 +13,7 @@ function editProfile(userId: string, values: iValues) {
 
   for (const property in values) {
     if (values[property as keyof iValues]) {
-
-      const namePromise = checkIfNameExists(property, values);
-      promises.push(namePromise);
-
       const editProfilePromise = updateUserProfile(property, values, userId);
-
       promises.push(editProfilePromise);
     }
   }
@@ -35,7 +30,8 @@ function checkIfNameExists(property: string, values: iValues) {
     return new Promise((resolve, reject) => {
       db.query(findUserWithName, (err, results) => {
         if (err) {
-          reject('Failed to change change!');
+          console.log(err);
+          reject('Failed to change username!');
         }
 
         const userWithName: any = results;
@@ -49,7 +45,9 @@ function checkIfNameExists(property: string, values: iValues) {
   }
 }
 
-function updateUserProfile(property: string, values: iValues, userId: string) {
+async function updateUserProfile(property: string, values: iValues, userId: string) {
+  await checkIfNameExists(property, values);
+
   const updateUserProfile = `UPDATE users SET ${property} = ${mysql.escape(
     values[property as keyof iValues]
   )} WHERE userId = ${mysql.escape(userId)}`;

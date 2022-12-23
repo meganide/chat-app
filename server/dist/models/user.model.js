@@ -4,8 +4,6 @@ function editProfile(userId, values) {
     let promises = [];
     for (const property in values) {
         if (values[property]) {
-            const namePromise = checkIfNameExists(property, values);
-            promises.push(namePromise);
             const editProfilePromise = updateUserProfile(property, values, userId);
             promises.push(editProfilePromise);
         }
@@ -18,7 +16,8 @@ function checkIfNameExists(property, values) {
         return new Promise((resolve, reject) => {
             db.query(findUserWithName, (err, results) => {
                 if (err) {
-                    reject('Failed to change change!');
+                    console.log(err);
+                    reject('Failed to change username!');
                 }
                 const userWithName = results;
                 if (userWithName.length === 0) {
@@ -31,7 +30,8 @@ function checkIfNameExists(property, values) {
         });
     }
 }
-function updateUserProfile(property, values, userId) {
+async function updateUserProfile(property, values, userId) {
+    await checkIfNameExists(property, values);
     const updateUserProfile = `UPDATE users SET ${property} = ${mysql.escape(values[property])} WHERE userId = ${mysql.escape(userId)}`;
     return new Promise((resolve, reject) => {
         db.query(updateUserProfile, (err, results) => {

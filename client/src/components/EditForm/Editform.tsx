@@ -14,6 +14,7 @@ function Editform() {
   const [selectedFile, setSelectedFile] = useState(
     userData.profilePic || '../public/images/icons/avatar.png'
   );
+  const [error, setError] = useState(false);
   const inputFileRef = useRef<any>(null);
 
   function handleOnClick() {
@@ -40,11 +41,15 @@ function Editform() {
 
     console.log({ editedValues });
 
-    const resp = await httpEditProfile(editedValues);
+    const response = await httpEditProfile(editedValues);
+    console.log(response);
 
+    if (response?.resp?.ok) {
+      httpIsAuthenticated(); //update profile
+    }
 
-    if (resp?.ok) {
-      httpIsAuthenticated() //update profile
+    if (response?.data?.error) {
+      setError(response?.data?.error);
     }
   }
 
@@ -56,7 +61,8 @@ function Editform() {
         body: JSON.stringify(values),
       };
       const resp = await fetch('/api/user/profile/' + userData?.userId, requestOptions);
-      return resp;
+      const data = await resp.json();
+      return { resp, data };
     } catch (err) {
       console.error(err);
     }
@@ -106,6 +112,7 @@ function Editform() {
             placeholder="Enter your password..."
           />
         </section>
+        {error && <p className='edit-form__error'>{error}</p>}
         <input className="edit-form__submit" type="submit" value="Save" />
       </form>
     </section>

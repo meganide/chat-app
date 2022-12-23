@@ -5,9 +5,11 @@ async function updateProfile(req: any, res: any) {
   if (req.params.userId === userId) {
     try {
       const results = await Promise.all(editProfile(userId, req.body));
+      console.log(results);
       return res.status(200).json({ message: results });
     } catch (err) {
-      return res.status(400).json({ message: err });
+      console.log(err);
+      return res.status(400).json({ error: err });
     }
   }
 }
