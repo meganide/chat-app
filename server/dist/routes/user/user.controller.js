@@ -13,4 +13,8 @@ async function updateProfile(req, res) {
         }
     }
 }
-export { updateProfile };
+function httpUploadImage(req, res) {
+    const fileStr = req.body.data;
+    console.log(fileStr);
+}
+export { updateProfile, httpUploadImage };

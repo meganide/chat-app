@@ -14,4 +14,9 @@ async function updateProfile(req: any, res: any) {
   }
 }
 
-export { updateProfile };
+function httpUploadImage(req: any, res:any) {
+  const fileStr = req.body.data
+  console.log(fileStr)
+}
+
+export { updateProfile, httpUploadImage };

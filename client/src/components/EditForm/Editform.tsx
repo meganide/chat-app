@@ -14,6 +14,7 @@ function Editform() {
   const [selectedFile, setSelectedFile] = useState(
     userData.profilePic || '../public/images/icons/avatar.png'
   );
+  const [uploadFile, setUploadFile] = useState<string | ArrayBuffer | null >('');
   const [error, setError] = useState(false);
   const inputFileRef = useRef<any>(null);
 
@@ -23,13 +24,23 @@ function Editform() {
     }
   }
 
-  function handleOnChange(e: any) {
+  function handleFileInputChange(e: any) {
     const imgURL = URL.createObjectURL(e.target?.files[0]);
     setSelectedFile(imgURL);
+
+    const reader = new FileReader()
+    reader.readAsDataURL(e.target?.files[0])
+    reader.onloadend = () => {
+      setUploadFile(reader.result)
+    }
   }
 
-  async function saveProfile(e: any) {
+  async function handleSubmitSaveProfile(e: any) {
     e.preventDefault();
+
+    if(uploadFile) {
+      uploadImage(uploadFile)
+    }
 
     const { profilePic, displayName, bio } = e.target;
 
@@ -53,6 +64,20 @@ function Editform() {
     }
   }
 
+  async function uploadImage(base64EncodedImage: string | ArrayBuffer) {
+    console.log(base64EncodedImage)
+    try {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({data: base64EncodedImage})
+      }
+      await fetch('/api/user/profile/upload/' + userData?.userId, requestOptions)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   async function httpEditProfile(values: iValues) {
     try {
       const requestOptions = {
@@ -68,11 +93,12 @@ function Editform() {
     }
   }
 
+
   return (
     <section className="edit-form profile-form">
       <h1>Change Info</h1>
       <p className="edit-form__subheading">Changes will be reflected to every services</p>
-      <form className="edit-form__inputs" onSubmit={saveProfile}>
+      <form className="edit-form__inputs" onSubmit={handleSubmitSaveProfile}>
         <section className="edit-form__pic">
           <img className="profile-form__pic" src={selectedFile} alt="avatar" />
           <span className="edit-form__change-photo" onClick={handleOnClick}>
@@ -84,7 +110,7 @@ function Editform() {
             id="profilePic"
             accept=".jpg, .jpeg, .png, "
             ref={inputFileRef}
-            onChange={handleOnChange}
+            onChange={handleFileInputChange}
           />
         </section>
         <section className="edit-form__input">
