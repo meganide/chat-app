@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import './app.css';
@@ -37,34 +37,10 @@ function App() {
   //   emailVerified: true,
   // });
 
-  const { isAuthenticated, setIsAuthenticated, userData, setUserData } = useContext(UserContext);
+  const { isAuthenticated, userData, httpIsAuthenticated } = useContext(UserContext);
 
   useEffect(() => {
-    async function HTTPisAuthenticated() {
-      try {
-        const response = await fetch('/api/auth/authenticated');
-        const data = await response.json();
-
-        setIsAuthenticated(data.isAuthenticated);
-        HttpGetUserData(data.userId);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    async function HttpGetUserData(userID: any) {
-      try {
-        const response = await fetch('/api/auth/google/user/' + userID);
-        console.log('link is: ', '/api/auth/google/user/' + userID);
-        const data = await response.json();
-
-        setUserData(data[0]);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    HTTPisAuthenticated();
+    httpIsAuthenticated();
   }, []);
 
   console.log('bara userData', userData);

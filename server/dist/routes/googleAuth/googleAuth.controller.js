@@ -1,7 +1,7 @@
 import { Strategy } from 'passport-google-oauth20';
 import passport from 'passport';
 import { config } from '../../config.js';
-import { addUserToDb, findUserWithGoogleId } from '../../models/googleAuth/googleAuth.model.js';
+import { addUserToDb, findUserWithGoogleId } from '../../models/googleAuth.model.js';
 const AUTH_OPTIONS = {
     callbackURL: config.GOOGLE_REDIRECT_URI || '/api/auth/google/callback',
     clientID: config.CLIENT_ID,
