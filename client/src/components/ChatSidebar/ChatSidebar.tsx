@@ -1,14 +1,34 @@
+import { useMediaQuery } from 'react-responsive';
+
 import './chatsidebar.css';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import NavbarProfile from '../Navbar/NavbarProfile/NavbarProfile';
+import CloseIcon from '@mui/icons-material/Close';
 import Member from './Member/Member';
 
-function ChatSidebar() {
+interface iProps {
+  isOpenSidebar: boolean;
+  setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function ChatSidebar(props: iProps) {
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1000px)' });
+
   return (
-    <aside className="chat-sidebar">
+    <aside
+      className={
+        props.isOpenSidebar ? 'chat-sidebar chat-sidebar__open' : 'chat-sidebar chat-sidebar__close'
+      }
+    >
       <section className="chat-sidebar__nav">
         <ArrowBackIosNewIcon className="arrowBack" />
         <p>All channels</p>
+        {isTabletOrMobile && (
+          <CloseIcon
+            className="chat-sidebar__close-icon"
+            onClick={() => props.setIsOpenSidebar(false)}
+          />
+        )}
       </section>
       <section className="chat-sidebar__channel">
         <section className="chat-sidebar__top">
