@@ -1,59 +1,22 @@
-import { useMediaQuery } from 'react-responsive';
-
 import './chatsidebar.css';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { ISidebarContext, SidebarContext } from '../../contexts/SidebarContext';
+import { useContext } from 'react';
+
 import NavbarProfile from '../Navbar/NavbarProfile/NavbarProfile';
-import CloseIcon from '@mui/icons-material/Close';
-import Member from './Member/Member';
+import ChatSidebarNav from './ChatSidebarNav/ChatSidebarNav';
+import ChatSidebarChannel from './ChatSidebarChannel/ChatSidebarChannel';
 
-interface iProps {
-  isOpenSidebar: boolean;
-  setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function ChatSidebar(props: iProps) {
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1000px)' });
+function ChatSidebar() {
+  const {isOpenSidebar} = useContext(SidebarContext) as ISidebarContext;
 
   return (
     <aside
       className={
-        props.isOpenSidebar ? 'chat-sidebar chat-sidebar__open' : 'chat-sidebar chat-sidebar__close'
+        isOpenSidebar ? 'chat-sidebar chat-sidebar__open' : 'chat-sidebar chat-sidebar__close'
       }
     >
-      <section className="chat-sidebar__nav chat-sidebar__nav--sidebar">
-        <ArrowBackIosNewIcon className="arrowBack" />
-        <p>All channels</p>
-        {isTabletOrMobile && (
-          <CloseIcon
-            className="chat-sidebar__close-icon"
-            onClick={() => props.setIsOpenSidebar(false)}
-          />
-        )}
-      </section>
-      <section className="chat-sidebar__channel">
-        <section className="chat-sidebar__top">
-          <h1 className="chat-sidebar__channel-name">front-end developers</h1>
-          <h2 className="chat-sidebar__channel-description">
-            Pellentesque sagittis elit enim, sit amet ultrices tellus accumsan quis. In gravida
-            mollis purus, at interdum arcu tempor non
-          </h2>
-        </section>
-        <section className="chat-sidebar__bot">
-          <h2 className="chat-sidebar__channel-members-title">Members</h2>
-          <section className="chat-sidebar__channel-members">
-            <Member />
-            <Member />
-            <Member />
-            <Member />
-            <Member />
-            <Member />
-            <Member />
-            <Member />
-            <Member />
-            <Member />
-          </section>
-        </section>
-      </section>
+      <ChatSidebarNav />
+      <ChatSidebarChannel />
       <section className="chat-sidebar__profile">
         <NavbarProfile page="home" />
       </section>

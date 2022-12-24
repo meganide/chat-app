@@ -1,20 +1,17 @@
-import { useState } from "react";
-
-import "./home.css"
+import './home.css';
 import Chat from '../../components/Chat/Chat';
 import ChatSidebar from '../../components/ChatSidebar/ChatSidebar';
+import { SidebarContextProvider } from '../../contexts/SidebarContext';
 
 function Home() {
-  const [isOpenSidebar, setIsOpenSidebar] = useState(false);
 
   return (
-    <>
-      {/* <Navbar page="home" /> */}
+    <SidebarContextProvider>
       <div className="homeContainer">
-        <ChatSidebar isOpenSidebar={isOpenSidebar} setIsOpenSidebar={setIsOpenSidebar}/>
-        <Chat setIsOpenSidebar={setIsOpenSidebar} isOpenSidebar={isOpenSidebar}/>
+        <ChatSidebar />
+        <Chat />
       </div>
-    </>
+    </SidebarContextProvider>
   );
 }
 
