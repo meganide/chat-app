@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: auto;
 }
 
 .chat-sidebar__nav {
@@ -37,6 +38,8 @@
   padding: 25px 33px 44px 33px;
   margin-bottom: auto;
   margin-top: 1rem;
+  max-height: calc(100vh - 95px);
+  overflow-y: auto;
 }
 
 
@@ -55,10 +58,10 @@
   margin-bottom: 2.75rem
 }
 
-.chat-sidebar__channel-members {
+/* .chat-sidebar__channel-members {
   overflow: auto;
   max-height: 450px;
-}
+} */
 
 .chat-sidebar__channel-member {
   margin-bottom: 1rem;
@@ -112,8 +115,12 @@
     font-size: 1rem;
   }
 
-  .chat-sidebar__channel-members {
+  
+
+  /* .chat-sidebar__channel-members { */
     /* max-height: 196px; */
-    max-height: calc(100vh - 470px);
-  }
+    /* max-height: calc(100vh - 480px); */
+  /* } */
+
+  
 }
