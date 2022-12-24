@@ -80,6 +80,7 @@
 
   .messages {
     padding: .3125rem;
-    max-height: 650px;
+    /* max-height: 450px; */
+    max-height: calc(100vh - 200px);
   }
 }
