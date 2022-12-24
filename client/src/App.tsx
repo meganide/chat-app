@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import './app.css';
+import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
 import { UserContext } from './contexts/UserContext';
 import EditProfile from './pages/EditProfile/EditProfile';
 import Home from './pages/Home/Home';
@@ -68,8 +69,7 @@ function App() {
       </div>
     );
   } else {
-    //TODO: add loading spinner
-    return <>Loading...</>;
+    return <LoadingSpinner />;
   }
 }
 

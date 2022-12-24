@@ -1,5 +1,6 @@
 import { useContext, useRef, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import './editform.css';
 
 interface iValues {
@@ -16,6 +17,7 @@ function Editform() {
   );
   const [uploadFile, setUploadFile] = useState<string | ArrayBuffer | null>('');
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const inputFileRef = useRef<any>(null);
 
   function handleOnClick() {
@@ -37,6 +39,7 @@ function Editform() {
 
   async function handleSubmitSaveProfile(e: any) {
     e.preventDefault();
+    setLoading(true);
 
     let profilePic: undefined | string = undefined;
 
@@ -49,12 +52,9 @@ function Editform() {
 
     let editedValues: iValues = {
       profilePic,
-      // avatarFile: avatarFile.files[0], //TODO: Add new profile pic, need to store somewhere
       displayName: displayName.value,
       bio: bio.value,
     };
-
-    console.log({ editedValues });
 
     const response = await httpEditProfile(editedValues);
     console.log(response);
@@ -66,6 +66,8 @@ function Editform() {
     if (response?.data?.error) {
       setError(response?.data?.error);
     }
+
+    setLoading(false);
   }
 
   async function uploadImage(base64EncodedImage: string | ArrayBuffer) {
@@ -103,47 +105,54 @@ function Editform() {
       <h1>Change Info</h1>
       <p className="edit-form__subheading">Changes will be reflected to every services</p>
       <form className="edit-form__inputs" onSubmit={handleSubmitSaveProfile}>
-        <section className="edit-form__pic">
-          <img className="profile-form__pic" src={selectedFile} alt="avatar" />
-          <span className="edit-form__change-photo" onClick={handleOnClick}>
-            Change Photo
-          </span>
-          <input
-            type="file"
-            name="profilePic"
-            id="profilePic"
-            accept=".jpg, .jpeg, .png, "
-            ref={inputFileRef}
-            onChange={handleFileInputChange}
-          />
-        </section>
-        <section className="edit-form__input">
-          <label htmlFor="displayName">Display Name</label>
-          <input type="text" name="displayName" id="displayName" placeholder="Enter your name..." />
-        </section>
-        <section className="edit-form__input">
-          <label htmlFor="bio">Bio</label>
-          <textarea name="bio" id="bio" rows={3} cols={50} placeholder="Enter your bio..." />
-        </section>
-        <section className="edit-form__input">
-          <label htmlFor="phone">Phone</label>
-          <input type="number" name="phone" id="phone" placeholder="Enter your phone..." />
-        </section>
-        <section className="edit-form__input">
+        <fieldset className="edit-form__fieldset" disabled={loading}>
+          <section className="edit-form__pic">
+            <img className="profile-form__pic" src={selectedFile} alt="avatar" />
+            <span className="edit-form__change-photo" onClick={handleOnClick}>
+              Change Photo
+            </span>
+            <input
+              type="file"
+              name="profilePic"
+              id="profilePic"
+              accept=".jpg, .jpeg, .png, "
+              ref={inputFileRef}
+              onChange={handleFileInputChange}
+            />
+          </section>
+          <section className="edit-form__input">
+            <label htmlFor="displayName">Display Name</label>
+            <input
+              type="text"
+              name="displayName"
+              id="displayName"
+              placeholder="Enter your name..."
+            />
+          </section>
+          <section className="edit-form__input">
+            <label htmlFor="bio">Bio</label>
+            <textarea name="bio" id="bio" rows={3} cols={50} placeholder="Enter your bio..." />
+          </section>
+          {/* <section className="edit-form__input">
           <label htmlFor="email">Email</label>
           <input type="email" name="email" id="email" placeholder="Enter your email..." />
-        </section>
-        <section className="edit-form__input">
+        </section> */}
+          {/* <section className="edit-form__input">
           <label htmlFor="password">Password</label>
           <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Enter your password..."
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Enter your password..."
           />
-        </section>
-        {error && <p className="edit-form__error">{error}</p>}
-        <input className="edit-form__submit" type="submit" value="Save" />
+        </section> */}
+          {error && <p className="edit-form__error">{error}</p>}
+          {loading ? (
+            <LoadingSpinner />
+          ) : (
+            <input className="edit-form__submit" type="submit" value="Save" />
+          )}
+        </fieldset>
       </form>
     </section>
   );

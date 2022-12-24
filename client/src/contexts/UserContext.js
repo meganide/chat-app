@@ -8,9 +8,9 @@ export function UserContextProvider({ children }) {
     id: 1,
     userId: 1,
     displayName: 'Name',
-    profilePic: '../images/dummypics/cat.png',
+    profilePic: './images/icons/avatar.png',
     provider: 'google',
-    email: 'haha@gmail.com',
+    email: 'example@gmail.com',
     emailVerified: true,
   });
 
