@@ -104,7 +104,7 @@
     transform: translateX(0);
   }
 
-  .chat-sidebar__nav {
+  .chat-sidebar__nav--sidebar {
     justify-content: space-between;
   }
 
@@ -113,6 +113,6 @@
   }
 
   .chat-sidebar__channel-members {
-    max-height: 303px;
+    max-height: 196px;
   }
 }

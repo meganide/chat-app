@@ -20,7 +20,7 @@ function ChatSidebar(props: iProps) {
         props.isOpenSidebar ? 'chat-sidebar chat-sidebar__open' : 'chat-sidebar chat-sidebar__close'
       }
     >
-      <section className="chat-sidebar__nav">
+      <section className="chat-sidebar__nav chat-sidebar__nav--sidebar">
         <ArrowBackIosNewIcon className="arrowBack" />
         <p>All channels</p>
         {isTabletOrMobile && (
