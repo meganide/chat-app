@@ -22,6 +22,11 @@
   color: #a3a3a3;
 }
 
+.chat-sidebar__close-icon:hover {
+  color: white;
+  cursor: pointer;
+}
+
 .chat-sidebar__nav p {
   font-weight: 700;
   font-size: 1.125rem;
@@ -84,7 +89,30 @@
 
 @media screen and (max-width: 1000px) {
   .chat-sidebar {
-    transform: translateX(-100vw);
     position: absolute;
+    width: 85%;
+    z-index: 5000000;
+    transition: all 0.5s ease-in-out;
+    /* height: 100vh; */
+  }
+
+  .chat-sidebar__close {
+    transform: translateX(-100vw);
+  }
+
+  .chat-sidebar__open {
+    transform: translateX(0);
+  }
+
+  .chat-sidebar__nav {
+    justify-content: space-between;
+  }
+
+  .chat-sidebar__nav p {
+    font-size: 1rem;
+  }
+
+  .chat-sidebar__channel-members {
+    max-height: 303px;
   }
 }

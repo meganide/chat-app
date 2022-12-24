@@ -2,6 +2,11 @@
   background-color: #252329;
 }
 
+.chat__hamburger:hover {
+  color: #a3a3a3;
+  cursor: pointer;
+}
+
 .chat-container {
   margin: 2.5rem 1.5rem;
   display: flex;
