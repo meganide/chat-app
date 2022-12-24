@@ -16,13 +16,13 @@ interface Props {
 }
 
 function App() {
-  const { isAuthenticated, httpIsAuthenticated } = useContext(UserContext);
+  // const { isAuthenticated, httpIsAuthenticated } = useContext(UserContext);
 
-  useEffect(() => {
-    httpIsAuthenticated();
-  }, []);
+  // useEffect(() => {
+  //   httpIsAuthenticated();
+  // }, []);
 
-  // const isAuthenticated: any = true; // TODO: remove this when in production!
+  const isAuthenticated: any = true; // TODO: remove this when in production!
 
   function RequireAuth({ children }: Props) {
     return isAuthenticated ? children : <Navigate to="/login" />;
