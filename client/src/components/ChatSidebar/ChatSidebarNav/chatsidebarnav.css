@@ -1,0 +1,15 @@
+.chat-sidebar__add {
+  background: #252329;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.chat-sidebar__add:hover {
+  background: #434049;
+}
+
+.chat-sidebar__channels {
+  display: flex;
+  gap: 1rem;
+  
+}

@@ -37,7 +37,7 @@ export function UserContextProvider({ children }: iProps): ReactElement {
     provider: 'google',
     email: 'example@gmail.com',
     emailVerified: true,
-    bio: 'Bio assigned yet...',
+    bio: 'No bio assigned yet...',
   };
   const [userData, setUserData] = useState(initialUserData);
 
