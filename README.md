@@ -1,4 +1,4 @@
-# Chatify
+# Chatify - In Progress!
 
 # TO-DO:
 - Add dynamic user page to view other user profiles
