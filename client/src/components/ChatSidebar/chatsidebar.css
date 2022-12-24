@@ -34,7 +34,7 @@
   color: #E0E0E0;
 }
 
-.chat-sidebar__channel{
+.chat-sidebar__channel {
   padding: 25px 33px 44px 33px;
   margin-bottom: auto;
   margin-top: 1rem;
@@ -43,7 +43,8 @@
 }
 
 
-.chat-sidebar__channel-name, .chat-sidebar__channel-members-title {
+.chat-sidebar__channel-name,
+.chat-sidebar__channel-members-title {
   text-transform: uppercase;
   color: #E0E0E0;
   font-weight: 700;
@@ -57,11 +58,6 @@
   font-size: 1rem;
   margin-bottom: 2.75rem
 }
-
-/* .chat-sidebar__channel-members {
-  overflow: auto;
-  max-height: 450px;
-} */
 
 .chat-sidebar__channel-member {
   margin-bottom: 1rem;
@@ -115,12 +111,5 @@
     font-size: 1rem;
   }
 
-  
 
-  /* .chat-sidebar__channel-members { */
-    /* max-height: 196px; */
-    /* max-height: calc(100vh - 480px); */
-  /* } */
-
-  
 }

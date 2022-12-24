@@ -4,6 +4,7 @@ import './chat.css';
 import Message from './Message/Message';
 import SendIcon from '@mui/icons-material/Send';
 import MenuIcon from '@mui/icons-material/Menu';
+import { messages } from './Message/messagesExample';
 
 interface iProps {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,14 +27,17 @@ function Chat(props: iProps) {
       </section>
       <section className="chat-container">
         <section className="messages">
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
+          {messages.map((message) => {
+            return (
+              <Message
+                key={crypto.randomUUID()}
+                img={message.img}
+                displayName={message.displayName}
+                date={message.date}
+                message={message.message}
+              />
+            );
+          })}
         </section>
         <form className="chat__send">
           <textarea name="message" id="message" placeholder="Type a message here"></textarea>
