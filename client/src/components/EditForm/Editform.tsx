@@ -63,12 +63,12 @@ function Editform() {
 
     if (response?.resp?.ok) {
       httpIsAuthenticated(); //update profile
+      navigate('/profile');
     } else if (response?.data?.error) {
       setError(response?.data?.error);
     }
 
     setLoading(false);
-    navigate('/profile');
   }
 
   async function httpUploadImage(base64EncodedImage: string | ArrayBuffer) {
