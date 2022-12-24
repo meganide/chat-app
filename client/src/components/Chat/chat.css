@@ -1,0 +1,8 @@
+.chat {
+  background-color: #252329;
+}
+
+.chat__channel-name p{
+  margin-left: 4.4375rem;
+  text-transform: uppercase;
+}

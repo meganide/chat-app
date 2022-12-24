@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import './dropdown.css';
-import { iNavbar } from '../Navbar';
+import { iNavbar } from '../NavbarProfile/NavbarProfile';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import GroupIcon from '@mui/icons-material/Group';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -32,7 +32,7 @@ function Dropdown(props: iNavbar) {
   }, [dropdownRef, props.arrowDropdownRef]);
 
   return (
-    <aside className="dropdown" ref={dropdownRef}>
+    <aside className="dropdown" ref={dropdownRef} style={props.page === 'home' ? { right: '.625rem', bottom: '4.5rem' } : {}}>
       <Link className={props.page === 'profile' ? 'current' : ''} to="/profile">
         {' '}
         <AccountCircleIcon className="dropdown__icon" /> My Profile
