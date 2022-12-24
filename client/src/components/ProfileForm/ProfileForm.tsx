@@ -3,10 +3,10 @@ import ProfileRow from './ProfileRow/ProfileRow';
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { UserContext } from '../../contexts/UserContext';
+import { IUserContext, UserContext } from '../../contexts/UserContext';
 
 function ProfileForm() {
-  const { userData } = useContext(UserContext);
+  const { userData } = useContext(UserContext) as IUserContext;
 
   const rowInfo = {
     photo: userData.profilePic || '../public/images/icons/avatar.png',

@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from 'react';
 
-import { UserContext } from '../../../contexts/UserContext';
+import { IUserContext, UserContext } from '../../../contexts/UserContext';
 import Dropdown from '../Dropdown/Dropdown';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
@@ -12,7 +12,7 @@ export interface iNavbar {
 
 function NavbarProfile(props: iNavbar) {
   const arrowDropdownRef = useRef<any>(null);
-  const { userData } = useContext(UserContext);
+  const { userData } = useContext(UserContext) as IUserContext;
   const [showDropdown, setShowDropdown] = useState(false);
 
   function toggleDropdown() {

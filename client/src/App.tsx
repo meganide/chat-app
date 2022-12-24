@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import './app.css';
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
-import { UserContext } from './contexts/UserContext';
+import { IUserContext, UserContext } from './contexts/UserContext';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import NoPage from './pages/NoPage/NoPage';
@@ -16,13 +16,13 @@ interface Props {
 }
 
 function App() {
-  // const { isAuthenticated, httpIsAuthenticated } = useContext(UserContext);
+  const { isAuthenticated, httpIsAuthenticated } = useContext(UserContext) as IUserContext;
 
-  // useEffect(() => {
-  //   httpIsAuthenticated();
-  // }, []);
+  useEffect(() => {
+    httpIsAuthenticated();
+  }, []);
 
-  const isAuthenticated: any = true; // TODO: remove this when in production!
+  // const isAuthenticated: any = true; // TODO: remove this when in production!
 
   function RequireAuth({ children }: Props) {
     return isAuthenticated ? children : <Navigate to="/login" />;

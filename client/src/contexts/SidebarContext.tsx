@@ -1,9 +1,5 @@
 import { createContext, ReactElement, useState } from 'react';
 
-interface Props {
-  children: ReactElement;
-}
-
 export interface ISidebarContext {
   isOpenSidebar: boolean;
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,7 +7,11 @@ export interface ISidebarContext {
   setIsShowChannels: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const SidebarContext = createContext<ISidebarContext | undefined >(undefined);
+interface Props {
+  children: ReactElement;
+}
+
+export const SidebarContext = createContext<ISidebarContext | undefined>(undefined);
 
 export function SidebarContextProvider({ children }: Props): ReactElement {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);

@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../contexts/UserContext';
+import { IUserContext, UserContext } from '../../contexts/UserContext';
 
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import './editform.css';
@@ -12,7 +12,7 @@ interface iValues {
 }
 
 function Editform() {
-  const { userData, httpIsAuthenticated } = useContext(UserContext);
+  const { userData, httpIsAuthenticated } = useContext(UserContext) as IUserContext;;
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(
