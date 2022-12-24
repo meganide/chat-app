@@ -1,5 +1,6 @@
 import mysql from 'mysql2';
 import { db } from '../services/database.js';
+import { cloudinaryV2 } from '../services/cloudinary.js';
 function editProfile(userId, values) {
     let promises = [];
     for (const property in values) {
@@ -42,4 +43,20 @@ async function updateUserProfile(property, values, userId) {
         });
     });
 }
-export { editProfile };
+async function uploadImageToCloudinary(userId, fileStr) {
+    try {
+        const uploadedResponse = await cloudinaryV2.uploader.upload(fileStr, {
+            upload_preset: 'profile',
+            folder: 'users/' + userId + '/profile',
+            overwrite: true,
+            public_id: 'profile_pic',
+        });
+        console.log(uploadedResponse);
+        return uploadedResponse;
+    }
+    catch (err) {
+        console.error(err);
+        return 'Error';
+    }
+}
+export { editProfile, uploadImageToCloudinary };

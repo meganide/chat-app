@@ -1,6 +1,7 @@
 import { iFindUser } from './googleAuth.model.js';
 import mysql from 'mysql2';
 import { db } from '../services/database.js';
+import { cloudinaryV2 } from '../services/cloudinary.js';
 
 interface iValues {
   profilePic?: any;
@@ -62,4 +63,20 @@ async function updateUserProfile(property: string, values: iValues, userId: stri
   });
 }
 
-export { editProfile };
+async function uploadImageToCloudinary(userId: string, fileStr: string) {
+  try {
+    const uploadedResponse = await cloudinaryV2.uploader.upload(fileStr, {
+      upload_preset: 'profile',
+      folder: 'users/' + userId + '/profile',
+      overwrite: true,
+      public_id: 'profile_pic',
+    });
+    console.log(uploadedResponse);
+    return uploadedResponse;
+  } catch (err) {
+    console.error(err);
+    return 'Error';
+  }
+}
+
+export { editProfile, uploadImageToCloudinary };

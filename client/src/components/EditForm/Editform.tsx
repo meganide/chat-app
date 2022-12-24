@@ -14,7 +14,7 @@ function Editform() {
   const [selectedFile, setSelectedFile] = useState(
     userData.profilePic || '../public/images/icons/avatar.png'
   );
-  const [uploadFile, setUploadFile] = useState<string | ArrayBuffer | null >('');
+  const [uploadFile, setUploadFile] = useState<string | ArrayBuffer | null>('');
   const [error, setError] = useState(false);
   const inputFileRef = useRef<any>(null);
 
@@ -28,23 +28,27 @@ function Editform() {
     const imgURL = URL.createObjectURL(e.target?.files[0]);
     setSelectedFile(imgURL);
 
-    const reader = new FileReader()
-    reader.readAsDataURL(e.target?.files[0])
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target?.files[0]);
     reader.onloadend = () => {
-      setUploadFile(reader.result)
-    }
+      setUploadFile(reader.result);
+    };
   }
 
   async function handleSubmitSaveProfile(e: any) {
     e.preventDefault();
 
-    if(uploadFile) {
-      uploadImage(uploadFile)
+    let profilePic: undefined | string = undefined;
+
+    if (uploadFile) {
+      const imageUploadResponse = await uploadImage(uploadFile);
+      profilePic = imageUploadResponse?.url;
     }
 
-    const { profilePic, displayName, bio } = e.target;
+    const { displayName, bio } = e.target;
 
     let editedValues: iValues = {
+      profilePic,
       // avatarFile: avatarFile.files[0], //TODO: Add new profile pic, need to store somewhere
       displayName: displayName.value,
       bio: bio.value,
@@ -65,16 +69,17 @@ function Editform() {
   }
 
   async function uploadImage(base64EncodedImage: string | ArrayBuffer) {
-    console.log(base64EncodedImage)
     try {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({data: base64EncodedImage})
-      }
-      await fetch('/api/user/profile/upload/' + userData?.userId, requestOptions)
+        body: JSON.stringify({ data: base64EncodedImage }),
+      };
+      const resp = await fetch('/api/user/profile/upload/' + userData?.userId, requestOptions);
+      const data = await resp.json();
+      return data;
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
   }
 
@@ -92,7 +97,6 @@ function Editform() {
       console.error(err);
     }
   }
-
 
   return (
     <section className="edit-form profile-form">
@@ -138,7 +142,7 @@ function Editform() {
             placeholder="Enter your password..."
           />
         </section>
-        {error && <p className='edit-form__error'>{error}</p>}
+        {error && <p className="edit-form__error">{error}</p>}
         <input className="edit-form__submit" type="submit" value="Save" />
       </form>
     </section>
