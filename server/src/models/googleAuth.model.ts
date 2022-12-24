@@ -1,4 +1,5 @@
 import mysql from 'mysql2';
+
 import { db } from '../services/database.js';
 
 export interface iFindUser {

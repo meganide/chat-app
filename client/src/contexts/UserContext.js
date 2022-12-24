@@ -29,16 +29,22 @@ export function UserContextProvider({ children }) {
   async function httpGetUserData(userID) {
     try {
       const response = await fetch('/api/auth/google/user/' + userID);
-      console.log('link is: ', '/api/auth/google/user/' + userID);
-      const data = await response.json();
 
+      const data = await response.json();
       setUserData(data[0]);
     } catch (err) {
       console.error(err);
     }
   }
 
-  const value = { isAuthenticated, setIsAuthenticated, userData, setUserData, httpIsAuthenticated, httpGetUserData };
+  const value = {
+    isAuthenticated,
+    setIsAuthenticated,
+    userData,
+    setUserData,
+    httpIsAuthenticated,
+    httpGetUserData,
+  };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }

@@ -1,5 +1,6 @@
 import { Strategy } from 'passport-google-oauth20';
 import passport from 'passport';
+
 import { config } from '../../config.js';
 import { addUserToDb, findUserWithGoogleId, iFindUser } from '../../models/googleAuth.model.js';
 
@@ -34,9 +35,6 @@ function initializeGoogleAuth(app: any) {
 
 // Function is called when user is authenticated
 async function verifyCallback(accessToken: any, refreshToken: any, profile: any, done: any) {
-  // TODO: Upload profile to DB if user does not exist on DB already
-  // TODO: Create an api endpoint to getUserProfile
-  // TODO: Fetch userinfo from frontend and display
   const userId: string = profile.id;
   const findUser: iFindUser[] | [] = await findUserWithGoogleId(userId);
   if (findUser.length === 0) {

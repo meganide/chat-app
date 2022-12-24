@@ -6,8 +6,8 @@ function Register() {
   return (
     <section className="register">
       <div className="wrapper">
-        <AuthForm btnText="Register" link="Login"  linkText='Already a member? '/>
-        <Author/>
+        <AuthForm btnText="Register" link="Login" linkText="Already a member? " />
+        <Author />
       </div>
     </section>
   );
