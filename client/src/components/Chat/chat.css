@@ -13,6 +13,10 @@
 .chat__channel-name p {
   margin: 0 1rem;
   text-transform: uppercase;
+  background-color: #252329;
+  position: sticky;
+  top: 0;
+  z-index: 500;
 }
 
 .messages {
@@ -32,6 +36,8 @@
   border-radius: .5rem;
   padding: 1rem;
   gap: 1rem;
+  position: sticky;
+  bottom: 0;
 }
 
 #message {
@@ -57,4 +63,18 @@
 
 #send:hover {
   background: #5da0f7;
+}
+
+@media screen and (max-width: 1000px) {
+  .chat-container {
+    margin-top: 1rem;
+    margin-left: 0;
+    margin-right: 0;
+    height: 100%;
+  }
+
+  .messages {
+    padding: .3125rem;
+    max-height: 650px;
+  }
 }

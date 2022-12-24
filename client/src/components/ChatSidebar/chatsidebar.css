@@ -51,7 +51,7 @@
 }
 
 .chat-sidebar__channel-members {
-  overflow-y: auto;
+  overflow: auto;
   max-height: 450px;
 }
 
@@ -79,4 +79,12 @@
   padding: 1.5rem 33px 1.5rem 33px;
   display: flex;
   align-items: center;
+}
+
+
+@media screen and (max-width: 1000px) {
+  .chat-sidebar {
+    transform: translateX(-100vw);
+    position: absolute;
+  }
 }
