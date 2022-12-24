@@ -46,3 +46,22 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #1f1b20;
+}
+
+::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #1f1b20;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #322f36;
+}

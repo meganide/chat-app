@@ -1,0 +1,32 @@
+.message {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.message img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+
+.message__top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 7px;
+  color: #828282;
+}
+
+.message_username {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.message__date {
+  font-size: .875rem;
+}
+
+.message__bot p {
+  color: #E0E0E0;
+}
