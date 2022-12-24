@@ -25,9 +25,6 @@ function initializeGoogleAuth(app) {
 }
 // Function is called when user is authenticated
 async function verifyCallback(accessToken, refreshToken, profile, done) {
-    // TODO: Upload profile to DB if user does not exist on DB already
-    // TODO: Create an api endpoint to getUserProfile
-    // TODO: Fetch userinfo from frontend and display
     const userId = profile.id;
     const findUser = await findUserWithGoogleId(userId);
     if (findUser.length === 0) {

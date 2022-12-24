@@ -1,8 +1,8 @@
-import { app } from './app.js';
-import https from 'https';
 import http from 'http';
+import https from 'https';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import { app } from './app.js';
 dotenv.config();
 const PORT = process.env.PORT || 8000;
 let server;

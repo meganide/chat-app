@@ -1,17 +1,23 @@
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+
 import './dropdown.css';
+import { iNavbar } from '../Navbar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import GroupIcon from '@mui/icons-material/Group';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { iNavbar } from '../Navbar';
-import { useEffect, useRef } from 'react';
 
 function Dropdown(props: iNavbar) {
   const dropdownRef = useRef<any>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && props.arrowDropdownRef?.current && !dropdownRef.current.contains(event.target) && !props.arrowDropdownRef.current.contains(event.target)) {
+      if (
+        dropdownRef.current &&
+        props.arrowDropdownRef?.current &&
+        !dropdownRef.current.contains(event.target) &&
+        !props.arrowDropdownRef.current.contains(event.target)
+      ) {
         props.setShowDropdown && props.setShowDropdown(false);
       }
     }

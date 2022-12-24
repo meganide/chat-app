@@ -1,6 +1,7 @@
 import { useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
+
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import './editform.css';
 
@@ -11,18 +12,17 @@ interface iValues {
 }
 
 function Editform() {
-  // TO DO: update the use state to get from DB/user. Put in a context for global access?
   const { userData, httpIsAuthenticated } = useContext(UserContext);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(
     userData.profilePic || '../public/images/icons/avatar.png'
   );
   const [uploadFile, setUploadFile] = useState<string | ArrayBuffer | null>('');
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
   const inputFileRef = useRef<any>(null);
   const navigate = useNavigate();
 
-  function handleOnClick() {
+  function handleOnClickChooseImage() {
     if (inputFileRef.current) {
       inputFileRef.current.click();
     }
@@ -46,7 +46,7 @@ function Editform() {
     let profilePic: undefined | string = undefined;
 
     if (uploadFile) {
-      const imageUploadResponse = await uploadImage(uploadFile);
+      const imageUploadResponse = await httpUploadImage(uploadFile);
       profilePic = imageUploadResponse?.url;
     }
 
@@ -63,9 +63,7 @@ function Editform() {
 
     if (response?.resp?.ok) {
       httpIsAuthenticated(); //update profile
-    }
-
-    if (response?.data?.error) {
+    } else if (response?.data?.error) {
       setError(response?.data?.error);
     }
 
@@ -73,7 +71,7 @@ function Editform() {
     navigate('/profile');
   }
 
-  async function uploadImage(base64EncodedImage: string | ArrayBuffer) {
+  async function httpUploadImage(base64EncodedImage: string | ArrayBuffer) {
     try {
       const requestOptions = {
         method: 'POST',
@@ -111,7 +109,7 @@ function Editform() {
         <fieldset className="edit-form__fieldset" disabled={loading}>
           <section className="edit-form__pic">
             <img className="profile-form__pic" src={selectedFile} alt="avatar" />
-            <span className="edit-form__change-photo" onClick={handleOnClick}>
+            <span className="edit-form__change-photo" onClick={handleOnClickChooseImage}>
               Change Photo
             </span>
             <input

@@ -4,7 +4,6 @@ async function updateProfile(req, res) {
     if (req.params.userId === userId) {
         try {
             const results = await Promise.all(editProfile(userId, req.body));
-            console.log(results);
             return res.status(200).json({ message: results });
         }
         catch (err) {

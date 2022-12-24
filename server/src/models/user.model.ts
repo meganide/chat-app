@@ -1,5 +1,5 @@
-import { iFindUser } from './googleAuth.model.js';
 import mysql from 'mysql2';
+
 import { db } from '../services/database.js';
 import { cloudinaryV2 } from '../services/cloudinary.js';
 
