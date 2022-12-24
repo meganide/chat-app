@@ -52,6 +52,7 @@
 
 .edit-form__input textarea {
   resize: none;
+  width: 100%;
 }
 
 /* Chrome, Safari, Edge, Opera */

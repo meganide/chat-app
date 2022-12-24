@@ -20,6 +20,7 @@
 .profile-form__value {
   color: #c7c7c7;
   font-size: 1rem;
+  overflow-x: hidden;
 }
 
 @media screen and (max-width: 780px) {
