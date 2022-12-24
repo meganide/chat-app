@@ -129,11 +129,19 @@ function Editform() {
               id="displayName"
               placeholder="Enter your name..."
               maxLength={12}
+              pattern="[A-Za-z0-9]*"
             />
           </section>
           <section className="edit-form__input">
             <label htmlFor="bio">Bio</label>
-            <textarea name="bio" id="bio" rows={3} cols={50} placeholder="Enter your bio..." maxLength={300}/>
+            <textarea
+              name="bio"
+              id="bio"
+              rows={3}
+              cols={50}
+              placeholder="Enter your bio..."
+              maxLength={300}
+            />
           </section>
           {/* <section className="edit-form__input">
           <label htmlFor="email">Email</label>
