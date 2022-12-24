@@ -18,11 +18,12 @@ function Chat() {
           <Message />
           <Message />
           <Message />
-
         </section>
         <form className="chat__send">
-          <textarea name="message" id="message" placeholder='Type a message here'></textarea>
-          <button id="send"><SendIcon style={{color: 'white'}} /></button>
+          <textarea name="message" id="message" placeholder="Type a message here"></textarea>
+          <button id="send">
+            <SendIcon style={{ color: 'white' }} />
+          </button>
         </form>
       </section>
     </section>

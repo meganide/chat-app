@@ -1,16 +1,21 @@
 .homeContainer {
-  /* margin: 0 5rem; */
   display: grid;
   grid-template-columns: 1fr 3.4fr;
-  /* height: calc(100vh - 96px); */
   width: 100%;
   height: 100vh;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   .homeContainer {
     padding: 0 1rem;
     grid-template-columns: 1fr;
     margin: 0;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .homeContainer {
+    padding: 0;
+    overflow-y: hidden;
   }
 }

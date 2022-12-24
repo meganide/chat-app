@@ -6,11 +6,16 @@
   padding: 0;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background: #252329;
-  width: 100vw;
+  /* width: 100vw;
   max-width: 100%;
-  min-height: 100vh;
+  min-height: 100vh; */
   line-height: 1.5;
   font-family: 'Noto Sans', sans-serif;
   color: rgba(224, 224, 224, 1);
