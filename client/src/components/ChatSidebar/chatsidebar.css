@@ -30,7 +30,10 @@
 
 .chat-sidebar__channel{
   padding: 25px 33px 44px 33px;
+  margin-bottom: auto;
+  margin-top: 1rem;
 }
+
 
 .chat-sidebar__channel-name, .chat-sidebar__channel-members-title {
   text-transform: uppercase;
@@ -41,14 +44,14 @@
 }
 
 .chat-sidebar__channel-description {
-  color: #E0E0E0;
+  color: #c7c7c7;
   font-weight: 400;
   font-size: 1rem;
   margin-bottom: 2.75rem
 }
 
 .chat-sidebar__channel-members {
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 450px;
 }
 
@@ -59,10 +62,15 @@
   align-items: center;
 }
 
-.chat-sidebar__image{
+.chat-sidebar__image {
   width: 42px;
   height: 42px;
   border-radius: 7px;
+}
+
+.chat-sidebar__username {
+  font-weight: 700;
+  color: #828282;
 }
 
 .chat-sidebar__profile {

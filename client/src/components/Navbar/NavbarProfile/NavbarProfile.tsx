@@ -21,13 +21,25 @@ function NavbarProfile(props: iNavbar) {
 
   return (
     <>
-      <article className="navbar__profile" style={props.page === 'home' ? {justifyContent: 'space-between', width: '100%'} : {}}>
+      <article
+        className="navbar__profile"
+        style={props.page === 'home' ? { justifyContent: 'space-between', width: '100%' } : {}}
+      >
         <img
           className="navbar__profile-pic"
           src={userData.profilePic || '../public/images/icons/avatar.png'}
           alt="avatar"
         />
-        <span className="navbar__username">{userData.displayName}</span>
+        <span
+          className="navbar__username"
+          style={
+            props.page === 'home'
+              ? { color: '#828282', marginRight: 'auto', marginLeft: '1rem' }
+              : {}
+          }
+        >
+          {userData.displayName}
+        </span>
         <ArrowDropDownIcon
           ref={arrowDropdownRef}
           className="arrowDropDown"
