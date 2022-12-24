@@ -1,5 +1,5 @@
 import mysql from 'mysql2';
-import { db } from '../../services/database.js';
+import { db } from '../services/database.js';
 function findUserWithGoogleId(userId) {
     const findUser = `SELECT * FROM users WHERE userId = ${mysql.escape(userId)}`;
     return new Promise((resolve, reject) => {

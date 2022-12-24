@@ -12,9 +12,8 @@ function ProfileForm() {
     photo: userData.profilePic || '../public/images/icons/avatar.png',
     name: userData.displayName,
     bio: userData.bio || 'No bio assigned...',
-    phone: '+123123123',
     email: userData.email,
-    password: '***********',
+    // password: '***********',
   };
 
   return (

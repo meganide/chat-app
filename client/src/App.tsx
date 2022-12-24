@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import './app.css';
+import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
 import { UserContext } from './contexts/UserContext';
 import EditProfile from './pages/EditProfile/EditProfile';
 import Home from './pages/Home/Home';
@@ -14,65 +15,16 @@ interface Props {
   children: JSX.Element;
 }
 
-// export interface iUserData {
-//   id: number;
-//   userId: string;
-//   displayName: string;
-//   profilePic: string | undefined;
-//   provider: string;
-//   email: string;
-//   emailVerified: boolean;
-// }
-
 function App() {
-  // To DO: Create context for these global values
-  // const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  // const [userData, setUserData] = useState<any>({
-  //   id: 1,
-  //   userId: 1,
-  //   displayName: 'Name',
-  //   profilePic: '../images/dummypics/cat.png',
-  //   provider: 'google',
-  //   email: 'haha@gmail.com',
-  //   emailVerified: true,
-  // });
-
-  const { isAuthenticated, setIsAuthenticated, userData, setUserData } = useContext(UserContext);
+  const { isAuthenticated, httpIsAuthenticated } = useContext(UserContext);
 
   useEffect(() => {
-    async function HTTPisAuthenticated() {
-      try {
-        const response = await fetch('/api/auth/authenticated');
-        const data = await response.json();
-
-        setIsAuthenticated(data.isAuthenticated);
-        HttpGetUserData(data.userId);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    async function HttpGetUserData(userID: any) {
-      try {
-        const response = await fetch('/api/auth/google/user/' + userID);
-        console.log('link is: ', '/api/auth/google/user/' + userID);
-        const data = await response.json();
-
-        setUserData(data[0]);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    HTTPisAuthenticated();
+    httpIsAuthenticated();
   }, []);
-
-  console.log('bara userData', userData);
 
   // const isAuthenticated: any = true; // TODO: remove this when in production!
 
   function RequireAuth({ children }: Props) {
-    console.log('Current user is: ', isAuthenticated);
     return isAuthenticated ? children : <Navigate to="/login" />;
   }
 
@@ -117,8 +69,7 @@ function App() {
       </div>
     );
   } else {
-    //TODO: add loading spinner
-    return <>Loading...</>;
+    return <LoadingSpinner />;
   }
 }
 

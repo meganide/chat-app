@@ -2,6 +2,13 @@
   padding: 1.875rem 3rem;
 }
 
+.edit-form__fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 .edit-form__subheading {
   font-weight: 500;
   font-size: .8125rem;
@@ -26,12 +33,6 @@
   font-size: .8125rem;
   color: #b4b4b4;
   cursor: pointer;
-}
-
-.edit-form__inputs {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
 }
 
 .edit-form__input {
@@ -80,6 +81,10 @@ input[type=number] {
 
 .edit-form__submit:hover {
   background-color: #12478b;
+}
+
+.edit-form__error {
+  color: red;
 }
 
 

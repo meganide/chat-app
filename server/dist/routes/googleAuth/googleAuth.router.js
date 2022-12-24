@@ -1,6 +1,6 @@
 import express from 'express';
 import passport from 'passport';
-import { findUserWithGoogleId } from '../../models/googleAuth/googleAuth.model.js';
+import { findUserWithGoogleId } from '../../models/googleAuth.model.js';
 import { isAuthenticated } from './googleAuth.controller.js';
 const googleRouter = express.Router();
 // Redirect user to the google auth/login page
