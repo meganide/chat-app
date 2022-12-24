@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import "./logo.css"
+
 function Logo() {
   return (
     <>

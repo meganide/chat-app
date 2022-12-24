@@ -128,11 +128,12 @@ function Editform() {
               name="displayName"
               id="displayName"
               placeholder="Enter your name..."
+              maxLength={12}
             />
           </section>
           <section className="edit-form__input">
             <label htmlFor="bio">Bio</label>
-            <textarea name="bio" id="bio" rows={3} cols={50} placeholder="Enter your bio..." />
+            <textarea name="bio" id="bio" rows={3} cols={50} placeholder="Enter your bio..." maxLength={300}/>
           </section>
           {/* <section className="edit-form__input">
           <label htmlFor="email">Email</label>
