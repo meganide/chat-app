@@ -1,4 +1,5 @@
 import { useContext, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import './editform.css';
@@ -19,6 +20,7 @@ function Editform() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const inputFileRef = useRef<any>(null);
+  const navigate = useNavigate();
 
   function handleOnClick() {
     if (inputFileRef.current) {
@@ -68,6 +70,7 @@ function Editform() {
     }
 
     setLoading(false);
+    navigate('/profile');
   }
 
   async function uploadImage(base64EncodedImage: string | ArrayBuffer) {
