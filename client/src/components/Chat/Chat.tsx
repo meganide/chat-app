@@ -7,6 +7,7 @@ import Message from './Message/Message';
 import SendIcon from '@mui/icons-material/Send';
 import MenuIcon from '@mui/icons-material/Menu';
 import { messages } from './Message/messagesExample';
+import AddNewChannel from '../ChatSidebar/AddNewChannel/AddNewChannel';
 
 function Chat() {
   const {setIsOpenSidebar, isOpenSidebar} = useContext(SidebarContext) as ISidebarContext;
@@ -14,6 +15,7 @@ function Chat() {
 
   return (
     <section className="chat">
+      <AddNewChannel />
       <section className="chat-sidebar__nav chat__channel-name">
         {isTabletOrMobile && (
           <MenuIcon
