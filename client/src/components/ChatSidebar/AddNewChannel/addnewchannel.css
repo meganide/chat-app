@@ -68,6 +68,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
-    background: #1d191f;
+    /* background: #1d191f; */
   }
 }

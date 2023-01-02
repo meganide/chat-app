@@ -26,7 +26,7 @@ export function SidebarContextProvider({ children }: Props): ReactElement {
     isShowChannels,
     setIsShowChannels,
     showAddNewChannel,
-    setShowAddNewChannel
+    setShowAddNewChannel,
   };
 
   return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>;
