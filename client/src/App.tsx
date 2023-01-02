@@ -27,23 +27,21 @@ function App() {
 
   // const isAuthenticated: any = true; // TODO: remove this when in production!
 
+  // initialize socketio
   useEffect(() => {
     const newSocket = io('/');
     setSocket(newSocket);
-    
+
     return () => {
       newSocket.close();
     };
   }, [setSocket]);
 
+  // connect socketio
   useEffect(() => {
-    connectToSocket();
-  }, [socket]);
-  
-  function connectToSocket() {
     if (socket) {
       socket.on('connect', () => {
-        console.log('connected as...', socket.id)
+        console.log('connected as...', socket.id);
         setIsConnected(true);
       });
 
@@ -54,10 +52,9 @@ function App() {
       return () => {
         socket.off('connect');
         socket.off('disconnect');
-        console.log("hey")
       };
     }
-  }
+  }, [socket]);
 
   function RequireAuth({ children }: Props) {
     return isAuthenticated ? children : <Navigate to="/login" />;
