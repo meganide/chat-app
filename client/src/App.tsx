@@ -27,33 +27,39 @@ function App() {
 
   // const isAuthenticated: any = true; // TODO: remove this when in production!
 
-  // initialize socketio
   useEffect(() => {
-    const newSocket = io('/');
-    setSocket(newSocket);
-
-    return () => {
-      newSocket.close();
-    };
-  }, [setSocket]);
-
-  // connect socketio
-  useEffect(() => {
-    if (socket) {
-      socket.on('connect', () => {
-        console.log('connected as...', socket.id);
-        setIsConnected(true);
-      });
-
-      socket.on('disconnect', () => {
-        setIsConnected(false);
-      });
+    function initializeSocket() {
+      const newSocket = io('/');
+      setSocket(newSocket);
 
       return () => {
-        socket.off('connect');
-        socket.off('disconnect');
+        newSocket.close();
       };
     }
+
+    return initializeSocket();
+  }, [setSocket]);
+
+  useEffect(() => {
+    function connectSocket() {
+      if (socket) {
+        socket.on('connect', () => {
+          console.log('connected as...', socket.id);
+          setIsConnected(true);
+        });
+
+        socket.on('disconnect', () => {
+          setIsConnected(false);
+        });
+
+        return () => {
+          socket.off('connect');
+          socket.off('disconnect');
+        };
+      }
+    }
+
+    return connectSocket();
   }, [socket]);
 
   function RequireAuth({ children }: Props) {
