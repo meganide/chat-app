@@ -2,11 +2,23 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  /* margin-left: -150px;
-  margin-top: -150px; */
+  margin-left: calc(-25%);
+  margin-top: -11.25rem;
   background: #120F13;
   border-radius: 24px;
   padding: 2.1875rem 2.75rem;
+  width: 50%;
+  height: 50%;
+  max-width: 41rem;
+  max-height: 22.5rem;
+  z-index: 50000;
+  display: flex;
+  flex-direction: column;
+  z-index: 500000000000000000;
+}
+
+.add-channel__close {
+  align-self: flex-end;
 }
 
 .add-channel p {
@@ -29,7 +41,6 @@
   border-radius: 8px;
   color: #828282;
   border: none;
-  /* font-family: 'Noto Sans', sans-serif; */
   resize: none;
   padding: .625rem;
   color: #F2F2F2;
@@ -40,4 +51,23 @@
   border-radius: 8px;
   font-weight: 500;
   color: #F2F2F2;
+  cursor: pointer;
+  border: none;
+  padding: .5rem 1.5rem;
+  align-self: flex-start;
+}
+
+.add-channel__submit:hover {
+  background: #12478b;
+}
+
+@media screen and (max-width: 1000px) {
+  .add-channel {
+    width: 95%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    background: #1d191f;
+  }
 }
