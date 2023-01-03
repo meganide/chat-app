@@ -68,7 +68,7 @@ function Chat() {
       block: 'end',
       inline: 'nearest',
     });
-  }, [allMessages]);
+  }, [allMessages, typingStatus]);
 
   useEffect(() => {
     socket.on('typingResponse', (data: string) => setTypingStatus(data));

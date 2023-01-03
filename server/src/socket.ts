@@ -25,7 +25,7 @@ function startSocket() {
 
     socket.on('message', (msg: iMsg) => {
       console.log(msg);
-      socket.broadcast.emit('message', msg);
+      socket.to(room).emit('message', msg);
     });
 
 
