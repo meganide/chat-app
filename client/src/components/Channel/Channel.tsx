@@ -20,7 +20,7 @@ function Channel() {
   return (
     <article className="channel">
       <article className="channel_thumbnail">{thumbnailName}</article>
-      <p ref={channelNameRef}>Front-End Developers</p>
+      <p ref={channelNameRef}>front-end developers</p>
     </article>
   );
 }

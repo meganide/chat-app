@@ -60,7 +60,7 @@ function Chat() {
         {isTabletOrMobile && (
           <MenuIcon className="chat__hamburger" onClick={() => setIsOpenSidebar(!isOpenSidebar)} />
         )}
-        <p>Front-end developers</p>
+        <p>General</p>
       </section>
       <section className="chat-container">
         <section className="messages">
