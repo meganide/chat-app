@@ -9,7 +9,7 @@ function startSocket() {
         socket.on('typing', (data) => socket.to(room).emit('typingResponse', data));
         socket.on('message', (msg) => {
             console.log(msg);
-            socket.broadcast.emit('message', msg);
+            socket.to(room).emit('message', msg);
         });
         socket.on('disconnect', () => {
             console.log("user with id", socket.id, "has disconnected..");
