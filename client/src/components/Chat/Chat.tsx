@@ -23,13 +23,17 @@ function Chat() {
   const { socket } = useContext(SocketContext) as ISocketContext;
 
   const [message, setMessage] = useState('');
+  const [typingStatus, setTypingStatus] = useState<undefined | string>('');
   const [allMessages, setAllMessages] = useState<iMsg[]>([]);
-  const lastMessageRef = useRef<null | HTMLDivElement >(null);
+  const lastMessageRef = useRef<null | HTMLDivElement>(null);
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1000px)' });
 
   function onSendMessage(e: any) {
     e.preventDefault();
+    
+    socket.emit('typing', '');
+
     const newMessage = {
       displayName: userData.displayName,
       date: new Date().toLocaleString(),
@@ -44,6 +48,10 @@ function Chat() {
     setMessage('');
   }
 
+  function handleTyping() {
+    socket.emit('typing', `${userData.displayName} is typing...`);
+  }
+
   useEffect(() => {
     socket.on('message', (msgData: iMsg) => {
       setAllMessages((prev) => [...prev, msgData]);
@@ -55,8 +63,16 @@ function Chat() {
   }, [allMessages, setAllMessages]);
 
   useEffect(() => {
-    lastMessageRef?.current?.scrollIntoView({behavior: 'smooth', block: "end", inline: "nearest"});
-  }, [allMessages])
+    lastMessageRef?.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+      inline: 'nearest',
+    });
+  }, [allMessages]);
+
+  useEffect(() => {
+    socket.on('typingResponse', (data: string) => setTypingStatus(data));
+  }, [socket]);
 
   return (
     <section className="chat">
@@ -78,8 +94,9 @@ function Chat() {
                 date={message.date}
                 message={message.message}
               />
-              );
-            })}
+            );
+          })}
+          {typingStatus && <p>{typingStatus}</p>}
           <div ref={lastMessageRef}></div>
         </section>
         <form className="chat__send" onSubmit={onSendMessage}>
@@ -89,7 +106,8 @@ function Chat() {
             placeholder="Type a message here"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            ></textarea>
+            onKeyDown={handleTyping}
+          ></textarea>
           <button id="send">
             <SendIcon style={{ color: 'white' }} />
           </button>

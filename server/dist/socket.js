@@ -6,6 +6,7 @@ function startSocket() {
         socket.join(room);
         // const allMembersInRoom = await io.in(room).fetchSockets();
         // socket.emit('allMembers', allMembersInRoom)
+        socket.on('typing', (data) => socket.to(room).emit('typingResponse', data));
         socket.on('message', (msg) => {
             console.log(msg);
             socket.broadcast.emit('message', msg);
