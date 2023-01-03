@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import { ISidebarContext, SidebarContext } from '../../contexts/SidebarContext';
 import { useMediaQuery } from 'react-responsive';
 
@@ -24,6 +24,7 @@ function Chat() {
 
   const [message, setMessage] = useState('');
   const [allMessages, setAllMessages] = useState<iMsg[]>([]);
+  const lastMessageRef = useRef<null | HTMLDivElement >(null);
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1000px)' });
 
@@ -53,6 +54,10 @@ function Chat() {
     };
   }, [allMessages, setAllMessages]);
 
+  useEffect(() => {
+    lastMessageRef?.current?.scrollIntoView({behavior: 'smooth', block: "end", inline: "nearest"});
+  }, [allMessages])
+
   return (
     <section className="chat">
       <AddNewChannel />
@@ -60,7 +65,7 @@ function Chat() {
         {isTabletOrMobile && (
           <MenuIcon className="chat__hamburger" onClick={() => setIsOpenSidebar(!isOpenSidebar)} />
         )}
-        <p>Front-end developers</p>
+        <p>General</p>
       </section>
       <section className="chat-container">
         <section className="messages">
@@ -73,8 +78,9 @@ function Chat() {
                 date={message.date}
                 message={message.message}
               />
-            );
-          })}
+              );
+            })}
+          <div ref={lastMessageRef}></div>
         </section>
         <form className="chat__send" onSubmit={onSendMessage}>
           <textarea
@@ -83,7 +89,7 @@ function Chat() {
             placeholder="Type a message here"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-          ></textarea>
+            ></textarea>
           <button id="send">
             <SendIcon style={{ color: 'white' }} />
           </button>
