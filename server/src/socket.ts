@@ -21,6 +21,8 @@ function startSocket() {
 
     // socket.emit('allMembers', allMembersInRoom)
 
+    socket.on('typing', (data) => socket.to(room).emit('typingResponse', data));
+
     socket.on('message', (msg: iMsg) => {
       console.log(msg);
       socket.broadcast.emit('message', msg);
