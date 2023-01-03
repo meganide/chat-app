@@ -8,6 +8,7 @@ import { config } from './config.js';
 import { requireAuth } from './middlewares/auth.js';
 import { initializeGoogleAuth } from './routes/googleAuth/googleAuth.controller.js';
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -32,10 +33,12 @@ app.get('/', requireAuth);
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+
 app.use('/api', api);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
+
 
 export { app };

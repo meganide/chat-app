@@ -4,7 +4,6 @@ import ChatSidebar from '../../components/ChatSidebar/ChatSidebar';
 import { SidebarContextProvider } from '../../contexts/SidebarContext';
 
 function Home() {
-
   return (
     <SidebarContextProvider>
       <div className="homeContainer">
