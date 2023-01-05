@@ -5,6 +5,7 @@ import fs from 'fs';
 import { Server } from 'socket.io';
 import { app } from './app.js';
 import { startSocket } from './socket.js';
+import { setupDatabase } from './services/database.js';
 dotenv.config();
 const PORT = process.env.PORT || 8000;
 let server;
@@ -24,8 +25,12 @@ const io = new Server(server, {
         methods: ["GET", "POST"]
     }
 });
-server.listen(PORT, () => {
-    console.log(`Server listening on PORT ${PORT}...`);
-});
-startSocket();
+async function startServer() {
+    await setupDatabase();
+    await startSocket();
+    server.listen(PORT, () => {
+        console.log(`Server listening on PORT ${PORT}...`);
+    });
+}
+startServer();
 export { io };

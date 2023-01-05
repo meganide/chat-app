@@ -6,6 +6,7 @@ import { Server } from 'socket.io';
 
 import { app } from './app.js';
 import { startSocket } from './socket.js';
+import { setupDatabase } from './services/database.js';
 
 dotenv.config();
 
@@ -30,10 +31,18 @@ const io = new Server(server, {
   }
 })
 
-server.listen(PORT, () => {
-  console.log(`Server listening on PORT ${PORT}...`);
-});
+async function startServer() {
+  await setupDatabase()
+  await startSocket()
 
-startSocket()
+  server.listen(PORT, () => {
+    console.log(`Server listening on PORT ${PORT}...`);
+  });
+
+}
+
+startServer()
+
+
 
 export { io };
