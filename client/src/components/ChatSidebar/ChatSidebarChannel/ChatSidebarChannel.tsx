@@ -1,9 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
-import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContext';
-import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
-import { IUserContext, UserContext } from '../../../contexts/UserContext';
-import Channel from '../../Channel/Channel';
+import { useContext } from 'react';
 
+import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContext';
+import Channel from '../../Channel/Channel';
 import Member from '../Member/Member';
 
 interface iUser {
@@ -23,18 +21,21 @@ function ChatSidebarChannel() {
 
   const allMembers = [
     {
-      displayName: 'renas',
-      profilePic: 'https://res.cloudinary.com/chatttify/image/upload/v1671866490/users/111302558466971942566/profile/profile_pic.jpg'
+      displayName: 'Renas',
+      profilePic:
+        'https://res.cloudinary.com/chatttify/image/upload/v1671866490/users/111302558466971942566/profile/profile_pic.jpg',
     },
     {
-      displayName: 'brader',
-      profilePic: 'https://res.cloudinary.com/chatttify/image/upload/v1671866490/users/111302558466971942566/profile/profile_pic.jpg'
+      displayName: 'Tellus',
+      profilePic:
+        'https://res.cloudinary.com/chatttify/image/upload/v1671866490/users/111302558466971942566/profile/profile_pic.jpg',
     },
     {
-      displayName: 'pyomp',
-      profilePic: 'https://res.cloudinary.com/chatttify/image/upload/v1671866490/users/111302558466971942566/profile/profile_pic.jpg'
-    }
-  ]
+      displayName: 'Pikachu',
+      profilePic:
+        'https://res.cloudinary.com/chatttify/image/upload/v1671866490/users/111302558466971942566/profile/profile_pic.jpg',
+    },
+  ];
 
   return (
     <section className="chat-sidebar__channel">
@@ -52,9 +53,16 @@ function ChatSidebarChannel() {
         <section className="chat-sidebar__channel-members">
           {!isShowChannels ? (
             <>
-              {allMembers && allMembers.map((member) => {
-                return <Member key={crypto.randomUUID()} displayName={member.displayName} profilePic={member.profilePic} />;
-              })}
+              {allMembers &&
+                allMembers.map((member) => {
+                  return (
+                    <Member
+                      key={crypto.randomUUID()}
+                      displayName={member.displayName}
+                      profilePic={member.profilePic}
+                    />
+                  );
+                })}
             </>
           ) : (
             <>
