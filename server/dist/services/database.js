@@ -22,39 +22,16 @@ else {
 const db = mysql.createConnection(dbOptions);
 async function setupDatabase() {
     try {
-        const tableExists = await checkIfTableExists();
-        if (tableExists) {
-            console.log('Tables already exist!');
-        }
+        const resp = await createTables();
+        console.log(resp);
     }
     catch (error) {
-        try {
-            const resp = await createTables();
-            console.log(resp);
-        }
-        catch (error) {
-            console.log(error);
-        }
+        console.log(error);
     }
-}
-function checkIfTableExists() {
-    const checkUsersTableExists = `SHOW TABLES LIKE 'users'`;
-    return new Promise((resolve, reject) => {
-        db.query(checkUsersTableExists, (err, results, fields) => {
-            if (err)
-                return err;
-            if (results.length > 0) {
-                resolve(true);
-            }
-            else {
-                reject(false);
-            }
-        });
-    });
 }
 function createTables() {
     const createTablesQuery = `
-  CREATE TABLE users (
+  CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     userId VARCHAR(200),
     displayName VARCHAR(45),
@@ -63,26 +40,26 @@ function createTables() {
     email VARCHAR(200),
     emailVerified TINYINT,
     bio TEXT,
-    timeCreated DATETIME NOT NULL
+    timeCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
   
-  CREATE TABLE Channels (
+  CREATE TABLE IF NOT EXISTS Channels (
     id INT AUTO_INCREMENT PRIMARY KEY,
     channelName VARCHAR(255) NOT NULL,
     description VARCHAR(255)
   );
   
-  CREATE TABLE Messages (
+  CREATE TABLE IF NOT EXISTS Messages (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     channel_id INT NOT NULL,
     message TEXT NOT NULL,
-    timestamp DATETIME NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (channel_id) REFERENCES Channels(id)
   );
 
-  CREATE TABLE UserChannelMapping (
+  CREATE TABLE IF NOT EXISTS UserChannelMapping (
     user_id INT NOT NULL,
     channel_id INT NOT NULL,
     PRIMARY KEY (user_id, channel_id),
@@ -90,7 +67,7 @@ function createTables() {
     FOREIGN KEY (channel_id) REFERENCES Channels(id)
   );
 
-  CREATE TABLE UserRooms (
+  CREATE TABLE IF NOT EXISTS UserRooms (
     user_id INT NOT NULL,
     room VARCHAR(255) NOT NULL,
     PRIMARY KEY (user_id, room),
@@ -99,10 +76,8 @@ function createTables() {
   `;
     return new Promise((resolve, reject) => {
         db.query(createTablesQuery, (err, results) => {
-            if (err) {
-                reject('Table already exists!');
-            }
-            console.log('Creating tables!');
+            if (err)
+                reject(err);
             resolve('Tables have been created successfully!');
         });
     });
