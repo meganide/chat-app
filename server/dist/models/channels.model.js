@@ -7,6 +7,9 @@ function createChannel(data) {
         db.query(q, [values], (err, results) => {
             if (err)
                 reject(err);
+            if (results.affectedRows > 0) {
+                console.log('Successfully created new channel: ', data.name);
+            }
             resolve('Successfully added new channel to DB!');
         });
     });
@@ -34,6 +37,9 @@ function saveUserToChannel(channelData) {
         db.query(q, (err, results) => {
             if (err)
                 reject(err);
+            if (results?.affectedRows > 0) {
+                console.log(`Successfully saved ${userId} to channel!`);
+            }
             resolve('Successfully added user to channel!');
         });
     });

@@ -27,7 +27,6 @@ async function httpGetChannels(req, res) {
 async function httpSaveUserToChannel(channelData) {
     try {
         const resp = await saveUserToChannel(channelData);
-        console.log(resp);
     }
     catch (error) {
         console.log(error);

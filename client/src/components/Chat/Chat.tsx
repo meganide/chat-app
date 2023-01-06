@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -8,6 +8,8 @@ import AddNewChannel from '../ChatSidebar/AddNewChannel/AddNewChannel';
 import Messages from './Messages/Messages';
 import ChatFooter from './ChatFooter/ChatFooter';
 import './chat.css';
+import { IUserContext, UserContext } from '../../contexts/UserContext';
+import { ISocketContext, SocketContext } from '../../contexts/SocketContext';
 
 export interface iMsg {
   displayName: string;
@@ -19,10 +21,21 @@ export interface iMsg {
 function Chat() {
   const { setIsOpenSidebar, isOpenSidebar } = useContext(SidebarContext) as ISidebarContext;
   const { activeChannel } = useContext(ChannelContext) as IChannelContext;
+  const { userData } = useContext(UserContext) as IUserContext;
+  const { socket } = useContext(SocketContext) as ISocketContext;
 
   const [allMessages, setAllMessages] = useState<iMsg[]>([]);
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1000px)' });
+
+  useEffect(() => {
+    const channelData = {
+      name: 'Welcome',
+      userId: userData.userId,
+    }
+
+    socket.emit('join_channel', channelData);
+  }, [])
 
   return (
     <section className="chat">

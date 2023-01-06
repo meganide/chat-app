@@ -1,23 +1,22 @@
 import { io } from './server.js';
 import { httpSaveUserToChannel } from './routes/channels/channels.controller.js';
+import { httpGetMembers } from './routes/members/members.controller.js';
 function startSocket() {
     io.on('connection', async (socket) => {
         console.log('a user connected with id', socket.id);
-        let room = 'Welcome';
-        socket.join(room);
-        // const allMembersInRoom = await io.in(room).fetchSockets();
-        // socket.emit('allMembers', allMembersInRoom)
+        let room = '';
         socket.on('typing', (data) => socket.to(room).emit('typingResponse', data));
         socket.on('message', (msg) => {
             console.log(msg);
             socket.to(room).emit('message', msg);
         });
-        socket.on('join_channel', (channelData) => {
+        socket.on('join_channel', async (channelData) => {
             socket.leave(room);
             room = channelData.name;
             socket.join(room);
             httpSaveUserToChannel(channelData);
-            console.log('succesfully joined', room);
+            const membersInChannel = await httpGetMembers(channelData);
+            io.to(room).emit('members_in_channel', membersInChannel);
         });
         socket.on('disconnect', () => {
             console.log('user with id', socket.id, 'has disconnected..');
