@@ -41,7 +41,6 @@ function ChatSidebarChannel() {
   useEffect(() => {
     socket.on('new_channel', (channels: any) => {
       setChannels(channels);
-      console.log('hello in channel');
     });
 
     return () => {
