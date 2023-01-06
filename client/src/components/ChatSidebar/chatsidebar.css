@@ -87,7 +87,7 @@
     width: 85%;
     z-index: 5000000;
     transition: all 0.5s ease-in-out;
-    height: 100vh;
+    height: 100dvh;
   }
 
   .chat-sidebar__close {
