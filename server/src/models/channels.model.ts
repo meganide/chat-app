@@ -12,8 +12,11 @@ function createChannel(data: channelData) {
   const values = [data.name, data.description];
 
   return new Promise((resolve, reject) => {
-    db.query(q, [values], (err, results) => {
+    db.query(q, [values], (err, results: any) => {
       if (err) reject(err);
+      if (results.affectedRows > 0) {
+        console.log('Successfully created new channel: ', data.name);
+      }
       resolve('Successfully added new channel to DB!');
     });
   });
@@ -41,8 +44,12 @@ function saveUserToChannel(channelData: iChannelData) {
   `;
 
   return new Promise((resolve, reject) => {
-    db.query(q, (err, results) => {
+    db.query(q, (err, results: any) => {
       if (err) reject(err);
+
+      if (results?.affectedRows > 0) {
+        console.log(`Successfully saved ${userId} to channel!`);
+      }
 
       resolve('Successfully added user to channel!');
     });

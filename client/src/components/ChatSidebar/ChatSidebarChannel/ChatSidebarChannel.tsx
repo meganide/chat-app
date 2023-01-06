@@ -11,30 +11,18 @@ export interface iChannels {
   description: string;
 }
 
+interface iMembers {
+  displayName: string;
+  profilePic: string;
+}
+
 function ChatSidebarChannel() {
   const { socket } = useContext(SocketContext) as ISocketContext;
   const { isShowChannels } = useContext(SidebarContext) as ISidebarContext;
-  const { activeChannel } = useContext(ChannelContext) as IChannelContext;
+  const { activeChannel, setActiveChannel } = useContext(ChannelContext) as IChannelContext;
 
   const [channels, setChannels] = useState<iChannels[]>([]);
-
-  const allMembers = [
-    {
-      displayName: 'Renas',
-      profilePic:
-        'https://res.cloudinary.com/chatttify/image/upload/v1671866490/users/111302558466971942566/profile/profile_pic.jpg',
-    },
-    {
-      displayName: 'Tellus',
-      profilePic:
-        'https://res.cloudinary.com/chatttify/image/upload/v1671866490/users/111302558466971942566/profile/profile_pic.jpg',
-    },
-    {
-      displayName: 'Pikachu',
-      profilePic:
-        'https://res.cloudinary.com/chatttify/image/upload/v1671866490/users/111302558466971942566/profile/profile_pic.jpg',
-    },
-  ];
+  const [members, setMembers] = useState<iMembers[]>([]);
 
   useEffect(() => {
     async function getChannels() {
@@ -53,6 +41,7 @@ function ChatSidebarChannel() {
   useEffect(() => {
     socket.on('new_channel', (channels: any) => {
       setChannels(channels);
+      console.log('hello in channel');
     });
 
     return () => {
@@ -60,14 +49,23 @@ function ChatSidebarChannel() {
     };
   }, [channels]);
 
+
+  useEffect(() => {
+    socket.on('members_in_channel', (members: iMembers[]) => {
+      setMembers(members);
+    });
+
+    return () => {
+      socket.off('members_in_channel');
+    };
+  }, [activeChannel, setActiveChannel]);
+
   return (
     <section className="chat-sidebar__channel">
       {!isShowChannels && (
         <section className="chat-sidebar__top">
           <h1 className="chat-sidebar__channel-name">{activeChannel?.name}</h1>
-          <h2 className="chat-sidebar__channel-description">
-            {activeChannel?.description}
-          </h2>
+          <h2 className="chat-sidebar__channel-description">{activeChannel?.description}</h2>
         </section>
       )}
       <section className="chat-sidebar__bot">
@@ -75,8 +73,8 @@ function ChatSidebarChannel() {
         <section className="chat-sidebar__channel-members">
           {!isShowChannels ? (
             <>
-              {allMembers &&
-                allMembers.map((member) => {
+              {members &&
+                members.map((member) => {
                   return (
                     <Member
                       key={crypto.randomUUID()}
@@ -90,7 +88,13 @@ function ChatSidebarChannel() {
             <>
               {channels &&
                 channels.map((channel) => {
-                  return <Channel key={crypto.randomUUID()} name={channel.name} description={channel.description} />;
+                  return (
+                    <Channel
+                      key={crypto.randomUUID()}
+                      name={channel.name}
+                      description={channel.description}
+                    />
+                  );
                 })}
             </>
           )}
