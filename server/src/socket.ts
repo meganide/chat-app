@@ -13,14 +13,12 @@ export interface iChannelData {
   userId: string;
 }
 
-
 function startSocket() {
   io.on('connection', async (socket: any) => {
-
     console.log('a user connected with id', socket.id);
 
     let room = 'Welcome';
-    
+
     socket.join(room);
 
     // const allMembersInRoom = await io.in(room).fetchSockets();
@@ -35,18 +33,18 @@ function startSocket() {
     });
 
     socket.on('join_channel', (channelData: iChannelData) => {
+      socket.leave(room);
       room = channelData.name;
       socket.join(room);
-      
-      httpSaveUserToChannel(channelData);
-      console.log("succesfully joined", room);
-    })
 
+      httpSaveUserToChannel(channelData);
+      console.log('succesfully joined', room);
+    });
 
     socket.on('disconnect', () => {
-      console.log("user with id", socket.id, "has disconnected..")
+      console.log('user with id', socket.id, 'has disconnected..');
       socket.leave(room);
-    })
+    });
   });
 }
 

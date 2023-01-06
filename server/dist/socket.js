@@ -13,13 +13,14 @@ function startSocket() {
             socket.to(room).emit('message', msg);
         });
         socket.on('join_channel', (channelData) => {
+            socket.leave(room);
             room = channelData.name;
             socket.join(room);
             httpSaveUserToChannel(channelData);
-            console.log("succesfully joined", room);
+            console.log('succesfully joined', room);
         });
         socket.on('disconnect', () => {
-            console.log("user with id", socket.id, "has disconnected..");
+            console.log('user with id', socket.id, 'has disconnected..');
             socket.leave(room);
         });
     });
