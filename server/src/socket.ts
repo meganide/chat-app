@@ -13,7 +13,7 @@ function startSocket() {
 
     console.log('a user connected with id', socket.id);
 
-    let room = 'general';
+    let room = 'Welcome';
     
     socket.join(room);
 
@@ -27,6 +27,13 @@ function startSocket() {
       console.log(msg);
       socket.to(room).emit('message', msg);
     });
+
+    socket.on('join_channel', (channel: string) => {
+      room = channel;
+      socket.join(room);
+      
+      console.log("succesfully joined", room);
+    })
 
 
     socket.on('disconnect', () => {
