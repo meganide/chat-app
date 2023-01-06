@@ -1,8 +1,7 @@
 import { db } from '../services/database.js';
 function createChannel(data) {
-    const { name, description } = data;
     const q = 'INSERT INTO channels (`name`, `description`) VALUES (?)';
-    const values = [name, description];
+    const values = [data.name, data.description];
     return new Promise((resolve, reject) => {
         db.query(q, [values], (err, results) => {
             if (err)
