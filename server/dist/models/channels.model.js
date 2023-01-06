@@ -1,6 +1,6 @@
 import { db } from '../services/database.js';
 function createChannel(data) {
-    const q = 'INSERT INTO channels (`name`, `description`) VALUES (?)';
+    const q = 'INSERT INTO Channels (`name`, `description`) VALUES (?)';
     const values = [data.name, data.description];
     return new Promise((resolve, reject) => {
         db.query(q, [values], (err, results) => {
@@ -11,7 +11,7 @@ function createChannel(data) {
     });
 }
 function getChannels() {
-    const q = `SELECT name FROM CHANNELS`;
+    const q = `SELECT name FROM Channels`;
     return new Promise((resolve, reject) => {
         db.query(q, (err, results) => {
             if (err)
