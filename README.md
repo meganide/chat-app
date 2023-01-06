@@ -19,6 +19,10 @@
   User story: I can see other people's messages
   
   User story(optional): I can search for a group
+  
+  focus chat input automatically
+  add tests
+  show if user is online or not
 
 <!-- Please update value in the {}  -->
 
