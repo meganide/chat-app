@@ -9,7 +9,7 @@ interface iMsg {
 
 
 function startSocket() {
-  io.on('connection', async (socket) => {
+  io.on('connection', async (socket: any) => {
 
     console.log('a user connected with id', socket.id);
 
@@ -21,7 +21,7 @@ function startSocket() {
 
     // socket.emit('allMembers', allMembersInRoom)
 
-    socket.on('typing', (data) => socket.to(room).emit('typingResponse', data));
+    socket.on('typing', (data: any) => socket.to(room).emit('typingResponse', data));
 
     socket.on('message', (msg: iMsg) => {
       console.log(msg);

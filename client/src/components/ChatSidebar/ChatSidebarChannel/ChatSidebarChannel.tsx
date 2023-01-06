@@ -1,6 +1,7 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContext';
+import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
 import Channel from '../../Channel/Channel';
 import Member from '../Member/Member';
 
@@ -17,7 +18,9 @@ interface iUser {
 }
 
 function ChatSidebarChannel() {
+  const { socket } = useContext(SocketContext) as ISocketContext;
   const { isShowChannels } = useContext(SidebarContext) as ISidebarContext;
+  const [channels, setChannels] = useState([]);
 
   const allMembers = [
     {
@@ -36,6 +39,30 @@ function ChatSidebarChannel() {
         'https://res.cloudinary.com/chatttify/image/upload/v1671866490/users/111302558466971942566/profile/profile_pic.jpg',
     },
   ];
+
+  useEffect(() => {
+    async function getChannels() {
+      try {
+        const res = await fetch('/api/channels');
+        const data = await res.json();
+        setChannels(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getChannels();
+  }, []);
+
+  useEffect(() => {
+    socket.on('new_channel', (channels: any) => {
+      setChannels(channels);
+    });
+
+    return () => {
+      socket.off('new_channel');
+    };
+  }, [channels]);
 
   return (
     <section className="chat-sidebar__channel">
@@ -66,14 +93,11 @@ function ChatSidebarChannel() {
             </>
           ) : (
             <>
-              <Channel />
-              <Channel />
-              <Channel />
-              <Channel />
-              <Channel />
-              <Channel />
-              <Channel />
-              <Channel />
+              {channels &&
+                channels.map((channel: any) => {
+                  console.log(channel.name);
+                  return <Channel key={crypto.randomUUID()} name={channel.name} />;
+                })}
             </>
           )}
         </section>

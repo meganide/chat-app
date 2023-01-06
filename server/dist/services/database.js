@@ -45,9 +45,12 @@ function createTables() {
   
   CREATE TABLE IF NOT EXISTS Channels (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    channelName VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     description VARCHAR(255)
   );
+
+  INSERT IGNORE INTO Channels (name, description)
+  VALUES ('Welcome', 'Default channel');
   
   CREATE TABLE IF NOT EXISTS Messages (
     id INT AUTO_INCREMENT PRIMARY KEY,

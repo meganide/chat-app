@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import './channel.css';
 
-function Channel() {
+
+function Channel({name}: any) {
   const channelNameRef = useRef<HTMLParagraphElement>(null);
   const [thumbnailName, setThumbnailName] = useState('C');
 
@@ -20,7 +21,7 @@ function Channel() {
   return (
     <article className="channel">
       <article className="channel_thumbnail">{thumbnailName}</article>
-      <p ref={channelNameRef}>front-end developers</p>
+      <p ref={channelNameRef}>{name}</p>
     </article>
   );
 }
