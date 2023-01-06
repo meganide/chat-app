@@ -39,6 +39,7 @@ function Channel({ name, description }: iChannels) {
     socket.emit('join_channel', channelData);
 
   }
+  
 
   return (
     <article className="channel" onClick={handleJoinChannel}>
