@@ -5,7 +5,7 @@ function getMembers(channelData) {
   SELECT u.displayName, u.profilePic
   FROM UserChannelMapping ucm
   INNER JOIN users u ON ucm.user_id = u.id
-  WHERE ucm.channel_id = (SELECT id FROM channels WHERE name = ${mysql.escape(channelData.name)});
+  WHERE ucm.channel_id = (SELECT id FROM Channels WHERE name = ${mysql.escape(channelData.name)});
   `;
     return new Promise((resolve, reject) => {
         db.query(q, (err, results) => {
