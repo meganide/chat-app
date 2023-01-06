@@ -1,4 +1,5 @@
 import { io } from './server.js';
+import { httpSaveUserToChannel } from './routes/channels/channels.controller.js';
 
 interface iMsg {
   displayName: string;
@@ -7,13 +8,18 @@ interface iMsg {
   message: string;
 }
 
+export interface iChannelData {
+  name: string;
+  userId: string;
+}
+
 
 function startSocket() {
   io.on('connection', async (socket: any) => {
 
     console.log('a user connected with id', socket.id);
 
-    let room = 'general';
+    let room = 'Welcome';
     
     socket.join(room);
 
@@ -27,6 +33,14 @@ function startSocket() {
       console.log(msg);
       socket.to(room).emit('message', msg);
     });
+
+    socket.on('join_channel', (channelData: iChannelData) => {
+      room = channelData.name;
+      socket.join(room);
+      
+      httpSaveUserToChannel(channelData);
+      console.log("succesfully joined", room);
+    })
 
 
     socket.on('disconnect', () => {

@@ -50,7 +50,7 @@ function createTables() {
   );
 
   INSERT IGNORE INTO Channels (name, description)
-  VALUES ('Welcome', 'Default channel');
+  VALUES ('Welcome', 'Welcome to the community! Feel free to introduce yourself and join in on the conversation.');
   
   CREATE TABLE IF NOT EXISTS Messages (
     id INT AUTO_INCREMENT PRIMARY KEY,

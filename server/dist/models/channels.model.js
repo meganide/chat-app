@@ -1,3 +1,4 @@
+import mysql from 'mysql2';
 import { db } from '../services/database.js';
 function createChannel(data) {
     const q = 'INSERT INTO Channels (`name`, `description`) VALUES (?)';
@@ -11,7 +12,7 @@ function createChannel(data) {
     });
 }
 function getChannels() {
-    const q = `SELECT name FROM Channels`;
+    const q = `SELECT name, description FROM Channels`;
     return new Promise((resolve, reject) => {
         db.query(q, (err, results) => {
             if (err)
@@ -20,4 +21,21 @@ function getChannels() {
         });
     });
 }
-export { createChannel, getChannels };
+function saveUserToChannel(channelData) {
+    const { name, userId } = channelData; // this userId is the googleId we need to convert to id
+    const q = `
+  INSERT IGNORE INTO userchannelmapping(user_id, channel_id)
+  SELECT u.id, c.id
+  FROM users u
+  JOIN Channels c
+  ON u.userId = ${mysql.escape(userId)} AND c.name = ${mysql.escape(name)};
+  `;
+    return new Promise((resolve, reject) => {
+        db.query(q, (err, results) => {
+            if (err)
+                reject(err);
+            resolve('Successfully added user to channel!');
+        });
+    });
+}
+export { createChannel, getChannels, saveUserToChannel };

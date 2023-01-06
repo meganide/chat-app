@@ -3,6 +3,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import { ISidebarContext, SidebarContext } from '../../contexts/SidebarContext';
+import { ChannelContext, IChannelContext } from '../../contexts/ChannelContext';
 import AddNewChannel from '../ChatSidebar/AddNewChannel/AddNewChannel';
 import Messages from './Messages/Messages';
 import ChatFooter from './ChatFooter/ChatFooter';
@@ -17,6 +18,7 @@ export interface iMsg {
 
 function Chat() {
   const { setIsOpenSidebar, isOpenSidebar } = useContext(SidebarContext) as ISidebarContext;
+  const { activeChannel } = useContext(ChannelContext) as IChannelContext;
 
   const [allMessages, setAllMessages] = useState<iMsg[]>([]);
 
@@ -29,7 +31,7 @@ function Chat() {
         {isTabletOrMobile && (
           <MenuIcon className="chat__hamburger" onClick={() => setIsOpenSidebar(!isOpenSidebar)} />
         )}
-        <p>General</p>
+        <p>{activeChannel?.name}</p>
       </section>
       <section className="chat-container">
         <Messages allMessages={allMessages} setAllMessages={setAllMessages} />

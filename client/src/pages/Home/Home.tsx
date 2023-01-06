@@ -1,18 +1,19 @@
-import { useContext, useEffect } from 'react';
-
 import './home.css';
 import Chat from '../../components/Chat/Chat';
 import ChatSidebar from '../../components/ChatSidebar/ChatSidebar';
 import { SidebarContextProvider } from '../../contexts/SidebarContext';
+import { ChannelContextProvider } from '../../contexts/ChannelContext';
 
 function Home() {
   return (
-    <SidebarContextProvider>
-      <div className="homeContainer">
-        <ChatSidebar />
-        <Chat />
-      </div>
-    </SidebarContextProvider>
+    <ChannelContextProvider>
+      <SidebarContextProvider>
+        <div className="homeContainer">
+          <ChatSidebar />
+          <Chat />
+        </div>
+      </SidebarContextProvider>
+    </ChannelContextProvider>
   );
 }
 

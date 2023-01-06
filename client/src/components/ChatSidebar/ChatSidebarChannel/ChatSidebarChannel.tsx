@@ -1,17 +1,21 @@
 import { useContext, useEffect, useState } from 'react';
+import { ChannelContext, IChannelContext } from '../../../contexts/ChannelContext';
 
 import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContext';
 import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
 import Channel from '../../Channel/Channel';
 import Member from '../Member/Member';
 
-interface iChannels {
+export interface iChannels {
   name: string;
+  description: string;
 }
 
 function ChatSidebarChannel() {
   const { socket } = useContext(SocketContext) as ISocketContext;
   const { isShowChannels } = useContext(SidebarContext) as ISidebarContext;
+  const { activeChannel } = useContext(ChannelContext) as IChannelContext;
+
   const [channels, setChannels] = useState<iChannels[]>([]);
 
   const allMembers = [
@@ -60,10 +64,9 @@ function ChatSidebarChannel() {
     <section className="chat-sidebar__channel">
       {!isShowChannels && (
         <section className="chat-sidebar__top">
-          <h1 className="chat-sidebar__channel-name">General</h1>
+          <h1 className="chat-sidebar__channel-name">{activeChannel?.name}</h1>
           <h2 className="chat-sidebar__channel-description">
-            Pellentesque sagittis elit enim, sit amet ultrices tellus accumsan quis. In gravida
-            mollis purus, at interdum arcu tempor non
+            {activeChannel?.description}
           </h2>
         </section>
       )}
@@ -87,7 +90,7 @@ function ChatSidebarChannel() {
             <>
               {channels &&
                 channels.map((channel) => {
-                  return <Channel key={crypto.randomUUID()} name={channel.name} />;
+                  return <Channel key={crypto.randomUUID()} name={channel.name} description={channel.description} />;
                 })}
             </>
           )}
