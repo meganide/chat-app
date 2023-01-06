@@ -18,7 +18,7 @@ function createChannel(data: channelData) {
 }
 
 function getChannels() {
-  const q = `SELECT name FROM Channels`;
+  const q = `SELECT name, description FROM Channels`;
   return new Promise((resolve, reject) => {
     db.query(q, (err, results) => {
       if (err) reject(err);

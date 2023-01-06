@@ -1,8 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
+import { ChannelContext, IChannelContext } from '../../contexts/ChannelContext';
+import { iChannels } from '../ChatSidebar/ChatSidebarChannel/ChatSidebarChannel';
 import './channel.css';
 
+function Channel({ name, description }: iChannels) {
+  const { setActiveChannel } = useContext(ChannelContext) as IChannelContext;
 
-function Channel({name}: any) {
   const channelNameRef = useRef<HTMLParagraphElement>(null);
   const [thumbnailName, setThumbnailName] = useState('C');
 
@@ -18,8 +21,15 @@ function Channel({name}: any) {
     }
   }, []);
 
+  function handleJoinChannel() {
+    setActiveChannel({
+      name,
+      description,
+    });
+  }
+
   return (
-    <article className="channel">
+    <article className="channel" onClick={handleJoinChannel}>
       <article className="channel_thumbnail">{thumbnailName}</article>
       <p ref={channelNameRef}>{name}</p>
     </article>
