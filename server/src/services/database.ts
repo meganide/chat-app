@@ -78,7 +78,7 @@ function createTables() {
     user_id INT NOT NULL,
     room VARCHAR(255) NOT NULL,
     PRIMARY KEY (user_id, room),
-    FOREIGN KEY (user_id) REFERENCES Users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
   );
   `;
 
