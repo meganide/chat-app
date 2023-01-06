@@ -10,6 +10,9 @@ async function httpCreateChannel(req, res) {
     }
     catch (err) {
         console.log(err);
+        if (err.code === 'ER_DUP_ENTRY') {
+            return res.status(400).json({ error: 'Channel name already exists!' });
+        }
     }
 }
 async function httpGetChannels(req, res) {

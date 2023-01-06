@@ -1,18 +1,17 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 
 import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContext';
 import './addnewchannel.css';
 import CloseIcon from '@mui/icons-material/Close';
 import Overlay from '../../Overlay/Overlay';
-import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
 
 function AddNewChannel() {
-  const { socket } = useContext(SocketContext) as ISocketContext;
   const { showAddNewChannel, setShowAddNewChannel } = useContext(SidebarContext) as ISidebarContext;
   const [channelInfo, setChannelInfo] = useState({
     name: '',
     description: '',
   });
+  const [error, setError] = useState('');
 
   function handleOnChange(e: any) {
     const name = e.target.name;
@@ -26,9 +25,10 @@ function AddNewChannel() {
 
   async function handleCreateChannel(e: any) {
     e.preventDefault();
-    console.log(channelInfo);
 
     try {
+      setError('');
+
       const res = await fetch('/api/channels', {
         method: 'POST',
         headers: {
@@ -38,13 +38,18 @@ function AddNewChannel() {
       });
 
       const data = await res.json();
-      console.log(data);
 
       if (res.ok) {
         setShowAddNewChannel(false);
       }
-    } catch (err) {
-      console.error(err);
+
+      if (data.error) {
+        setError(data.error);
+      }
+
+    } catch (err: any) {
+      console.log(err);
+      setError('Something went wrong!');
     }
   }
 
@@ -54,7 +59,10 @@ function AddNewChannel() {
         <div className="add-channel">
           <CloseIcon
             className="chat-sidebar__close-icon add-channel__close"
-            onClick={() => setShowAddNewChannel(false)}
+            onClick={() => {
+              setShowAddNewChannel(false);
+              setError('');
+            }}
           />
           <p>New channel</p>
           <form className="add-channel__form" onSubmit={handleCreateChannel}>
@@ -76,6 +84,7 @@ function AddNewChannel() {
               onChange={handleOnChange}
             ></textarea>
             <input className="add-channel__submit" type="submit" value="Save" />
+            {<p className='add-channel__error'>{error}</p>}
           </form>
         </div>
       </Overlay>

@@ -5,22 +5,14 @@ import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
 import Channel from '../../Channel/Channel';
 import Member from '../Member/Member';
 
-interface iUser {
-  id: number;
-  userId: string;
-  displayName: string;
-  profilePic: string;
-  provider: string;
-  email: string;
-  emailVerified: number;
-  bio: string;
-  socketId: string;
+interface iChannels {
+  name: string;
 }
 
 function ChatSidebarChannel() {
   const { socket } = useContext(SocketContext) as ISocketContext;
   const { isShowChannels } = useContext(SidebarContext) as ISidebarContext;
-  const [channels, setChannels] = useState([]);
+  const [channels, setChannels] = useState<iChannels[]>([]);
 
   const allMembers = [
     {
@@ -94,8 +86,7 @@ function ChatSidebarChannel() {
           ) : (
             <>
               {channels &&
-                channels.map((channel: any) => {
-                  console.log(channel.name);
+                channels.map((channel) => {
                   return <Channel key={crypto.randomUUID()} name={channel.name} />;
                 })}
             </>

@@ -64,6 +64,10 @@
   background: #12478b;
 }
 
+.add-channel__error {
+  color: rgb(224, 10, 10) !important;
+}
+
 @media screen and (max-width: 1000px) {
   .add-channel {
     width: 95%;
