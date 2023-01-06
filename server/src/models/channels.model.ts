@@ -33,7 +33,7 @@ function saveUserToChannel(channelData: iChannelData) {
   const { name, userId } = channelData; // this userId is the googleId we need to convert to id
 
   const q = `
-  INSERT IGNORE INTO userchannelmapping(user_id, channel_id)
+  INSERT IGNORE INTO UserChannelMapping(user_id, channel_id)
   SELECT u.id, c.id
   FROM users u
   JOIN Channels c
