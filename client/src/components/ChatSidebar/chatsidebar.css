@@ -14,12 +14,14 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.arrowBack, .chat-sidebar__close-icon {
+.arrowBack,
+.chat-sidebar__close-icon {
   color: #F2F2F2;
   cursor: pointer;
 }
 
-.arrowBack:hover, .chat-sidebar__close-icon:hover {
+.arrowBack:hover,
+.chat-sidebar__close-icon:hover {
   color: #a3a3a3;
 }
 
@@ -88,6 +90,7 @@
     z-index: 5000000;
     transition: all 0.5s ease-in-out;
     height: 100dvh;
+    height: 100vh;
   }
 
   .chat-sidebar__close {
