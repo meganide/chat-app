@@ -1,4 +1,5 @@
 import { io } from './server.js';
+import { httpSaveUserToChannel } from './routes/channels/channels.controller.js';
 function startSocket() {
     io.on('connection', async (socket) => {
         console.log('a user connected with id', socket.id);
@@ -11,9 +12,10 @@ function startSocket() {
             console.log(msg);
             socket.to(room).emit('message', msg);
         });
-        socket.on('join_channel', (channel) => {
-            room = channel;
+        socket.on('join_channel', (channelData) => {
+            room = channelData.name;
             socket.join(room);
+            httpSaveUserToChannel(channelData);
             console.log("succesfully joined", room);
         });
         socket.on('disconnect', () => {

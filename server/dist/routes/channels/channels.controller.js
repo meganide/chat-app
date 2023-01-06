@@ -1,4 +1,4 @@
-import { createChannel, getChannels } from '../../models/channels.model.js';
+import { createChannel, getChannels, saveUserToChannel } from '../../models/channels.model.js';
 import { io } from '../../server.js';
 async function httpCreateChannel(req, res) {
     const data = req.body;
@@ -24,4 +24,13 @@ async function httpGetChannels(req, res) {
         console.log(error);
     }
 }
-export { httpCreateChannel, httpGetChannels };
+async function httpSaveUserToChannel(channelData) {
+    try {
+        const resp = await saveUserToChannel(channelData);
+        console.log(resp);
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+export { httpCreateChannel, httpGetChannels, httpSaveUserToChannel };
