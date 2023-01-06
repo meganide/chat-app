@@ -2,8 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 3.4fr;
   width: 100%;
-  height: 100dvh;
-  height: 100vh;
+  height: var(--dynamic-height, 100vh);
   overflow: hidden;
 }
 

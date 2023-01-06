@@ -1,7 +1,6 @@
 .chat {
   background-color: #252329;
-  height: 100dvh;
-  height: 100vh;
+  height: var(--dynamic-height, 100vh);
   position: relative;
 }
 

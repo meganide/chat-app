@@ -1,5 +1,5 @@
 .register {
-  min-height: 100dvh;
+  min-height: var(--dynamic-height, 100vh);
   height: 100vh;
   padding: 1rem;
   display: flex;
