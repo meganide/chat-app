@@ -11,9 +11,11 @@ function startSocket() {
             socket.to(room).emit('message', msg);
         });
         socket.on('join_channel', async (channelData) => {
+            console.log("join channel");
             socket.leave(room);
             room = channelData.name;
             socket.join(room);
+            console.log("user joined", room);
             httpSaveUserToChannel(channelData);
             const membersInChannel = await httpGetMembers(channelData);
             io.to(room).emit('members_in_channel', membersInChannel);

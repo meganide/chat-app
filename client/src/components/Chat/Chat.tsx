@@ -9,6 +9,7 @@ import Messages from './Messages/Messages';
 import ChatFooter from './ChatFooter/ChatFooter';
 import './chat.css';
 import { ISocketContext, SocketContext } from '../../contexts/SocketContext';
+import { IUserContext, UserContext } from '../../contexts/UserContext';
 
 export interface iMsg {
   displayName: string;
@@ -21,13 +22,19 @@ function Chat() {
   const { setIsOpenSidebar, isOpenSidebar } = useContext(SidebarContext) as ISidebarContext;
   const { activeChannel } = useContext(ChannelContext) as IChannelContext;
   const { socket } = useContext(SocketContext) as ISocketContext;
+  const { userData } = useContext(UserContext) as IUserContext;
 
   const [allMessages, setAllMessages] = useState<iMsg[]>([]);
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1000px)' });
 
   useEffect(() => {
-    socket.emit('join_channel', activeChannel);
+    const channelData = {
+      name: activeChannel.name,
+      userId: userData.userId,
+    }
+
+    socket.emit('join_channel', channelData);
   }, [])
 
   return (
