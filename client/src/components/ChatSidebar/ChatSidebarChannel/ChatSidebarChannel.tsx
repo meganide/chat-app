@@ -23,6 +23,7 @@ function ChatSidebarChannel() {
 
   const [channels, setChannels] = useState<iChannels[]>([]);
   const [members, setMembers] = useState<iMembers[]>([]);
+  const [allOnlineUsers, setAllOnlineUsers] = useState<any>({});
 
   useEffect(() => {
     async function getChannels() {
@@ -59,6 +60,9 @@ function ChatSidebarChannel() {
     };
   }, [activeChannel, setActiveChannel]);
 
+
+
+
   return (
     <section className="chat-sidebar__channel">
       {!isShowChannels && (
@@ -79,6 +83,8 @@ function ChatSidebarChannel() {
                       key={crypto.randomUUID()}
                       displayName={member.displayName}
                       profilePic={member.profilePic}
+                      setAllOnlineUsers={setAllOnlineUsers}
+                      allOnlineUsers={allOnlineUsers}
                     />
                   );
                 })}

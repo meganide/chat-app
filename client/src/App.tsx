@@ -46,8 +46,6 @@ function App() {
         socket.on('connect', () => {
           console.log('connected as...', socket.id);
           setIsConnected(true);
-
-          // isAuthenticated && socket.emit('add_online_user', userData.displayName);
         });
 
         socket.on('disconnect', () => {

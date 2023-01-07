@@ -64,6 +64,8 @@ export function UserContextProvider({ children }: iProps): ReactElement {
     }
   }
 
+  
+
   const value = {
     isAuthenticated,
     setIsAuthenticated,

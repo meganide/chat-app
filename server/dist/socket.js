@@ -11,6 +11,7 @@ function startSocket() {
             console.log(`Socket ${socket.id} added with displayName ${displayName}.`);
             onlineUsers[socket.id] = displayName;
             console.log(onlineUsers);
+            io.emit('online_list', onlineUsers);
         });
         socket.on('typing', (data) => socket.to(room).emit('typingResponse', data));
         socket.on('message', (msg) => {
@@ -31,6 +32,7 @@ function startSocket() {
             console.log('user with id', socket.id, 'has disconnected..');
             delete onlineUsers[socket.id];
             console.log('left', onlineUsers);
+            io.emit('online_list', onlineUsers);
             socket.leave(room);
         });
     });

@@ -31,6 +31,8 @@ function startSocket() {
 
       console.log(onlineUsers)
 
+      io.emit('online_list', onlineUsers)
+
     })
     
     socket.on('typing', (data: any) => socket.to(room).emit('typingResponse', data));
@@ -59,6 +61,7 @@ function startSocket() {
       console.log('user with id', socket.id, 'has disconnected..');
       delete onlineUsers[socket.id];
       console.log('left', onlineUsers)
+      io.emit('online_list', onlineUsers)
       socket.leave(room);
     });
   });
