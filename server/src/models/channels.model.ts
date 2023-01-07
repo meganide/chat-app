@@ -33,7 +33,6 @@ function getChannels() {
 }
 
 function saveUserToChannel(channelData: iChannelData) {
-  console.log("trying to save user to channel", channelData.name)
   const { name, userId } = channelData; // this userId is the googleId we need to convert to id
 
   const q = `

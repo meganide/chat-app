@@ -43,7 +43,7 @@ function Messages({ allMessages, setAllMessages }: iProps) {
         return (
           <Message
             key={crypto.randomUUID()}
-            img={message.img}
+            img={message.profilePic}
             displayName={message.displayName}
             date={message.date}
             message={message.message}

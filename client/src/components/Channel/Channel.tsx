@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { ChannelContext, IChannelContext } from '../../contexts/ChannelContext';
+import { ISidebarContext, SidebarContext } from '../../contexts/SidebarContext';
 import { ISocketContext, SocketContext } from '../../contexts/SocketContext';
 import { IUserContext, UserContext } from '../../contexts/UserContext';
 import { iChannels } from '../ChatSidebar/ChatSidebarChannel/ChatSidebarChannel';
@@ -9,6 +10,7 @@ function Channel({ name, description }: iChannels) {
   const { setActiveChannel } = useContext(ChannelContext) as IChannelContext;
   const { socket } = useContext(SocketContext) as ISocketContext;
   const { userData } = useContext(UserContext) as IUserContext;
+  const { setIsShowChannels } = useContext(SidebarContext) as ISidebarContext;
 
   const channelNameRef = useRef<HTMLParagraphElement>(null);
   const [thumbnailName, setThumbnailName] = useState('C');
@@ -37,6 +39,8 @@ function Channel({ name, description }: iChannels) {
     };
 
     socket.emit('join_channel', channelData);
+
+    setIsShowChannels(false);
   }
 
   return (

@@ -57,7 +57,7 @@ function createTables() {
     user_id INT NOT NULL,
     channel_id INT NOT NULL,
     message TEXT NOT NULL,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    date VARCHAR(45),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (channel_id) REFERENCES Channels(id)
   );
@@ -68,13 +68,6 @@ function createTables() {
     PRIMARY KEY (user_id, channel_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (channel_id) REFERENCES Channels(id)
-  );
-
-  CREATE TABLE IF NOT EXISTS UserRooms (
-    user_id INT NOT NULL,
-    room VARCHAR(255) NOT NULL,
-    PRIMARY KEY (user_id, room),
-    FOREIGN KEY (user_id) REFERENCES users(id)
   );
   `;
     return new Promise((resolve, reject) => {

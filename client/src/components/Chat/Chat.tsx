@@ -14,7 +14,7 @@ import { IUserContext, UserContext } from '../../contexts/UserContext';
 export interface iMsg {
   displayName: string;
   date: string;
-  img: string;
+  profilePic: string;
   message: string;
 }
 
@@ -32,10 +32,20 @@ function Chat() {
     const channelData = {
       name: activeChannel.name,
       userId: userData.userId,
-    }
+    };
 
     socket.emit('join_channel', channelData);
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    socket.on('messages_in_channel', (channelMessages: any) => {
+      setAllMessages(channelMessages);
+    });
+
+    return () => {
+      socket.off('messages_in_channel');
+    };
+  }, [activeChannel]);
 
   return (
     <section className="chat">

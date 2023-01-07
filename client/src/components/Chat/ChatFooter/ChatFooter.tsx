@@ -4,18 +4,18 @@ import SendIcon from '@mui/icons-material/Send';
 import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
 import { IUserContext, UserContext } from '../../../contexts/UserContext';
 import { iMsg } from '../Chat';
-
+import { ChannelContext, IChannelContext } from '../../../contexts/ChannelContext';
 
 interface iProps {
   setAllMessages: React.Dispatch<React.SetStateAction<iMsg[]>>;
 }
 
-function ChatFooter({setAllMessages}: iProps) {
+function ChatFooter({ setAllMessages }: iProps) {
   const { userData } = useContext(UserContext) as IUserContext;
   const { socket } = useContext(SocketContext) as ISocketContext;
+  const { activeChannel } = useContext(ChannelContext) as IChannelContext;
 
   const [message, setMessage] = useState('');
-
 
   function onSendMessage(e: any) {
     e.preventDefault();
@@ -23,10 +23,12 @@ function ChatFooter({setAllMessages}: iProps) {
     socket.emit('typing', '');
 
     const newMessage = {
+      userId: userData.id, //this is not the google id
       displayName: userData.displayName,
       date: new Date().toLocaleString(),
-      img: userData.profilePic,
+      profilePic: userData.profilePic,
       message: message,
+      channelName: activeChannel.name,
     };
 
     setAllMessages((prev) => [...prev, newMessage]);
