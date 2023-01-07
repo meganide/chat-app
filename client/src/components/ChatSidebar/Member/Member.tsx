@@ -9,6 +9,7 @@ function Member({displayName, profilePic}: iProps) {
     <article className="chat-sidebar__channel-member">
       <img src={profilePic} alt="" className="chat-sidebar__image" />
       <p className="chat-sidebar__username">{displayName}</p>
+      <div className="chat-sidebar__circle"></div>
     </article>
   );
 }
