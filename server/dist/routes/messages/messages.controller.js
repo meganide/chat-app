@@ -1,6 +1,9 @@
-import { saveMessage } from "../../models/messages.model.js";
+import { getMessages, saveMessage } from "../../models/messages.model.js";
 async function httpSaveMessage(msg) {
-    const resp = await saveMessage(msg);
-    console.log(resp);
+    await saveMessage(msg);
 }
-export { httpSaveMessage };
+async function httpGetMessages(channelData) {
+    const messages = await getMessages(channelData);
+    return messages;
+}
+export { httpSaveMessage, httpGetMessages };

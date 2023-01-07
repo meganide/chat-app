@@ -57,7 +57,7 @@ function createTables() {
     user_id INT NOT NULL,
     channel_id INT NOT NULL,
     message TEXT NOT NULL,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    date VARCHAR(45),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (channel_id) REFERENCES Channels(id)
   );

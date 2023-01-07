@@ -1,7 +1,7 @@
 import { io } from './server.js';
 import { httpSaveUserToChannel } from './routes/channels/channels.controller.js';
 import { httpGetMembers } from './routes/members/members.controller.js';
-import { httpSaveMessage } from './routes/messages/messages.controller.js';
+import { httpGetMessages, httpSaveMessage } from './routes/messages/messages.controller.js';
 function startSocket() {
     io.on('connection', async (socket) => {
         console.log('a user connected with id', socket.id);
@@ -19,6 +19,9 @@ function startSocket() {
             await httpSaveUserToChannel(channelData);
             const membersInChannel = await httpGetMembers(channelData);
             io.to(room).emit('members_in_channel', membersInChannel);
+            // Load messages in channel from DB
+            const messages = await httpGetMessages(channelData);
+            io.to(room).emit('messages_in_channel', messages);
         });
         socket.on('disconnect', () => {
             console.log('user with id', socket.id, 'has disconnected..');

@@ -26,7 +26,7 @@ function ChatFooter({ setAllMessages }: iProps) {
       userId: userData.id, //this is not the google id
       displayName: userData.displayName,
       date: new Date().toLocaleString(),
-      img: userData.profilePic,
+      profilePic: userData.profilePic,
       message: message,
       channelName: activeChannel.name,
     };

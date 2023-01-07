@@ -1,9 +1,13 @@
-import { saveMessage } from "../../models/messages.model.js";
-import { iMsg } from "../../socket.js";
+import { getMessages, saveMessage } from "../../models/messages.model.js";
+import { iChannelData, iMsg } from "../../socket.js";
 
 async function httpSaveMessage(msg: iMsg) {
-  const resp = await saveMessage(msg)
-  console.log(resp)
+  await saveMessage(msg)
 }
 
-export {httpSaveMessage}
+async function httpGetMessages(channelData: iChannelData) {
+  const messages = await getMessages(channelData);
+  return messages;
+}
+
+export {httpSaveMessage, httpGetMessages}
