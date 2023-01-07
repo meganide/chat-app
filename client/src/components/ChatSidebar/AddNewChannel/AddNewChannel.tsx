@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 
 import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContext';
 import './addnewchannel.css';
