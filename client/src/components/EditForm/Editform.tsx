@@ -59,7 +59,6 @@ function Editform() {
     };
 
     const response = await httpEditProfile(editedValues);
-    console.log(response);
 
     if (response?.resp?.ok) {
       httpIsAuthenticated(); //update profile

@@ -7,16 +7,15 @@ function startSocket() {
         let room = '';
         socket.on('typing', (data) => socket.to(room).emit('typingResponse', data));
         socket.on('message', (msg) => {
-            console.log(msg);
             socket.to(room).emit('message', msg);
+            console.log(msg);
+            // Todo: Save message to db!
         });
         socket.on('join_channel', async (channelData) => {
-            console.log("join channel");
             socket.leave(room);
             room = channelData.name;
             socket.join(room);
-            console.log("user joined", room);
-            httpSaveUserToChannel(channelData);
+            await httpSaveUserToChannel(channelData);
             const membersInChannel = await httpGetMembers(channelData);
             io.to(room).emit('members_in_channel', membersInChannel);
         });

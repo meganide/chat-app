@@ -25,7 +25,6 @@ function getChannels() {
     });
 }
 function saveUserToChannel(channelData) {
-    console.log("trying to save user to channel", channelData.name);
     const { name, userId } = channelData; // this userId is the googleId we need to convert to id
     const q = `
   INSERT IGNORE INTO UserChannelMapping(user_id, channel_id)

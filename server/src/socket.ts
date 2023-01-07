@@ -3,10 +3,12 @@ import { httpSaveUserToChannel } from './routes/channels/channels.controller.js'
 import { httpGetMembers } from './routes/members/members.controller.js';
 
 interface iMsg {
+  id: number;
   displayName: string;
   date: string;
   img: string;
   message: string;
+  channelName: string;
 }
 
 export interface iChannelData {
@@ -23,23 +25,22 @@ function startSocket() {
     socket.on('typing', (data: any) => socket.to(room).emit('typingResponse', data));
 
     socket.on('message', (msg: iMsg) => {
-      console.log(msg);
       socket.to(room).emit('message', msg);
+
+      console.log(msg)
+
+      // Todo: Save message to db!
     });
     
     socket.on('join_channel', async (channelData: iChannelData) => {
-      console.log("join channel")
       socket.leave(room);
       room = channelData.name;
       socket.join(room);
 
-      console.log("user joined", room)
-
-      httpSaveUserToChannel(channelData);
+      await httpSaveUserToChannel(channelData);
 
       const membersInChannel = await httpGetMembers(channelData);
       io.to(room).emit('members_in_channel', membersInChannel);
-
     });
 
     socket.on('disconnect', () => {
