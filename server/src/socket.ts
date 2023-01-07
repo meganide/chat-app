@@ -18,17 +18,28 @@ export interface iChannelData {
 }
 
 function startSocket() {
+  let onlineUsers: any = {}
+
   io.on('connection', async (socket: any) => {
     console.log('a user connected with id', socket.id);
 
     let room = ''
+
+    socket.on('add_online_user', (displayName: string) => {
+      console.log(`Socket ${socket.id} added with displayName ${displayName}.`);
+      onlineUsers[socket.id] = displayName;
+
+      console.log(onlineUsers)
+
+      io.emit('online_list', onlineUsers)
+
+    })
     
     socket.on('typing', (data: any) => socket.to(room).emit('typingResponse', data));
 
     socket.on('message', (msg: iMsg) => {
       socket.to(room).emit('message', msg);
 
-      // Todo: Save message to db!
       httpSaveMessage(msg)
     });
     
@@ -42,13 +53,15 @@ function startSocket() {
       const membersInChannel = await httpGetMembers(channelData);
       io.to(room).emit('members_in_channel', membersInChannel);
 
-      // Load messages in channel from DB
       const messages = await httpGetMessages(channelData)
       io.to(room).emit('messages_in_channel', messages)
     });
 
     socket.on('disconnect', () => {
       console.log('user with id', socket.id, 'has disconnected..');
+      delete onlineUsers[socket.id];
+      console.log('left', onlineUsers)
+      io.emit('online_list', onlineUsers)
       socket.leave(room);
     });
   });

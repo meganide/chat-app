@@ -58,7 +58,8 @@
 
 .chat-sidebar__channel-member {
   margin-bottom: 1rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: 42px 1fr 12px;
   gap: 1.75rem;
   align-items: center;
 }
@@ -80,6 +81,14 @@
   padding: 1.5rem 33px 1.5rem 33px;
   display: flex;
   align-items: center;
+}
+
+.chat-sidebar__circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  /* background-color: rgba(179, 5, 5, 0.356); */
+  /* background-color: rgba(0, 128, 0, 0.493); */
 }
 
 
