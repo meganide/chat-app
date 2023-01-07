@@ -1,9 +1,10 @@
 import { io } from './server.js';
 import { httpSaveUserToChannel } from './routes/channels/channels.controller.js';
 import { httpGetMembers } from './routes/members/members.controller.js';
+import { httpSaveMessage } from './routes/messages/messages.controller.js';
 
-interface iMsg {
-  id: number;
+export interface iMsg {
+  userId: number;
   displayName: string;
   date: string;
   img: string;
@@ -27,9 +28,8 @@ function startSocket() {
     socket.on('message', (msg: iMsg) => {
       socket.to(room).emit('message', msg);
 
-      console.log(msg)
-
       // Todo: Save message to db!
+      httpSaveMessage(msg)
     });
     
     socket.on('join_channel', async (channelData: iChannelData) => {

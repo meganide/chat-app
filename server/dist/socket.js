@@ -1,6 +1,7 @@
 import { io } from './server.js';
 import { httpSaveUserToChannel } from './routes/channels/channels.controller.js';
 import { httpGetMembers } from './routes/members/members.controller.js';
+import { httpSaveMessage } from './routes/messages/messages.controller.js';
 function startSocket() {
     io.on('connection', async (socket) => {
         console.log('a user connected with id', socket.id);
@@ -8,8 +9,8 @@ function startSocket() {
         socket.on('typing', (data) => socket.to(room).emit('typingResponse', data));
         socket.on('message', (msg) => {
             socket.to(room).emit('message', msg);
-            console.log(msg);
             // Todo: Save message to db!
+            httpSaveMessage(msg);
         });
         socket.on('join_channel', async (channelData) => {
             socket.leave(room);
