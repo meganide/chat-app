@@ -69,13 +69,6 @@ function createTables() {
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (channel_id) REFERENCES Channels(id)
   );
-
-  CREATE TABLE IF NOT EXISTS UserRooms (
-    user_id INT NOT NULL,
-    room VARCHAR(255) NOT NULL,
-    PRIMARY KEY (user_id, room),
-    FOREIGN KEY (user_id) REFERENCES users(id)
-  );
   `;
     return new Promise((resolve, reject) => {
         db.query(createTablesQuery, (err, results) => {
