@@ -4,8 +4,8 @@ import { iChannelData, iMsg } from '../socket.js';
 
 function saveMessage(msg: iMsg) {
   const q = `
-  INSERT INTO messages(user_id, channel_id, message, date)
-  SELECT ${mysql.escape(msg.userId)}, (SELECT id FROM channels WHERE name = ${mysql.escape(
+  INSERT INTO Messages(user_id, channel_id, message, date)
+  SELECT ${mysql.escape(msg.userId)}, (SELECT id FROM Channels WHERE name = ${mysql.escape(
     msg.channelName
   )}), ${mysql.escape(msg.message)}, ${mysql.escape(msg.date)}
   `;
