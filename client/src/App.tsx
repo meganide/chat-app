@@ -63,8 +63,8 @@ function App() {
   }, [socket]);
 
   useEffect(() => {
-    (isConnected && isAuthenticated) && socket.emit('add_online_user', userData.displayName);
-  }, [isConnected, isAuthenticated])
+    (isConnected && isAuthenticated && userData.displayName !== 'Name') && socket.emit('add_online_user', userData.displayName);
+  }, [isAuthenticated, isConnected])
 
   function RequireAuth({ children }: Props) {
     return isAuthenticated ? children : <Navigate to="/login" />;
