@@ -16,6 +16,10 @@ interface iMembers {
   profilePic: string;
 }
 
+interface iOnlineUsers {
+  [key: string]: string;
+}
+
 function ChatSidebarChannel() {
   const { socket } = useContext(SocketContext) as ISocketContext;
   const { isShowChannels } = useContext(SidebarContext) as ISidebarContext;
@@ -23,7 +27,7 @@ function ChatSidebarChannel() {
 
   const [channels, setChannels] = useState<iChannels[]>([]);
   const [members, setMembers] = useState<iMembers[]>([]);
-  const [allOnlineUsers, setAllOnlineUsers] = useState<any>({});
+  const [allOnlineUsers, setAllOnlineUsers] = useState<iOnlineUsers>({});
 
   useEffect(() => {
     async function getChannels() {

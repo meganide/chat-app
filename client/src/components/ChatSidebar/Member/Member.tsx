@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
 
 interface iProps {
@@ -16,38 +16,32 @@ function Member({ displayName, profilePic, allOnlineUsers, setAllOnlineUsers }: 
       'online_list',
       (onlineUsers: any) => {
         setAllOnlineUsers(onlineUsers);
-
-        // Object.values(onlineUsers).forEach((user) => {
-        //   if (user === displayName) {
-        //   }
-        // });
       },
       []
     );
-
-    console.log(allOnlineUsers);
-
     return () => {
       socket.off('online_list');
     };
-  }, []);
+  }, [allOnlineUsers, setAllOnlineUsers]);
 
   return (
     <article className="chat-sidebar__channel-member">
       <img src={profilePic} alt="" className="chat-sidebar__image" />
       <p className="chat-sidebar__username">{displayName}</p>
 
-      {Object.values(allOnlineUsers).map((user) => {
-        if (user === displayName) {
-          return (
-            <div
-              key={user}
-              className="chat-sidebar__circle"
-              style={{ backgroundColor: 'green' }}
-            ></div>
-          );
-        }
-      })}
+      {Object.values(allOnlineUsers).includes(displayName) ? (
+        <div
+          key={displayName}
+          className="chat-sidebar__circle"
+          style={{ backgroundColor: '#004e00' }}
+        ></div>
+      ) : (
+        <div
+          key={displayName}
+          className="chat-sidebar__circle"
+          style={{ backgroundColor: '#620505' }}
+        ></div>
+      )}
     </article>
   );
 }
