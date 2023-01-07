@@ -18,8 +18,8 @@ interface Props {
 }
 
 function App() {
-  const { isAuthenticated, httpIsAuthenticated } = useContext(UserContext) as IUserContext;
-  const { setIsConnected, setSocket, socket } = useContext(SocketContext) as ISocketContext;
+  const { isAuthenticated, httpIsAuthenticated, userData } = useContext(UserContext) as IUserContext;
+  const { isConnected, setIsConnected, setSocket, socket } = useContext(SocketContext) as ISocketContext;
 
   useEffect(() => {
     httpIsAuthenticated();
@@ -46,6 +46,8 @@ function App() {
         socket.on('connect', () => {
           console.log('connected as...', socket.id);
           setIsConnected(true);
+
+          // isAuthenticated && socket.emit('add_online_user', userData.displayName);
         });
 
         socket.on('disconnect', () => {
@@ -61,6 +63,10 @@ function App() {
 
     return connectSocket();
   }, [socket]);
+
+  useEffect(() => {
+    isConnected && socket.emit('add_online_user', userData.displayName);
+  }, [isConnected])
 
   function RequireAuth({ children }: Props) {
     return isAuthenticated ? children : <Navigate to="/login" />;
