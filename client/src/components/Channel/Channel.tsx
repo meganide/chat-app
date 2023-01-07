@@ -8,8 +8,8 @@ import './channel.css';
 function Channel({ name, description }: iChannels) {
   const { setActiveChannel } = useContext(ChannelContext) as IChannelContext;
   const { socket } = useContext(SocketContext) as ISocketContext;
-  const {userData} = useContext(UserContext) as IUserContext;
-  
+  const { userData } = useContext(UserContext) as IUserContext;
+
   const channelNameRef = useRef<HTMLParagraphElement>(null);
   const [thumbnailName, setThumbnailName] = useState('C');
 
@@ -34,12 +34,10 @@ function Channel({ name, description }: iChannels) {
     const channelData = {
       name,
       userId: userData.userId,
-    }
+    };
 
     socket.emit('join_channel', channelData);
-
   }
-  
 
   return (
     <article className="channel" onClick={handleJoinChannel}>
