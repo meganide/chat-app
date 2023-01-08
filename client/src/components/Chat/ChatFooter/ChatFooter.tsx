@@ -20,30 +20,38 @@ function ChatFooter({ setAllMessages }: iProps) {
   function onSendMessage(e: any) {
     e.preventDefault();
 
-    socket.emit('typing', '');
+    if (message.length > 0) {
+      socket.emit('typing', '');
 
-    const newMessage = {
-      userId: userData.id, //this is not the google id
-      displayName: userData.displayName,
-      date: new Date().toLocaleString(),
-      profilePic: userData.profilePic,
-      message: message,
-      channelName: activeChannel.name,
-    };
+      const newMessage = {
+        userId: userData.id, //this is not the google id
+        displayName: userData.displayName,
+        date: new Date().toLocaleString(),
+        profilePic: userData.profilePic,
+        message: message,
+        channelName: activeChannel.name,
+      };
 
-    setAllMessages((prev) => [...prev, newMessage]);
+      setAllMessages((prev) => [...prev, newMessage]);
 
-    socket.emit('message', newMessage);
+      socket.emit('message', newMessage);
 
-    setMessage('');
+      setMessage('');
+    }
   }
 
   function handleTyping() {
     socket.emit('typing', `${userData.displayName} is typing...`);
   }
 
+  function handleOnKeyDown(e: any) {
+    if (e.key === 'Enter' && e.shiftKey === false) {
+      onSendMessage(e);
+    }
+  }
+
   return (
-    <form className="chat__send" onSubmit={onSendMessage}>
+    <form className="chat__send" onSubmit={onSendMessage} onKeyDown={handleOnKeyDown}>
       <textarea
         name="message"
         id="message"
@@ -53,6 +61,7 @@ function ChatFooter({ setAllMessages }: iProps) {
         onKeyDown={handleTyping}
         minLength={1}
         required
+        autoFocus
       ></textarea>
       <button id="send">
         <SendIcon style={{ color: 'white' }} />
