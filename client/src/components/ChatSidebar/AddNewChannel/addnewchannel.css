@@ -39,7 +39,8 @@
 }
 
 #channel-name,
-#channel-desc {
+#channel-desc,
+.input {
   background: #3C393F;
   border-radius: 8px;
   color: #828282;
