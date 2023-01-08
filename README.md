@@ -23,6 +23,7 @@
   focus chat input automatically
   add tests
   show if user is online or not
+  add functionality to search for a channel
 
 <!-- Please update value in the {}  -->
 
