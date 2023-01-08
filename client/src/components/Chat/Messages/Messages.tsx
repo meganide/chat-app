@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState, useContext } from 'react';
+import { ChannelContext, IChannelContext } from '../../../contexts/ChannelContext';
 
 import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
 import { iMsg } from '../Chat';
@@ -11,8 +12,9 @@ interface iProps {
 
 function Messages({ allMessages, setAllMessages }: iProps) {
   const { socket } = useContext(SocketContext) as ISocketContext;
+  const { typingStatus, setTypingStatus } = useContext(ChannelContext) as IChannelContext;
 
-  const [typingStatus, setTypingStatus] = useState<undefined | string>('');
+
   const lastMessageRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {

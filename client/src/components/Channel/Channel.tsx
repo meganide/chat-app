@@ -7,7 +7,7 @@ import { iChannels } from '../ChatSidebar/ChatSidebarChannel/ChatSidebarChannel'
 import './channel.css';
 
 function Channel({ name, description }: iChannels) {
-  const { setActiveChannel } = useContext(ChannelContext) as IChannelContext;
+  const { setActiveChannel, setTypingStatus } = useContext(ChannelContext) as IChannelContext;
   const { socket } = useContext(SocketContext) as ISocketContext;
   const { userData } = useContext(UserContext) as IUserContext;
   const { setIsShowChannels } = useContext(SidebarContext) as ISidebarContext;
@@ -32,6 +32,8 @@ function Channel({ name, description }: iChannels) {
       name,
       description,
     });
+
+    setTypingStatus('');
 
     const channelData = {
       name,
