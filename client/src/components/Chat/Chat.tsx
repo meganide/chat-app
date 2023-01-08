@@ -38,7 +38,14 @@ function Chat() {
   }, []);
 
   useEffect(() => {
-    socket.on('messages_in_channel', (channelMessages: any) => {
+    socket.on('messages_in_channel', (channelMessages: iMsg[]) => {
+      channelMessages.sort((a, b) => {
+        const aDate = new Date(a.date).getTime();
+        const bDate = new Date(b.date).getTime();
+
+        return aDate - bDate;
+      });
+
       setAllMessages(channelMessages);
     });
 
