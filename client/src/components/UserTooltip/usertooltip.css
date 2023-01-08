@@ -1,0 +1,13 @@
+.usertooltip__close {
+  align-items: flex-end;
+}
+
+.usertooltip__top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.usertooltip p{
+  margin: 0;
+}

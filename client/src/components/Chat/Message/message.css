@@ -19,9 +19,14 @@
   color: #828282;
 }
 
+.message_username-container {
+  position: relative;
+}
+
 .message_username {
   font-weight: 700;
   font-size: 18px;
+  cursor: pointer;
 }
 
 .message__date {
