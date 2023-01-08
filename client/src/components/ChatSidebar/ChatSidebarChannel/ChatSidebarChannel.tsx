@@ -3,8 +3,8 @@ import { ChannelContext, IChannelContext } from '../../../contexts/ChannelContex
 
 import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContext';
 import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
-import Channel from '../../Channel/Channel';
-import Member from '../Member/Member';
+import Channels from '../Channels/Channels';
+import Members from '../Members/Members';
 import './chatsidebarchannel.css';
 
 export interface iChannels {
@@ -12,12 +12,12 @@ export interface iChannels {
   description: string;
 }
 
-interface iMembers {
+export interface iMembers {
   displayName: string;
   profilePic: string;
 }
 
-interface iOnlineUsers {
+export interface iOnlineUsers {
   [key: string]: string;
 }
 
@@ -29,7 +29,6 @@ function ChatSidebarChannel() {
   const [channels, setChannels] = useState<iChannels[]>([]);
   const [members, setMembers] = useState<iMembers[]>([]);
   const [allOnlineUsers, setAllOnlineUsers] = useState<iOnlineUsers>({});
-  const [searchChannelQuery, setSearchChannelQuery] = useState('');
 
   useEffect(() => {
     async function getChannels() {
@@ -77,50 +76,13 @@ function ChatSidebarChannel() {
         {!isShowChannels && <h2 className="chat-sidebar__channel-members-title">Members</h2>}
         <section className="chat-sidebar__channel-members">
           {!isShowChannels ? (
-            <>
-              {members &&
-                members.map((member) => {
-                  return (
-                    <Member
-                      key={crypto.randomUUID()}
-                      displayName={member.displayName}
-                      profilePic={member.profilePic}
-                      setAllOnlineUsers={setAllOnlineUsers}
-                      allOnlineUsers={allOnlineUsers}
-                    />
-                  );
-                })}
-            </>
+            <Members
+              members={members}
+              setAllOnlineUsers={setAllOnlineUsers}
+              allOnlineUsers={allOnlineUsers}
+            />
           ) : (
-            <>
-              <input
-                className="channel-input input"
-                type="text"
-                placeholder="Search for a channel..."
-                value={searchChannelQuery}
-                onChange={(e) => setSearchChannelQuery(e.target.value)}
-              />
-              {channels &&
-                channels
-                  .filter((channel) => {
-                    if (searchChannelQuery === '') {
-                      return channel;
-                    } else if (
-                      channel.name.toLowerCase().includes(searchChannelQuery.toLowerCase())
-                    ) {
-                      return channel;
-                    }
-                  })
-                  .map((channel) => {
-                    return (
-                      <Channel
-                        key={crypto.randomUUID()}
-                        name={channel.name}
-                        description={channel.description}
-                      />
-                    );
-                  })}
-            </>
+            <Channels channels={channels} setChannels={setChannels} />
           )}
         </section>
       </section>
