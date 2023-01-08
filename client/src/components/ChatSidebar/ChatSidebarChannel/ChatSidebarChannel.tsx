@@ -5,6 +5,7 @@ import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContex
 import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
 import Channel from '../../Channel/Channel';
 import Member from '../Member/Member';
+import './chatsidebarchannel.css';
 
 export interface iChannels {
   name: string;
@@ -28,6 +29,7 @@ function ChatSidebarChannel() {
   const [channels, setChannels] = useState<iChannels[]>([]);
   const [members, setMembers] = useState<iMembers[]>([]);
   const [allOnlineUsers, setAllOnlineUsers] = useState<iOnlineUsers>({});
+  const [searchChannelQuery, setSearchChannelQuery] = useState('');
 
   useEffect(() => {
     async function getChannels() {
@@ -53,7 +55,6 @@ function ChatSidebarChannel() {
     };
   }, [channels]);
 
-
   useEffect(() => {
     socket.on('members_in_channel', (members: iMembers[]) => {
       setMembers(members);
@@ -63,9 +64,6 @@ function ChatSidebarChannel() {
       socket.off('members_in_channel');
     };
   }, [activeChannel, setActiveChannel]);
-
-
-
 
   return (
     <section className="chat-sidebar__channel">
@@ -95,16 +93,33 @@ function ChatSidebarChannel() {
             </>
           ) : (
             <>
+              <input
+                className="channel-input input"
+                type="text"
+                placeholder="Search for a channel..."
+                value={searchChannelQuery}
+                onChange={(e) => setSearchChannelQuery(e.target.value)}
+              />
               {channels &&
-                channels.map((channel) => {
-                  return (
-                    <Channel
-                      key={crypto.randomUUID()}
-                      name={channel.name}
-                      description={channel.description}
-                    />
-                  );
-                })}
+                channels
+                  .filter((channel) => {
+                    if (searchChannelQuery === '') {
+                      return channel;
+                    } else if (
+                      channel.name.toLowerCase().includes(searchChannelQuery.toLowerCase())
+                    ) {
+                      return channel;
+                    }
+                  })
+                  .map((channel) => {
+                    return (
+                      <Channel
+                        key={crypto.randomUUID()}
+                        name={channel.name}
+                        description={channel.description}
+                      />
+                    );
+                  })}
             </>
           )}
         </section>

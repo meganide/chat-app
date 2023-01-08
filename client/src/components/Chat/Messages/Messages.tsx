@@ -14,7 +14,6 @@ function Messages({ allMessages, setAllMessages }: iProps) {
   const { socket } = useContext(SocketContext) as ISocketContext;
   const { typingStatus, setTypingStatus } = useContext(ChannelContext) as IChannelContext;
 
-
   const lastMessageRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
@@ -33,7 +32,7 @@ function Messages({ allMessages, setAllMessages }: iProps) {
       block: 'end',
       inline: 'nearest',
     });
-  }, [allMessages, typingStatus]);
+  }, [allMessages, setAllMessages, typingStatus]);
 
   useEffect(() => {
     socket.on('typingResponse', (data: string) => setTypingStatus(data));
