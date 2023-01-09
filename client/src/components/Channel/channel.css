@@ -12,6 +12,10 @@
   color: #BDBDBD;
 }
 
+.channel p:hover {
+  text-decoration: underline;
+}
+
 .channel_thumbnail {
   background: #252329;
   border-radius: 8px;
