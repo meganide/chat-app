@@ -3,6 +3,7 @@ import crypto from 'crypto';
 
 import { db } from '../services/database.js';
 import { cloudinaryV2 } from '../services/cloudinary.js';
+import { resourceLimits } from 'worker_threads';
 
 interface iValues {
   profilePic?: any;
@@ -112,38 +113,58 @@ function findUser(email: string, password: string, done: any) {
     if (results[0].password !== password) {
       return done(null, false);
     }
-    console.log('results[0] in findUser', results[0])
+    console.log('results[0] in findUser', results[0]);
     return done(null, results[0]);
   });
 }
 
 function register(req: any, res: any, user: any) {
   const q = `
-  INSERT IGNORE INTO users (userId, displayName, email, password, profilePic, provider) VALUES (?)
+  SELECT * FROM users WHERE email = ? OR displayName = ?
   `;
-  const userId = generateRandomNumberString(25);
-  const values = [
-    userId,
-    user?.displayName,
-    user?.email,
-    user?.password,
-    'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-    'local',
-  ];
+  const values = [user.email, user.displayName];
 
-  return db.query(q, [values], (err, results) => {
+  db.query(q, values, (err, results: any) => {
     if (err) {
       console.log(err);
-    } else {
-      req.login(user, function (err: any) {
+      return res.sendStatus(500);
+    }
+
+    if (results.length > 0) {
+      return res.sendStatus(400);
+    }
+
+    const insertQ = `
+    INSERT IGNORE INTO users (userId, displayName, email, password, profilePic, provider) VALUES (?)
+    `;
+    const userId = generateRandomNumberString(25);
+    const insertValues = [
+      userId,
+      user?.displayName,
+      user?.email,
+      user?.password,
+      'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+      'local',
+    ];
+
+
+    return db.query(insertQ, [insertValues], (insertErr, insertResults) => {
+      if (insertErr) {
+        console.log(insertErr);
+        return res.sendStatus(500);
+      }
+
+      return req.login(user, function (err: any) {
         if (err) {
           console.log(err);
+          return res.sendStatus(500);
         }
-        console.log('req.user', req.user)
-        console.log('redirect')
-        return res.redirect('/');
+
+        console.log('req.user', req.user);
+        console.log('redirect');
+        res.redirect('/');
       });
-    }
+    });
   });
 }
 
@@ -156,20 +177,19 @@ function generateRandomNumberString(length: number) {
 }
 
 function getUserId(email: string) {
-  const q = 
-  `
+  const q = `
   SELECT userId FROM users WHERE email = ${mysql.escape(email)};
-  `
+  `;
 
   return new Promise((resolve, reject) => {
     db.query(q, (err, results) => {
       if (err) {
-        console.log(err)
-        reject(err)
+        console.log(err);
+        reject(err);
       }
-      resolve(results)
-    })
-  })
+      resolve(results);
+    });
+  });
 }
 
 export { editProfile, uploadImageToCloudinary, getUserProfile, findUser, register, getUserId };

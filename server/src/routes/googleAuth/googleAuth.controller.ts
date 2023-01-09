@@ -80,7 +80,9 @@ function httpRegister(req: any, res: any) {
     password: req.body.password,
   };
 
-  register(req, res, user);
+  const answer = register(req, res, user);
+  console.log('register', answer)
+  return answer;
 }
 
 async function httpGetUserId(email: string) {

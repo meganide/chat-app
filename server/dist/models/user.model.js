@@ -94,31 +94,44 @@ function findUser(email, password, done) {
 }
 function register(req, res, user) {
     const q = `
-  INSERT IGNORE INTO users (userId, displayName, email, password, profilePic, provider) VALUES (?)
+  SELECT * FROM users WHERE email = ? OR displayName = ?
   `;
-    const userId = generateRandomNumberString(25);
-    const values = [
-        userId,
-        user?.displayName,
-        user?.email,
-        user?.password,
-        'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-        'local',
-    ];
-    return db.query(q, [values], (err, results) => {
+    const values = [user.email, user.displayName];
+    db.query(q, values, (err, results) => {
         if (err) {
             console.log(err);
+            return res.sendStatus(500);
         }
-        else {
-            req.login(user, function (err) {
+        if (results.length > 0) {
+            return res.sendStatus(400);
+        }
+        const insertQ = `
+    INSERT IGNORE INTO users (userId, displayName, email, password, profilePic, provider) VALUES (?)
+    `;
+        const userId = generateRandomNumberString(25);
+        const insertValues = [
+            userId,
+            user?.displayName,
+            user?.email,
+            user?.password,
+            'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+            'local',
+        ];
+        return db.query(insertQ, [insertValues], (insertErr, insertResults) => {
+            if (insertErr) {
+                console.log(insertErr);
+                return res.sendStatus(500);
+            }
+            return req.login(user, function (err) {
                 if (err) {
                     console.log(err);
+                    return res.sendStatus(500);
                 }
                 console.log('req.user', req.user);
                 console.log('redirect');
-                return res.redirect('/');
+                res.redirect('/');
             });
-        }
+        });
     });
 }
 function generateRandomNumberString(length) {
