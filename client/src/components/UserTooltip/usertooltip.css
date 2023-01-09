@@ -1,7 +1,7 @@
 .usertooltip {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 40%;
   margin-left: calc(-25%);
   margin-top: -11.25rem;
   background: #120F13;
@@ -39,14 +39,15 @@
   border-radius: 7px;
 }
 
-.usertooltip p{
-  margin: 0;
-}
 
 .usertooltip__info {
   display: grid;
   grid-template-columns: 150px 1fr;
   row-gap: 1rem;
+}
+
+.usertooltip__button {
+  margin-top: 1rem;
 }
 
 @media screen and (max-width: 1000px) {

@@ -4,6 +4,7 @@ import './usertooltip.css';
 import CloseIcon from '@mui/icons-material/Close';
 import Overlay from '../Overlay/Overlay';
 import { ISidebarContext, SidebarContext } from '../../contexts/SidebarContext';
+import ProfileRow from '../ProfileForm/ProfileRow/ProfileRow';
 
 interface iUserProfile {
   bio: null | string;
@@ -16,7 +17,14 @@ function Usertooltip() {
     SidebarContext
   ) as ISidebarContext;
 
-  const [userProfile, setUserProfile] = useState<iUserProfile | null>(null)
+  const [userProfile, setUserProfile] = useState<iUserProfile | null>(null);
+
+  const rowInfo = {
+    photo: userProfile?.profilePic || '../public/images/icons/avatar.png',
+    name: clickedOnUser,
+    bio: userProfile?.bio || 'No bio assigned...',
+    registered: userProfile?.timeCreated || '',
+  };
 
   useEffect(() => {
     async function getUserProfile() {
@@ -24,8 +32,8 @@ function Usertooltip() {
         const resp = await fetch('/api/user/profile/' + clickedOnUser);
         const data = await resp.json();
 
-        data[0].timeCreated = new Date(data[0].timeCreated).toLocaleDateString()
-        setUserProfile(data[0])
+        data[0].timeCreated = new Date(data[0].timeCreated).toLocaleDateString();
+        setUserProfile(data[0]);
       } catch (error) {
         console.log(error);
       }
@@ -42,20 +50,10 @@ function Usertooltip() {
             className="usertooltip__close-icon"
             onClick={() => setShowUserTooltip(false)}
           />
-          <section className="usertooltip__top">
-            <img
-              src={userProfile?.profilePic}
-              alt=""
-            />
-            <p>{clickedOnUser}</p>
-          </section>
-          <section className="usertooltip__info">
-            <p>Bio:</p>
-            <p> {userProfile?.bio || 'No bio assigned...'}</p>
-            <p>Member since:</p>
-            <p>{userProfile?.timeCreated}</p>
-          </section>
-          <button className='add-channel__submit'>Send Private Message</button>
+          {Object.entries(rowInfo).map(([key, value]) => {
+            return <ProfileRow key={crypto.randomUUID()} keys={key} value={value} />;
+          })}
+          <button className="usertooltip__button add-channel__submit">Send Private Message</button>
         </aside>
       </Overlay>
     );
