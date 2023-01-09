@@ -1,6 +1,7 @@
 import mysql from 'mysql2';
 import { db } from '../services/database.js';
 function saveMessage(msg) {
+    console.log(msg);
     const q = `
   INSERT INTO Messages(user_id, channel_id, message, date)
   SELECT ${mysql.escape(msg.userId)}, (SELECT id FROM Channels WHERE name = ${mysql.escape(msg.channelName)}), ${mysql.escape(msg.message)}, ${mysql.escape(msg.date)}

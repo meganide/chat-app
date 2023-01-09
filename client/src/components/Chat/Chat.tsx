@@ -14,7 +14,7 @@ import Usertooltip from '../UserTooltip/Usertooltip';
 
 export interface iMsg {
   displayName: string;
-  date: string;
+  date: number | string;
   profilePic: string;
   message: string;
 }
@@ -41,10 +41,13 @@ function Chat() {
   useEffect(() => {
     socket.on('messages_in_channel', (channelMessages: iMsg[]) => {
       channelMessages.sort((a, b) => {
-        const aDate = new Date(a.date).getTime();
-        const bDate = new Date(b.date).getTime();
+        // const aDate = new Date(a.date).getTime();
+        // const bDate = new Date(b.date).getTime();
+        return (a.date as number) - (b.date as number);
+      });
 
-        return aDate - bDate;
+      channelMessages.forEach((message) => {
+        message.date = new Date(message.date).toLocaleString();
       });
 
       setAllMessages(channelMessages);

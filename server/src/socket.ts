@@ -6,7 +6,7 @@ import { httpGetMessages, httpSaveMessage } from './routes/messages/messages.con
 export interface iMsg {
   userId: number;
   displayName: string;
-  date: string;
+  date: number;
   img: string;
   message: string;
   channelName: string;
@@ -38,6 +38,7 @@ function startSocket() {
     socket.on('typing', (data: any) => socket.to(room).emit('typingResponse', data));
 
     socket.on('message', (msg: iMsg) => {
+      console.log('message in socket', msg)
       socket.to(room).emit('message', msg);
 
       httpSaveMessage(msg)
