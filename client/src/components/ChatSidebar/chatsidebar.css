@@ -65,6 +65,10 @@
   cursor: pointer;
 }
 
+.chat-sidebar__channel-member:hover {
+  text-decoration: underline;
+}
+
 .chat-sidebar__image {
   width: 42px;
   height: 42px;

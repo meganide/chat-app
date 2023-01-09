@@ -30,6 +30,10 @@
   cursor: pointer;
 }
 
+.message_username:hover {
+  text-decoration: underline;
+}
+
 .message__date {
   font-size: .875rem;
 }
