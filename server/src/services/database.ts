@@ -62,7 +62,7 @@ function createTables() {
     user_id INT NOT NULL,
     channel_id INT NOT NULL,
     message TEXT NOT NULL,
-    date VARCHAR(45),
+    date BIGINT,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (channel_id) REFERENCES Channels(id)
   );

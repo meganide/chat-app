@@ -10,6 +10,15 @@ interface iProps {
   setAllMessages: React.Dispatch<React.SetStateAction<iMsg[]>>;
 }
 
+interface iNewMessage {
+  userId: number;
+  displayName: string;
+  date: number | string;
+  profilePic: string;
+  message: string;
+  channelName: string;
+}
+
 function ChatFooter({ setAllMessages }: iProps) {
   const { userData } = useContext(UserContext) as IUserContext;
   const { socket } = useContext(SocketContext) as ISocketContext;
@@ -23,18 +32,23 @@ function ChatFooter({ setAllMessages }: iProps) {
     if (message.length > 0) {
       socket.emit('typing', '');
 
-      const newMessage = {
+      const utcTimestamp = Date.now();
+
+      const newMessage: iNewMessage = {
         userId: userData.id, //this is not the google id
         displayName: userData.displayName,
-        date: new Date().toLocaleString(),
+        date: utcTimestamp,
         profilePic: userData.profilePic,
         message: message,
         channelName: activeChannel.name,
       };
 
+      socket.emit('message', newMessage);
+      
+      newMessage.date = new Date(newMessage.date).toLocaleString();
+
       setAllMessages((prev) => [...prev, newMessage]);
 
-      socket.emit('message', newMessage);
 
       setMessage('');
     }

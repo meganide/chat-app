@@ -3,6 +3,7 @@ import { db } from '../services/database.js';
 import { iChannelData, iMsg } from '../socket.js';
 
 function saveMessage(msg: iMsg) {
+  console.log(msg)
   const q = `
   INSERT INTO Messages(user_id, channel_id, message, date)
   SELECT ${mysql.escape(msg.userId)}, (SELECT id FROM Channels WHERE name = ${mysql.escape(

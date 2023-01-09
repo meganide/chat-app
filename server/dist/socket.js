@@ -15,6 +15,7 @@ function startSocket() {
         });
         socket.on('typing', (data) => socket.to(room).emit('typingResponse', data));
         socket.on('message', (msg) => {
+            console.log('message in socket', msg);
             socket.to(room).emit('message', msg);
             httpSaveMessage(msg);
         });
