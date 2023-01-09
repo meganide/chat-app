@@ -60,7 +60,6 @@ Overall, the process of developing the Chatify app was a fulfilling learning exp
 - Search for a channel
 - See online status of users
 - View user profiles
-- Chat and have fun 🐈
 
 ## How To Use
 
