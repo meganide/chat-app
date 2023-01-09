@@ -6,7 +6,11 @@ import { IUserContext, UserContext } from '../../contexts/UserContext';
 import { iChannels } from '../ChatSidebar/ChatSidebarChannel/ChatSidebarChannel';
 import './channel.css';
 
-function Channel({ name, description }: iChannels) {
+interface iProps extends iChannels {
+  setSearchChannelQuery: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function Channel({ name, description, setSearchChannelQuery }: iProps) {
   const { setActiveChannel, setTypingStatus } = useContext(ChannelContext) as IChannelContext;
   const { socket } = useContext(SocketContext) as ISocketContext;
   const { userData } = useContext(UserContext) as IUserContext;
@@ -34,6 +38,8 @@ function Channel({ name, description }: iChannels) {
     });
 
     setTypingStatus('');
+    setSearchChannelQuery('')
+
 
     const channelData = {
       name,

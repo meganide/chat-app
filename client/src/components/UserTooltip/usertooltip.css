@@ -1,0 +1,63 @@
+.usertooltip {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  margin-left: calc(-25%);
+  margin-top: -11.25rem;
+  background: #120F13;
+  border-radius: 24px;
+  padding: 2.1875rem 2.75rem;
+  width: 50%;
+  height: 50%;
+  max-width: 41rem;
+  max-height: 22.5rem;
+  z-index: 50000;
+  display: flex;
+  flex-direction: column;
+  z-index: 500000000000000000;
+  overflow: auto;
+  max-height: 95%;
+  height: auto;
+}
+
+.usertooltip__close-icon {
+  display:flex;
+  align-self: flex-end;
+  color: #F2F2F2;
+  cursor: pointer;
+}
+
+.usertooltip__top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.usertooltip__top img {
+  width: 42px;
+  height: 42px;
+  border-radius: 7px;
+}
+
+
+.usertooltip__info {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  row-gap: 1rem;
+}
+
+.usertooltip__button {
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .usertooltip {
+    width: 95%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 2.1875rem 1.5rem;
+  }
+  
+}
