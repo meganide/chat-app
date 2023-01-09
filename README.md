@@ -27,13 +27,17 @@
 ## Overview
 
 ![screenshot](https://i.gyazo.com/d0e290cf4c80ef9a3536c97d8ea1b883.png)
+![screenshot](https://i.gyazo.com/1902cc030ae9e40a53e99e8a64d5fc5d.png)
+![screenshot](https://i.gyazo.com/fac116c4519dc7651ec9861dc50c2376.png)
 
-Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
 
-- Where can I see your demo?
-- What was your experience?
-- What have you learned/improved?
-- Your wisdom? :)
+Building the Chatify app was a challenging but rewarding experience. One of the main obstacles I encountered was implementing secure user authentication and authorization. I had to learn about best practices for storing and encrypting passwords, as well as techniques for protecting user data.
+
+Throughout the development process, I gained valuable skills and insights. I learned about efficient database design and optimization techniques, as well as the importance of creating a user-friendly interface using React. I also discovered the importance of implementing real-time communication using Socket.IO.
+
+I realized that building a full-stack application requires a diverse set of skills and technologies, and that it is essential to constantly learn and adapt to new tools and best practices. In addition, I learned the value of thorough testing and debugging to ensure that the app is reliable and performs optimally.
+
+Overall, the process of developing the Chatify app was a fulfilling learning experience that has helped me grow as a developer. It has also provided me with wisdom and insights that I can apply to future projects.
 
 ### Built With
 
