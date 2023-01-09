@@ -1,4 +1,9 @@
-import { editProfile, uploadImageToCloudinary } from '../../models/user.model.js';
+import { editProfile, getUserProfile, uploadImageToCloudinary } from '../../models/user.model.js';
+async function httpGetUserProfile(req, res) {
+    const displayName = req.params.displayName;
+    const userProfile = await getUserProfile(displayName);
+    return res.status(200).json(userProfile);
+}
 async function updateProfile(req, res) {
     const userId = req.user;
     if (req.params.userId === userId) {
@@ -25,4 +30,4 @@ async function httpUploadImage(req, res) {
             .json({ message: 'Successfully uploaded image!', url: response?.secure_url });
     }
 }
-export { updateProfile, httpUploadImage };
+export { updateProfile, httpUploadImage, httpGetUserProfile };

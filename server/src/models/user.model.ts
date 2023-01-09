@@ -9,6 +9,23 @@ interface iValues {
   bio?: string;
 }
 
+function getUserProfile(displayName: string) {
+  const q = `
+  SELECT profilePic, bio, timeCreated FROM users WHERE displayName = ${mysql.escape(displayName)}
+  `;
+
+  return new Promise((resolve, reject) => {
+    db.query(q, (err, results) => {
+      if (err) {
+        console.log(err);
+        reject(err);
+      }
+
+      resolve(results);
+    });
+  });
+}
+
 function editProfile(userId: string, values: iValues) {
   let promises = [];
 
@@ -79,4 +96,4 @@ async function uploadImageToCloudinary(userId: string, fileStr: string) {
   }
 }
 
-export { editProfile, uploadImageToCloudinary };
+export { editProfile, uploadImageToCloudinary, getUserProfile };

@@ -1,4 +1,12 @@
-import { editProfile, uploadImageToCloudinary } from '../../models/user.model.js';
+import { editProfile, getUserProfile, uploadImageToCloudinary } from '../../models/user.model.js';
+
+async function httpGetUserProfile(req: any, res: any) {
+  const displayName = req.params.displayName;
+
+  const userProfile = await getUserProfile(displayName);
+
+  return res.status(200).json(userProfile);
+}
 
 async function updateProfile(req: any, res: any) {
   const userId: string = req.user;
@@ -30,4 +38,4 @@ async function httpUploadImage(req: any, res: any) {
   }
 }
 
-export { updateProfile, httpUploadImage };
+export { updateProfile, httpUploadImage, httpGetUserProfile };

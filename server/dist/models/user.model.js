@@ -1,6 +1,20 @@
 import mysql from 'mysql2';
 import { db } from '../services/database.js';
 import { cloudinaryV2 } from '../services/cloudinary.js';
+function getUserProfile(displayName) {
+    const q = `
+  SELECT profilePic, bio, timeCreated FROM users WHERE displayName = ${mysql.escape(displayName)}
+  `;
+    return new Promise((resolve, reject) => {
+        db.query(q, (err, results) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            resolve(results);
+        });
+    });
+}
 function editProfile(userId, values) {
     let promises = [];
     for (const property in values) {
@@ -59,4 +73,4 @@ async function uploadImageToCloudinary(userId, fileStr) {
         return 'Error';
     }
 }
-export { editProfile, uploadImageToCloudinary };
+export { editProfile, uploadImageToCloudinary, getUserProfile };
