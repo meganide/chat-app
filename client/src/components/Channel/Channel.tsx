@@ -24,7 +24,11 @@ function Channel({ name, description, setSearchChannelQuery }: iProps) {
       const firstLetters =
         channelNameRef.current?.innerText
           .split(' ')
-          .map((word) => word[0])
+          .map((word, index) => {
+            if (index < 3) {
+              return word[0]
+            }
+          })
           .join('') || 'C';
 
       setThumbnailName(firstLetters);
@@ -38,8 +42,7 @@ function Channel({ name, description, setSearchChannelQuery }: iProps) {
     });
 
     setTypingStatus('');
-    setSearchChannelQuery('')
-
+    setSearchChannelQuery('');
 
     const channelData = {
       name,
