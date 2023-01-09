@@ -1,41 +1,10 @@
 # Chatify - In Progress!
-
-# TO-DO:
-- Add dynamic user page to view other user profiles
-- Add the chat:
-  
-  User story: By default, I am in the Welcome channel
-  
-  User story: I can create a new channel with a name and a description
-  
-  User story: I can select a channel of my choice
-  
-  User story: When I can select a channel, I am added as a member of the channel
-  
-  User story: I can see a member of the channel
-  
-  User story: I can send a message
-  
-  User story: I can see other people's messages
-  
-  User story(optional): I can search for a group
-  
-  focus chat input automatically
-  
-  add tests
-  
-  show if user is online or not
-  
-  add functionality to search for a channel
-
-<!-- Please update value in the {}  -->
-
 <h1 align="center">Chatify</h1>
 
 <div align="center">
   <h3>
     <a href="https://chatify-k8cb.onrender.com/">
-      Demo
+      Link to live website!
     </a>
   </h3>
 </div>
@@ -55,7 +24,7 @@
 
 ## Overview
 
-![screenshot](https://user-images.githubusercontent.com/16707738/92399059-5716eb00-f132-11ea-8b14-bcacdc8ec97b.png)
+![screenshot](https://i.gyazo.com/d0e290cf4c80ef9a3536c97d8ea1b883.png)
 
 Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
 
