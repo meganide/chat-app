@@ -24,7 +24,7 @@
 
 ## Overview
 
-![screenshot]([https://i.gyazo.com/d0e290cf4c80ef9a3536c97d8ea1b883.png](https://i.gyazo.com/65eef90bf27fb8d12015db385ae5d70a.mp4))
+![screenshot](https://i.gyazo.com/65eef90bf27fb8d12015db385ae5d70a.mp4)
 
 Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
 
