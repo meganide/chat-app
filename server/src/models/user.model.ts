@@ -3,7 +3,7 @@ import crypto from 'crypto';
 
 import { db } from '../services/database.js';
 import { cloudinaryV2 } from '../services/cloudinary.js';
-import { resourceLimits } from 'worker_threads';
+import { verifyPassword } from '../routes/googleAuth/googleAuth.controller.js';
 
 interface iValues {
   profilePic?: any;
@@ -103,16 +103,19 @@ function findUser(email: string, password: string, done: any) {
   SELECT * FROM users WHERE email = ${mysql.escape(email)}
   `;
 
-  return db.query(q, (err, results: any) => {
+  return db.query(q, async (err, results: any) => {
     if (err) {
       return done(err);
     }
     if (!results.length) {
-      console.log('didnt find any users')
+      console.log('didnt find any users');
       return done(null, false);
     }
-    if (results[0].password !== password) {
-      console.log('pw doesnt match')
+
+    const isMatched = await verifyPassword(password, results[0].password)
+
+    if (!isMatched) {
+      console.log('pw doesnt match');
       return done(null, false);
     }
     console.log('results[0] in findUser', results[0]);
@@ -149,7 +152,6 @@ function register(req: any, res: any, user: any) {
       'local',
     ];
 
-
     return db.query(insertQ, [insertValues], (insertErr, insertResults) => {
       if (insertErr) {
         console.log(insertErr);
@@ -157,7 +159,7 @@ function register(req: any, res: any, user: any) {
       }
 
       return req.login(user, function (err: any) {
-        console.log('user from reqlogin', user)
+        console.log('user from reqlogin', user);
         if (err) {
           console.log(err);
           return res.sendStatus(500);

@@ -1,6 +1,8 @@
 import { Strategy } from 'passport-google-oauth20';
 import passport from 'passport';
 import * as PassportLocal from 'passport-local';
+import bcrypt from "bcrypt"
+
 import { config } from '../../config.js';
 import { addUserToDb, findUserWithGoogleId, iFindUser } from '../../models/googleAuth.model.js';
 import { findUser, getUserId, register } from '../../models/user.model.js';
@@ -73,11 +75,12 @@ function isAuthenticated(req: any, res: any) {
   return res.status(200).json({ isAuthenticated, userId });
 }
 
-function httpRegister(req: any, res: any) {
+async function httpRegister(req: any, res: any) {
+  const hashedPassword = await hashPassword(req.body.password)
   const user = {
     email: req.body.email,
     displayName: req.body.displayName,
-    password: req.body.password,
+    password: hashedPassword,
   };
 
   register(req, res, user);
@@ -96,4 +99,15 @@ function httpLogin(req: any, res: any) {
   }
 }
 
-export { initializeGoogleAuth, isAuthenticated, httpRegister, httpLogin };
+async function hashPassword(password: string) {
+  const saltRounds = 10;
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  return hashedPassword;
+}
+
+async function verifyPassword(password: string, hashedPassword: string) {
+  const isMatch = await bcrypt.compare(password, hashedPassword);
+  return isMatch;
+}
+
+export { initializeGoogleAuth, isAuthenticated, httpRegister, httpLogin, hashPassword , verifyPassword};

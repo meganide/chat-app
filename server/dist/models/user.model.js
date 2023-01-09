@@ -2,6 +2,7 @@ import mysql from 'mysql2';
 import crypto from 'crypto';
 import { db } from '../services/database.js';
 import { cloudinaryV2 } from '../services/cloudinary.js';
+import { verifyPassword } from '../routes/googleAuth/googleAuth.controller.js';
 function getUserProfile(displayName) {
     const q = `
   SELECT profilePic, bio, timeCreated FROM users WHERE displayName = ${mysql.escape(displayName)}
@@ -78,7 +79,7 @@ function findUser(email, password, done) {
     const q = `
   SELECT * FROM users WHERE email = ${mysql.escape(email)}
   `;
-    return db.query(q, (err, results) => {
+    return db.query(q, async (err, results) => {
         if (err) {
             return done(err);
         }
@@ -86,7 +87,8 @@ function findUser(email, password, done) {
             console.log('didnt find any users');
             return done(null, false);
         }
-        if (results[0].password !== password) {
+        const isMatched = await verifyPassword(password, results[0].password);
+        if (!isMatched) {
             console.log('pw doesnt match');
             return done(null, false);
         }
