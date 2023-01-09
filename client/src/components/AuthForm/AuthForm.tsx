@@ -89,10 +89,9 @@ function AuthForm(props: Props) {
 
         if (res.ok) {
           await httpIsAuthenticated();
+        } else {
+          setError('Wrong email or password!')
         }
-
-        const data = await res.json()
-        console.log(data)
       } catch (error) {
         console.log(error);
       }
@@ -149,7 +148,7 @@ function AuthForm(props: Props) {
           />
         </section>
         <input className="auth__submit" type="submit" value={props.btnText} />
-        <p>{error && error}</p>
+        <p className='auth__error'>{error && error}</p>
         <p className="auth__member">
           {props.linkText}
           <Link className="auth__member-link" to={'/' + props.link}>

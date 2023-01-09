@@ -131,6 +131,9 @@
   background-color: #175ba8;
 }
 
+.auth__error {
+  color: rgb(240, 8, 8);
+}
 
 
 @media screen and (max-width: 450px) {
