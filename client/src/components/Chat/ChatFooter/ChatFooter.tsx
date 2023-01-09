@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import SendIcon from '@mui/icons-material/Send';
 import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
@@ -13,7 +13,7 @@ interface iProps {
 function ChatFooter({ setAllMessages }: iProps) {
   const { userData } = useContext(UserContext) as IUserContext;
   const { socket } = useContext(SocketContext) as ISocketContext;
-  const { activeChannel } = useContext(ChannelContext) as IChannelContext;
+  const { activeChannel, setTypingStatus } = useContext(ChannelContext) as IChannelContext;
 
   const [message, setMessage] = useState('');
 
@@ -41,7 +41,9 @@ function ChatFooter({ setAllMessages }: iProps) {
   }
 
   function handleTyping() {
-    socket.emit('typing', `${userData.displayName} is typing...`);
+    if (message.length > 0) {
+      socket.emit('typing', `${userData.displayName} is typing...`);
+    }
   }
 
   function handleOnKeyDown(e: any) {
@@ -49,6 +51,12 @@ function ChatFooter({ setAllMessages }: iProps) {
       onSendMessage(e);
     }
   }
+
+  useEffect(() => {
+    if (message.length === 0) {
+      socket.emit('typing', ``);
+    }
+  }, [message, setMessage]);
 
   return (
     <form className="chat__send" onSubmit={onSendMessage} onKeyDown={handleOnKeyDown}>
