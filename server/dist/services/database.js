@@ -39,6 +39,7 @@ function createTables() {
     provider VARCHAR(45),
     email VARCHAR(200),
     emailVerified TINYINT,
+    password VARCHAR(200),
     bio TEXT,
     timeCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
