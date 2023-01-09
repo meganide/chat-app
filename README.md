@@ -1,5 +1,7 @@
-# Chatify - In Progress!
+
 <h1 align="center">Chatify</h1>
+
+<p align="center">Chatify is a full-stack chat application which allows real-time communcation between users similar to Discord.</p>
 
 <div align="center">
   <h3>
@@ -24,7 +26,7 @@
 
 ## Overview
 
-![screenshot](https://i.gyazo.com/65eef90bf27fb8d12015db385ae5d70a.mp4)
+![screenshot](https://i.gyazo.com/d0e290cf4c80ef9a3536c97d8ea1b883.png)
 
 Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
 
@@ -39,16 +41,22 @@ Introduce your projects by taking a screenshot or a gif. Try to tell visitors a 
 
 - [React](https://reactjs.org/)
 - [Node.js](https://nodejs.org/en/)
+- [Express.js](https://expressjs.com/)
 - [MySQL](https://www.mysql.com/)
 - [Socket.IO](https://socket.io/)
 
 ## Features
-
+- Fully responsive for all screen sizes
 - Login with Google Account
-- Edit profile
+- Register/Login locally with email and password
+- Edit profile (including uploading a photo)
+- Chat with users in realtime
+- Create new channels
+- Join channels
+- Search for a channel
+- See online status of users
 - View user profiles
-- Chat
-- ....
+- Chat and have fun 🐈
 
 ## How To Use
 
@@ -56,24 +64,27 @@ Introduce your projects by taking a screenshot or a gif. Try to tell visitors a 
 
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
-```bash
+```
+bash
 # Clone this repository
-$ git clone https://github.com/your-user-name/your-project-name
+$ git clone https://github.com/meganide/chat-app.git
 
 # Install dependencies
+$ cd client
+$ npm install
+$ cd ..
+$ cd server
 $ npm install
 
+# Copy the code in .env.example and paste in .env and fill in the missing credentials
+
+# Create a key.pem and cert.pem file in server root folder for a self signed https certificate with openssl.
+
 # Run the app
-$ npm start
+$ node dist/server.js
+
 ```
 
-## Acknowledgements
-
-<!-- This section should list any articles or add-ons/plugins that helps you to complete the project. This is optional but it will help you in the future. For example -->
-
-- [Steps to replicate a design with only HTML and CSS](https://devchallenges-blogs.web.app/how-to-replicate-design/)
-- [Node.js](https://nodejs.org/)
-- [Marked - a markdown parser](https://github.com/chjj/marked)
 
 ## Contact
 
