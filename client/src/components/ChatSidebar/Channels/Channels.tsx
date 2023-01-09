@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 
 import Channel from '../../Channel/Channel';
 import { iChannels } from '../ChatSidebarChannel/ChatSidebarChannel';
@@ -32,7 +34,7 @@ function Channels({ setChannels, channels }: iProps) {
           .map((channel) => {
             return (
               <Channel
-                key={crypto.randomUUID()}
+                key={uuidv4()}
                 name={channel.name}
                 description={channel.description}
                 setSearchChannelQuery={setSearchChannelQuery}
