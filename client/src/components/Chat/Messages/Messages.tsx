@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState, useContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { ChannelContext, IChannelContext } from '../../../contexts/ChannelContext';
 
 import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
@@ -43,7 +44,7 @@ function Messages({ allMessages, setAllMessages }: iProps) {
       {allMessages.map((message) => {
         return (
           <Message
-            key={crypto.randomUUID()}
+            key={uuidv4()}
             img={message.profilePic}
             displayName={message.displayName}
             date={message.date}

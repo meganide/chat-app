@@ -1,3 +1,6 @@
+import { v4 as uuidv4 } from 'uuid';
+
+
 import './profileform.css';
 import ProfileRow from './ProfileRow/ProfileRow';
 import { Link } from 'react-router-dom';
@@ -27,7 +30,7 @@ function ProfileForm() {
         </Link>
       </article>
       {Object.entries(rowInfo).map(([key, value]) => {
-        return <ProfileRow key={crypto.randomUUID()} keys={key} value={value} />;
+        return <ProfileRow key={uuidv4()} keys={key} value={value} />;
       })}
     </section>
   );

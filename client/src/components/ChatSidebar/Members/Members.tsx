@@ -1,3 +1,6 @@
+import { v4 as uuidv4 } from 'uuid';
+
+
 import { iMembers, iOnlineUsers } from '../ChatSidebarChannel/ChatSidebarChannel';
 import Member from '../Member/Member';
 
@@ -14,7 +17,7 @@ function Members({ members, allOnlineUsers, setAllOnlineUsers }: iProps) {
         members.map((member) => {
           return (
             <Member
-              key={crypto.randomUUID()}
+              key={uuidv4()}
               displayName={member.displayName}
               profilePic={member.profilePic}
               setAllOnlineUsers={setAllOnlineUsers}
