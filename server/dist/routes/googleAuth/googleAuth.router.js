@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import { findUserWithGoogleId } from '../../models/googleAuth.model.js';
-import { isAuthenticated } from './googleAuth.controller.js';
+import { httpRegister, isAuthenticated } from './googleAuth.controller.js';
 const googleRouter = express.Router();
 // Redirect user to the google auth/login page
 googleRouter.get('/google', passport.authenticate('google', {
@@ -28,4 +28,6 @@ googleRouter.get('/logout', (req, res) => {
     req.logout();
     return res.redirect('/login');
 });
+// email register
+googleRouter.post('/register', httpRegister);
 export { googleRouter };

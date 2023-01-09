@@ -39,4 +39,7 @@ function isAuthenticated(req, res) {
     console.log('userid from isauth is: ', userId);
     return res.status(200).json({ isAuthenticated, userId });
 }
-export { initializeGoogleAuth, isAuthenticated };
+function httpRegister(req, res) {
+    console.log(req.body);
+}
+export { initializeGoogleAuth, isAuthenticated, httpRegister };
