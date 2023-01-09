@@ -29,6 +29,8 @@
 ![screenshot](https://i.gyazo.com/d0e290cf4c80ef9a3536c97d8ea1b883.png)
 ![screenshot](https://i.gyazo.com/1902cc030ae9e40a53e99e8a64d5fc5d.png)
 ![screenshot](https://i.gyazo.com/fac116c4519dc7651ec9861dc50c2376.png)
+![screenshot](https://i.gyazo.com/7552aade71c87ddcd89d4933812da389.png)
+
 
 
 Building the Chatify app was a challenging but rewarding experience. One of the main obstacles I encountered was implementing secure user authentication and authorization. I had to learn about best practices for storing and encrypting passwords, as well as techniques for protecting user data.
