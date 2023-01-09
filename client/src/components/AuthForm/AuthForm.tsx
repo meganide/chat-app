@@ -26,22 +26,25 @@ function AuthForm(props: Props) {
           <input type="password" name="password" id="password" placeholder="Password" />
         </div>
         <input className="auth__submit" type="submit" value={props.btnText} />
+        <p className="auth__member">
+          {props.linkText}
+          <Link className="auth__member-link" to={'/' + props.link}>
+            {props.link}
+          </Link>
+        </p>
       </form>
-      <p className="auth__socialtext">or continue with these social profile</p>
+      <p className="auth__socialtext">OR</p>
       <section className="auth__socials">
         <a href="/api/auth/google">
-          <img src="images/icons/Google.svg" alt="google" />
+          <section className="google">
+            <img src="images/icons/Google.svg" alt="google" />
+            <p>Sign in with Google</p>
+          </section>
         </a>
-        <img src="images/icons/Facebook.svg" alt="facebook" />
+        {/* <img src="images/icons/Facebook.svg" alt="facebook" />
         <img src="images/icons/Twitter.svg" alt="twitter" />
-        <img src="images/icons/Github.svg" alt="github" />
+        <img src="images/icons/Github.svg" alt="github" /> */}
       </section>
-      <p className="auth__member">
-        {props.linkText}
-        <Link className="auth__member-link" to={'/' + props.link}>
-          {props.link}
-        </Link>
-      </p>
     </section>
   );
 }
