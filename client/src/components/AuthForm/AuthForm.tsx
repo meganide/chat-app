@@ -45,6 +45,8 @@ function AuthForm(props: Props) {
 
     if (registerPage) {
       registerUser();
+    } else {
+      loginUser()
     }
 
     async function registerUser() {
@@ -58,7 +60,6 @@ function AuthForm(props: Props) {
           },
           body: JSON.stringify(userInfo),
         });
-        console.log('res', res);
 
         if (res.status === 400) {
           setError('Name or email already exists!');
@@ -69,6 +70,29 @@ function AuthForm(props: Props) {
         if (res.ok) {
           await httpIsAuthenticated();
         }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    async function loginUser() {
+      try {
+        setError('');
+
+        const res = await fetch('api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userInfo),
+        });
+
+        if (res.ok) {
+          await httpIsAuthenticated();
+        }
+
+        const data = await res.json()
+        console.log(data)
       } catch (error) {
         console.log(error);
       }

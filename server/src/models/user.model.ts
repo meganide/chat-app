@@ -100,7 +100,7 @@ async function uploadImageToCloudinary(userId: string, fileStr: string) {
 
 function findUser(email: string, password: string, done: any) {
   const q = `
-  SELECT * FROM users WHERE username = ${mysql.escape(email)}
+  SELECT * FROM users WHERE email = ${mysql.escape(email)}
   `;
 
   return db.query(q, (err, results: any) => {
@@ -108,9 +108,11 @@ function findUser(email: string, password: string, done: any) {
       return done(err);
     }
     if (!results.length) {
+      console.log('didnt find any users')
       return done(null, false);
     }
     if (results[0].password !== password) {
+      console.log('pw doesnt match')
       return done(null, false);
     }
     console.log('results[0] in findUser', results[0]);
@@ -155,6 +157,7 @@ function register(req: any, res: any, user: any) {
       }
 
       return req.login(user, function (err: any) {
+        console.log('user from reqlogin', user)
         if (err) {
           console.log(err);
           return res.sendStatus(500);

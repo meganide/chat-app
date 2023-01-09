@@ -80,9 +80,7 @@ function httpRegister(req: any, res: any) {
     password: req.body.password,
   };
 
-  const answer = register(req, res, user);
-  console.log('register', answer)
-  return answer;
+  register(req, res, user);
 }
 
 async function httpGetUserId(email: string) {
@@ -90,4 +88,12 @@ async function httpGetUserId(email: string) {
   return userId;
 }
 
-export { initializeGoogleAuth, isAuthenticated, httpRegister };
+function httpLogin(req: any, res: any) {
+  if(req.user && req.isAuthenticated()) {
+    return res.status(200).json({message: 'success'})
+  } else {
+    return res.status(400).json({message: 'fail'})
+  }
+}
+
+export { initializeGoogleAuth, isAuthenticated, httpRegister, httpLogin };
