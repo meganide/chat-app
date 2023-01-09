@@ -43,6 +43,12 @@
   margin: 0;
 }
 
+.usertooltip__info {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  row-gap: 1rem;
+}
+
 @media screen and (max-width: 1000px) {
   .usertooltip {
     width: 95%;

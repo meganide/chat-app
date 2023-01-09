@@ -1,21 +1,31 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import './usertooltip.css';
 import CloseIcon from '@mui/icons-material/Close';
 import Overlay from '../Overlay/Overlay';
 import { ISidebarContext, SidebarContext } from '../../contexts/SidebarContext';
 
+interface iUserProfile {
+  bio: null | string;
+  profilePic: string;
+  timeCreated: string;
+}
+
 function Usertooltip() {
   const { showUsertooltip, setShowUserTooltip, clickedOnUser } = useContext(
     SidebarContext
   ) as ISidebarContext;
+
+  const [userProfile, setUserProfile] = useState<iUserProfile | null>(null)
 
   useEffect(() => {
     async function getUserProfile() {
       try {
         const resp = await fetch('/api/user/profile/' + clickedOnUser);
         const data = await resp.json();
-        console.log(data);
+
+        data[0].timeCreated = new Date(data[0].timeCreated).toLocaleDateString()
+        setUserProfile(data[0])
       } catch (error) {
         console.log(error);
       }
@@ -34,14 +44,18 @@ function Usertooltip() {
           />
           <section className="usertooltip__top">
             <img
-              src="http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRRv9ICxXjK-LVFv-lKRId6gB45BFoNCLsZ4dk7bZpYGblPLPG-9aYss0Z0wt2PmWDb"
+              src={userProfile?.profilePic}
               alt=""
             />
             <p>{clickedOnUser}</p>
           </section>
-          <div className="usertooltip__info">
-            <p>Bio: </p>
-          </div>
+          <section className="usertooltip__info">
+            <p>Bio:</p>
+            <p> {userProfile?.bio || 'No bio assigned...'}</p>
+            <p>Member since:</p>
+            <p>{userProfile?.timeCreated}</p>
+          </section>
+          <button className='add-channel__submit'>Send Private Message</button>
         </aside>
       </Overlay>
     );
