@@ -73,7 +73,7 @@ function ChatSidebarChannel() {
         </section>
       )}
       <section className="chat-sidebar__bot">
-        {!isShowChannels && <h2 className="chat-sidebar__channel-members-title">Members</h2>}
+        {!isShowChannels && <h2 className="chat-sidebar__channel-members-title">Members ({members.length})</h2>}
         <section className="chat-sidebar__channel-members">
           {!isShowChannels ? (
             <Members

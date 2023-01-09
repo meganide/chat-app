@@ -53,7 +53,7 @@ function Usertooltip() {
           {Object.entries(rowInfo).map(([key, value]) => {
             return <ProfileRow key={crypto.randomUUID()} keys={key} value={value} />;
           })}
-          <button className="usertooltip__button add-channel__submit">Send Private Message</button>
+          {/* <button className="usertooltip__button add-channel__submit">Send Private Message</button> */}
         </aside>
       </Overlay>
     );
