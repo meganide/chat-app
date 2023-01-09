@@ -35,6 +35,7 @@ function Channels({ setChannels, channels }: iProps) {
                 key={crypto.randomUUID()}
                 name={channel.name}
                 description={channel.description}
+                setSearchChannelQuery={setSearchChannelQuery}
               />
             );
           })}

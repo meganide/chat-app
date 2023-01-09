@@ -10,6 +10,7 @@
   height: 60px;
   object-fit: fill;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .message__top {
