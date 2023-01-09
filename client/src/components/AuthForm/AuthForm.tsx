@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import './authform.css';
 import Logo from '../Logo/Logo';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
+import BadgeIcon from '@mui/icons-material/Badge';
 
 interface Props {
   btnText: string;
@@ -12,11 +13,27 @@ interface Props {
 }
 
 function AuthForm(props: Props) {
+  const location = useLocation();
+  const registerPage = location.pathname === '/Register'
+
   return (
     <section className="auth">
       <Logo />
       <p className="auth__slogan">Chat with your best friends from anywhere!</p>
-      <form className="auth__form" action="/auth" method="post">
+      <form className="auth__form" action={registerPage ? 'api/auth/register' : 'api/auth/login'} method="post">
+        {registerPage && (
+          <div className="auth__input">
+            <BadgeIcon style={{ color: '#828282' }} />
+            <input
+              type="text"
+              name="displayName"
+              id="displayName"
+              placeholder="Name"
+              maxLength={12}
+              pattern="[A-Za-z0-9]*"
+            />
+          </div>
+        )}
         <div className="auth__input">
           <EmailIcon style={{ color: '#828282' }} />
           <input type="email" name="email" id="email" placeholder="Email" />
