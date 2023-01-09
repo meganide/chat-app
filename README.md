@@ -5,7 +5,7 @@
 
 <div align="center">
   <h3>
-    <a href="https://chatify-k8cb.onrender.com/">
+    <a href="https://chatify-k8cb.onrender.com/login">
       Link to live website!
     </a>
   </h3>
