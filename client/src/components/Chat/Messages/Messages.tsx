@@ -19,6 +19,8 @@ function Messages({ allMessages, setAllMessages }: iProps) {
 
   useEffect(() => {
     socket.on('message', (msgData: iMsg) => {
+      msgData.date = new Date(msgData.date).toLocaleString();
+
       setAllMessages((prev) => [...prev, msgData]);
     });
 
