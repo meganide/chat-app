@@ -1,4 +1,5 @@
 import mysql from 'mysql2';
+import crypto from 'crypto';
 import { db } from '../services/database.js';
 import { cloudinaryV2 } from '../services/cloudinary.js';
 function getUserProfile(displayName) {
@@ -73,4 +74,72 @@ async function uploadImageToCloudinary(userId, fileStr) {
         return 'Error';
     }
 }
-export { editProfile, uploadImageToCloudinary, getUserProfile };
+function findUser(email, password, done) {
+    const q = `
+  SELECT * FROM users WHERE username = ${mysql.escape(email)}
+  `;
+    return db.query(q, (err, results) => {
+        if (err) {
+            return done(err);
+        }
+        if (!results.length) {
+            return done(null, false);
+        }
+        if (results[0].password !== password) {
+            return done(null, false);
+        }
+        console.log('results[0] in findUser', results[0]);
+        return done(null, results[0]);
+    });
+}
+function register(req, res, user) {
+    const q = `
+  INSERT IGNORE INTO users (userId, displayName, email, password, profilePic, provider) VALUES (?)
+  `;
+    const userId = generateRandomNumberString(25);
+    const values = [
+        userId,
+        user?.displayName,
+        user?.email,
+        user?.password,
+        'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+        'local',
+    ];
+    return db.query(q, [values], (err, results) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            req.login(user, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('req.user', req.user);
+                console.log('redirect');
+                return res.redirect('/');
+            });
+        }
+    });
+}
+function generateRandomNumberString(length) {
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += crypto.randomBytes(1).readUInt8(0) % 10;
+    }
+    return result;
+}
+function getUserId(email) {
+    const q = `
+  SELECT userId FROM users WHERE email = ${mysql.escape(email)};
+  `;
+    return new Promise((resolve, reject) => {
+        db.query(q, (err, results) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            resolve(results);
+        });
+    });
+}
+export { editProfile, uploadImageToCloudinary, getUserProfile, findUser, register, getUserId };
