@@ -43,6 +43,7 @@ Overall, the process of developing the Chatify app was a fulfilling learning exp
 
 <!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
 
+- [Typescript](https://www.typescriptlang.org/)
 - [React](https://reactjs.org/)
 - [Node.js](https://nodejs.org/en/)
 - [Express.js](https://expressjs.com/)
