@@ -10,6 +10,7 @@ import ChatFooter from './ChatFooter/ChatFooter';
 import './chat.css';
 import { ISocketContext, SocketContext } from '../../contexts/SocketContext';
 import { IUserContext, UserContext } from '../../contexts/UserContext';
+import Usertooltip from '../UserTooltip/Usertooltip';
 
 export interface iMsg {
   displayName: string;
@@ -57,6 +58,7 @@ function Chat() {
   return (
     <section className="chat">
       <AddNewChannel />
+      <Usertooltip />
       <section className="chat-sidebar__nav chat__channel-name">
         {isTabletOrMobile && (
           <MenuIcon className="chat__hamburger" onClick={() => setIsOpenSidebar(!isOpenSidebar)} />

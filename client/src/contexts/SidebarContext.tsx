@@ -7,6 +7,10 @@ export interface ISidebarContext {
   setIsShowChannels: React.Dispatch<React.SetStateAction<boolean>>;
   showAddNewChannel: boolean;
   setShowAddNewChannel: React.Dispatch<React.SetStateAction<boolean>>;
+  showUsertooltip: boolean;
+  setShowUserTooltip: React.Dispatch<React.SetStateAction<boolean>>;
+  clickedOnUser: string;
+  setClickedOnUser: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface Props {
@@ -19,6 +23,8 @@ export function SidebarContextProvider({ children }: Props): ReactElement {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
   const [isShowChannels, setIsShowChannels] = useState<boolean>(false);
   const [showAddNewChannel, setShowAddNewChannel] = useState<boolean>(false);
+  const [showUsertooltip, setShowUserTooltip] = useState(false);
+  const [clickedOnUser, setClickedOnUser] = useState('');
 
   const value = {
     isOpenSidebar,
@@ -27,6 +33,10 @@ export function SidebarContextProvider({ children }: Props): ReactElement {
     setIsShowChannels,
     showAddNewChannel,
     setShowAddNewChannel,
+    showUsertooltip,
+    setShowUserTooltip,
+    clickedOnUser,
+    setClickedOnUser,
   };
 
   return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>;

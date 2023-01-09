@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContext';
 
 import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
 
@@ -11,6 +12,8 @@ interface iProps {
 
 function Member({ displayName, profilePic, allOnlineUsers, setAllOnlineUsers }: iProps) {
   const { socket } = useContext(SocketContext) as ISocketContext;
+
+  const { setShowUserTooltip, setClickedOnUser } = useContext(SidebarContext) as ISidebarContext;
 
   useEffect(() => {
     socket.on(
@@ -26,7 +29,13 @@ function Member({ displayName, profilePic, allOnlineUsers, setAllOnlineUsers }: 
   }, [allOnlineUsers, setAllOnlineUsers]);
 
   return (
-    <article className="chat-sidebar__channel-member">
+    <article
+      className="chat-sidebar__channel-member"
+      onClick={() => {
+        setClickedOnUser(displayName);
+        setShowUserTooltip(true);
+      }}
+    >
       <img src={profilePic} alt="" className="chat-sidebar__image" />
       <p className="chat-sidebar__username">{displayName}</p>
 
