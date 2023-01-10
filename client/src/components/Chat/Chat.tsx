@@ -4,12 +4,12 @@ import { useMediaQuery } from 'react-responsive';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ISidebarContext, SidebarContext } from '../../contexts/SidebarContext';
 import { ChannelContext, IChannelContext } from '../../contexts/ChannelContext';
+import { ISocketContext, SocketContext } from '../../contexts/SocketContext';
+import { IUserContext, UserContext } from '../../contexts/UserContext';
 import AddNewChannel from '../ChatSidebar/AddNewChannel/AddNewChannel';
 import Messages from './Messages/Messages';
 import ChatFooter from './ChatFooter/ChatFooter';
 import './chat.css';
-import { ISocketContext, SocketContext } from '../../contexts/SocketContext';
-import { IUserContext, UserContext } from '../../contexts/UserContext';
 import Usertooltip from '../UserTooltip/Usertooltip';
 
 export interface iMsg {
@@ -30,32 +30,38 @@ function Chat() {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1000px)' });
 
   useEffect(() => {
-    const channelData = {
-      name: activeChannel.name,
-      userId: userData.userId,
-    };
+    function joinChannel() {
+      const channelData = {
+        name: activeChannel.name,
+        userId: userData.userId,
+      };
 
-    socket.emit('join_channel', channelData);
+      socket.emit('join_channel', channelData);
+    }
+
+    joinChannel();
   }, []);
 
   useEffect(() => {
-    socket.on('messages_in_channel', (channelMessages: iMsg[]) => {
-      channelMessages.sort((a, b) => {
-        // const aDate = new Date(a.date).getTime();
-        // const bDate = new Date(b.date).getTime();
-        return (a.date as number) - (b.date as number);
+    function receiveMessages() {
+      socket.on('messages_in_channel', (channelMessages: iMsg[]) => {
+        channelMessages.sort((a, b) => {
+          return (a.date as number) - (b.date as number);
+        });
+
+        channelMessages.forEach((message) => {
+          message.date = new Date(message.date).toLocaleString();
+        });
+
+        setAllMessages(channelMessages);
       });
 
-      channelMessages.forEach((message) => {
-        message.date = new Date(message.date).toLocaleString();
-      });
+      return () => {
+        socket.off('messages_in_channel');
+      };
+    }
 
-      setAllMessages(channelMessages);
-    });
-
-    return () => {
-      socket.off('messages_in_channel');
-    };
+    return receiveMessages();
   }, [activeChannel]);
 
   return (

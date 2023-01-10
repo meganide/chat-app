@@ -39,6 +39,7 @@ export function UserContextProvider({ children }: iProps): ReactElement {
     emailVerified: true,
     bio: 'No bio assigned yet...',
   };
+
   const [userData, setUserData] = useState(initialUserData);
 
   async function httpIsAuthenticated() {
@@ -56,15 +57,13 @@ export function UserContextProvider({ children }: iProps): ReactElement {
   async function httpGetUserData(userID: string) {
     try {
       const response = await fetch('/api/auth/google/user/' + userID);
-
       const data = await response.json();
+
       setUserData(data[0]);
     } catch (err) {
       console.error(err);
     }
   }
-
-  
 
   const value = {
     isAuthenticated,

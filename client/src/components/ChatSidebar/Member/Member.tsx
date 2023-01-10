@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
-import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContext';
 
+import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContext';
 import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
 
 interface iProps {
@@ -12,20 +12,24 @@ interface iProps {
 
 function Member({ displayName, profilePic, allOnlineUsers, setAllOnlineUsers }: iProps) {
   const { socket } = useContext(SocketContext) as ISocketContext;
-
   const { setShowUserTooltip, setClickedOnUser } = useContext(SidebarContext) as ISidebarContext;
 
   useEffect(() => {
-    socket.on(
-      'online_list',
-      (onlineUsers: any) => {
-        setAllOnlineUsers(onlineUsers);
-      },
-      []
-    );
-    return () => {
-      socket.off('online_list');
-    };
+    function listenForOnlineMembers() {
+      socket.on(
+        'online_list',
+        (onlineUsers: any) => {
+          setAllOnlineUsers(onlineUsers);
+        },
+        []
+      );
+      
+      return () => {
+        socket.off('online_list');
+      };
+    }
+
+    return listenForOnlineMembers();
   }, [allOnlineUsers, setAllOnlineUsers]);
 
   return (

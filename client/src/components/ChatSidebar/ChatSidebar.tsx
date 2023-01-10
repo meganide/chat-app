@@ -1,7 +1,7 @@
-import './chatsidebar.css';
-import { ISidebarContext, SidebarContext } from '../../contexts/SidebarContext';
 import { useContext } from 'react';
 
+import './chatsidebar.css';
+import { ISidebarContext, SidebarContext } from '../../contexts/SidebarContext';
 import NavbarProfile from '../Navbar/NavbarProfile/NavbarProfile';
 import ChatSidebarNav from './ChatSidebarNav/ChatSidebarNav';
 import ChatSidebarChannel from './ChatSidebarChannel/ChatSidebarChannel';

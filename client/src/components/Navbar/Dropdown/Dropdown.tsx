@@ -32,7 +32,11 @@ function Dropdown(props: iNavbar) {
   }, [dropdownRef, props.arrowDropdownRef]);
 
   return (
-    <aside className="dropdown" ref={dropdownRef} style={props.page === 'home' ? { right: '.625rem', bottom: '4.5rem' } : {}}>
+    <aside
+      className="dropdown"
+      ref={dropdownRef}
+      style={props.page === 'home' ? { right: '.625rem', bottom: '4.5rem' } : {}}
+    >
       <Link className={props.page === 'profile' ? 'current' : ''} to="/profile">
         {' '}
         <AccountCircleIcon className="dropdown__icon" /> My Profile

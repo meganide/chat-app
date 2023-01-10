@@ -1,7 +1,7 @@
-import { useRef, useEffect, useState, useContext } from 'react';
+import { useRef, useEffect, useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { ChannelContext, IChannelContext } from '../../../contexts/ChannelContext';
 
+import { ChannelContext, IChannelContext } from '../../../contexts/ChannelContext';
 import { ISocketContext, SocketContext } from '../../../contexts/SocketContext';
 import { iMsg } from '../Chat';
 import Message from '../Message/Message';
@@ -18,27 +18,43 @@ function Messages({ allMessages, setAllMessages }: iProps) {
   const lastMessageRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
-    socket.on('message', (msgData: iMsg) => {
-      msgData.date = new Date(msgData.date).toLocaleString();
+    function receiveMessage() {
+      socket.on('message', (msgData: iMsg) => {
+        msgData.date = new Date(msgData.date).toLocaleString();
 
-      setAllMessages((prev) => [...prev, msgData]);
-    });
+        setAllMessages((prev) => [...prev, msgData]);
+      });
 
-    return () => {
-      socket.off('message');
-    };
+      return () => {
+        socket.off('message');
+      };
+    }
+
+    return receiveMessage();
   }, [allMessages, setAllMessages]);
 
   useEffect(() => {
-    lastMessageRef?.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'end',
-      inline: 'nearest',
-    });
+    function scrollToBottom() {
+      lastMessageRef?.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+        inline: 'nearest',
+      });
+    }
+
+    scrollToBottom();
   }, [allMessages, setAllMessages, typingStatus]);
 
   useEffect(() => {
-    socket.on('typingResponse', (data: string) => setTypingStatus(data));
+    function userIsTyping() {
+      socket.on('typingResponse', (data: string) => setTypingStatus(data));
+
+      return () => {
+        socket.off('typingResponse')
+      }
+    }
+
+    return userIsTyping()
   }, [socket]);
 
   return (

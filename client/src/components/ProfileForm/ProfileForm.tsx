@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 
-
 import './profileform.css';
 import ProfileRow from './ProfileRow/ProfileRow';
 import { Link } from 'react-router-dom';
@@ -15,7 +14,6 @@ function ProfileForm() {
     name: userData.displayName,
     bio: userData.bio || 'No bio assigned...',
     email: userData.email,
-    // password: '***********',
   };
 
   return (

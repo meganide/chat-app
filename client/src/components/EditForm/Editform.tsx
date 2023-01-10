@@ -1,7 +1,7 @@
 import { useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IUserContext, UserContext } from '../../contexts/UserContext';
 
+import { IUserContext, UserContext } from '../../contexts/UserContext';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import './editform.css';
 
@@ -12,14 +12,17 @@ interface iValues {
 }
 
 function Editform() {
-  const { userData, httpIsAuthenticated } = useContext(UserContext) as IUserContext;;
+  const { userData, httpIsAuthenticated } = useContext(UserContext) as IUserContext;
+
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(
     userData.profilePic || '../public/images/icons/avatar.png'
   );
   const [uploadFile, setUploadFile] = useState<string | ArrayBuffer | null>('');
+
   const inputFileRef = useRef<any>(null);
+
   const navigate = useNavigate();
 
   function handleOnClickChooseImage() {
@@ -61,7 +64,7 @@ function Editform() {
     const response = await httpEditProfile(editedValues);
 
     if (response?.resp?.ok) {
-      httpIsAuthenticated(); //update profile
+      httpIsAuthenticated();
       navigate('/profile');
     } else if (response?.data?.error) {
       setError(response?.data?.error);
@@ -79,6 +82,7 @@ function Editform() {
       };
       const resp = await fetch('/api/user/profile/upload/' + userData?.userId, requestOptions);
       const data = await resp.json();
+
       return data;
     } catch (err) {
       console.error(err);
@@ -94,6 +98,7 @@ function Editform() {
       };
       const resp = await fetch('/api/user/profile/' + userData?.userId, requestOptions);
       const data = await resp.json();
+
       return { resp, data };
     } catch (err) {
       console.error(err);
@@ -142,19 +147,6 @@ function Editform() {
               maxLength={300}
             />
           </section>
-          {/* <section className="edit-form__input">
-          <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email" placeholder="Enter your email..." />
-        </section> */}
-          {/* <section className="edit-form__input">
-          <label htmlFor="password">Password</label>
-          <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Enter your password..."
-          />
-        </section> */}
           {error && <p className="edit-form__error">{error}</p>}
           {loading ? (
             <LoadingSpinner />

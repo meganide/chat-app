@@ -22,7 +22,7 @@ interface iNewMessage {
 function ChatFooter({ setAllMessages }: iProps) {
   const { userData } = useContext(UserContext) as IUserContext;
   const { socket } = useContext(SocketContext) as ISocketContext;
-  const { activeChannel, setTypingStatus } = useContext(ChannelContext) as IChannelContext;
+  const { activeChannel } = useContext(ChannelContext) as IChannelContext;
 
   const [message, setMessage] = useState('');
 
@@ -44,11 +44,10 @@ function ChatFooter({ setAllMessages }: iProps) {
       };
 
       socket.emit('message', newMessage);
-      
+
       newMessage.date = new Date(newMessage.date).toLocaleString();
 
       setAllMessages((prev) => [...prev, newMessage]);
-
 
       setMessage('');
     }
@@ -67,9 +66,13 @@ function ChatFooter({ setAllMessages }: iProps) {
   }
 
   useEffect(() => {
-    if (message.length === 0) {
-      socket.emit('typing', ``);
+    function resetTypingStatus() {
+      if (message.length === 0) {
+        socket.emit('typing', ``);
+      }
     }
+
+    resetTypingStatus();
   }, [message, setMessage]);
 
   return (
