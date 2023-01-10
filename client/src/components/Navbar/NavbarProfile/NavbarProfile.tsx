@@ -11,8 +11,10 @@ export interface iNavbar {
 }
 
 function NavbarProfile(props: iNavbar) {
-  const arrowDropdownRef = useRef<any>(null);
   const { userData } = useContext(UserContext) as IUserContext;
+
+  const arrowDropdownRef = useRef<any>(null);
+
   const [showDropdown, setShowDropdown] = useState(false);
 
   function toggleDropdown() {

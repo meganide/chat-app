@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-
 import './usertooltip.css';
 import CloseIcon from '@mui/icons-material/Close';
 import Overlay from '../Overlay/Overlay';
@@ -55,7 +54,6 @@ function Usertooltip() {
           {Object.entries(rowInfo).map(([key, value]) => {
             return <ProfileRow key={uuidv4()} keys={key} value={value} />;
           })}
-          {/* <button className="usertooltip__button add-channel__submit">Send Private Message</button> */}
         </aside>
       </Overlay>
     );

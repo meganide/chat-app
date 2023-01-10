@@ -21,12 +21,12 @@ function AuthForm(props: Props) {
 
   const location = useLocation();
   const navigate = useNavigate();
+
   const [userInfo, setUserInfo] = useState({
     displayName: '',
     email: '',
     password: '',
   });
-
   const [error, setError] = useState('');
 
   const registerPage = location.pathname === '/Register';
@@ -46,7 +46,7 @@ function AuthForm(props: Props) {
     if (registerPage) {
       registerUser();
     } else {
-      loginUser()
+      loginUser();
     }
 
     async function registerUser() {
@@ -90,7 +90,7 @@ function AuthForm(props: Props) {
         if (res.ok) {
           await httpIsAuthenticated();
         } else {
-          setError('Wrong email or password!')
+          setError('Wrong email or password!');
         }
       } catch (error) {
         console.log(error);
@@ -99,10 +99,16 @@ function AuthForm(props: Props) {
   }
 
   useEffect(() => {
-    console.log(userData);
-    if (isAuthenticated && userData?.displayName !== 'Name' && userData?.displayName !== undefined) {
-      navigate('/');
+    function redirectIfAuthenticated() {
+      if (
+        isAuthenticated &&
+        userData?.displayName !== 'Name' &&
+        userData?.displayName !== undefined
+      ) {
+        navigate('/');
+      }
     }
+    redirectIfAuthenticated();
   }, [isAuthenticated, userData]);
 
   return (
@@ -148,7 +154,7 @@ function AuthForm(props: Props) {
           />
         </section>
         <input className="auth__submit" type="submit" value={props.btnText} />
-        <p className='auth__error'>{error && error}</p>
+        <p className="auth__error">{error && error}</p>
         <p className="auth__member">
           {props.linkText}
           <Link className="auth__member-link" to={'/' + props.link}>
@@ -164,9 +170,6 @@ function AuthForm(props: Props) {
             <p>Sign in with Google</p>
           </section>
         </a>
-        {/* <img src="images/icons/Facebook.svg" alt="facebook" />
-        <img src="images/icons/Twitter.svg" alt="twitter" />
-        <img src="images/icons/Github.svg" alt="github" /> */}
       </section>
     </section>
   );

@@ -112,7 +112,7 @@ function findUser(email: string, password: string, done: any) {
       return done(null, false);
     }
 
-    const isMatched = await verifyPassword(password, results[0].password)
+    const isMatched = await verifyPassword(password, results[0].password);
 
     if (!isMatched) {
       console.log('pw doesnt match');
@@ -165,8 +165,6 @@ function register(req: any, res: any, user: any) {
           return res.sendStatus(500);
         }
 
-        console.log('req.user', req.user);
-        console.log('redirect');
         res.redirect('/');
       });
     });

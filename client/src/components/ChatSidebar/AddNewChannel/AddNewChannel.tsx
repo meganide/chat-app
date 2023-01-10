@@ -1,12 +1,13 @@
 import { useContext, useState } from 'react';
 
-import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContext';
 import './addnewchannel.css';
+import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContext';
 import CloseIcon from '@mui/icons-material/Close';
 import Overlay from '../../Overlay/Overlay';
 
 function AddNewChannel() {
   const { showAddNewChannel, setShowAddNewChannel } = useContext(SidebarContext) as ISidebarContext;
+  
   const [channelInfo, setChannelInfo] = useState({
     name: '',
     description: '',

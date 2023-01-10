@@ -1,16 +1,14 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-
 import Channel from '../../Channel/Channel';
 import { iChannels } from '../ChatSidebarChannel/ChatSidebarChannel';
 
 interface iProps {
   channels: iChannels[];
-  setChannels: React.Dispatch<React.SetStateAction<iChannels[]>>;
 }
 
-function Channels({ setChannels, channels }: iProps) {
+function Channels({ channels }: iProps) {
   const [searchChannelQuery, setSearchChannelQuery] = useState('');
 
   return (

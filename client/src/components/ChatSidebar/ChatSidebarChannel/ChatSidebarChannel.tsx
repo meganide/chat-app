@@ -45,23 +45,30 @@ function ChatSidebarChannel() {
   }, []);
 
   useEffect(() => {
-    socket.on('new_channel', (channels: any) => {
-      setChannels(channels);
-    });
+    function listenForNewChannels() {
+      socket.on('new_channel', (channels: any) => {
+        setChannels(channels);
+      });
 
-    return () => {
-      socket.off('new_channel');
-    };
+      return () => {
+        socket.off('new_channel');
+      };
+    }
+
+    return listenForNewChannels();
   }, [channels]);
 
   useEffect(() => {
-    socket.on('members_in_channel', (members: iMembers[]) => {
-      setMembers(members);
-    });
+    function listenForNewMembers() {
+      socket.on('members_in_channel', (members: iMembers[]) => {
+        setMembers(members);
+      });
 
-    return () => {
-      socket.off('members_in_channel');
-    };
+      return () => {
+        socket.off('members_in_channel');
+      };
+    }
+    return listenForNewMembers();
   }, [activeChannel, setActiveChannel]);
 
   return (
@@ -73,7 +80,9 @@ function ChatSidebarChannel() {
         </section>
       )}
       <section className="chat-sidebar__bot">
-        {!isShowChannels && <h2 className="chat-sidebar__channel-members-title">Members ({members.length})</h2>}
+        {!isShowChannels && (
+          <h2 className="chat-sidebar__channel-members-title">Members ({members.length})</h2>
+        )}
         <section className="chat-sidebar__channel-members">
           {!isShowChannels ? (
             <Members
@@ -82,7 +91,7 @@ function ChatSidebarChannel() {
               allOnlineUsers={allOnlineUsers}
             />
           ) : (
-            <Channels channels={channels} setChannels={setChannels} />
+            <Channels channels={channels} />
           )}
         </section>
       </section>

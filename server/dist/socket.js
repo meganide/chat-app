@@ -10,12 +10,10 @@ function startSocket() {
         socket.on('add_online_user', (displayName) => {
             console.log(`Socket ${socket.id} added with displayName ${displayName}.`);
             onlineUsers[socket.id] = displayName;
-            console.log(onlineUsers);
             io.emit('online_list', onlineUsers);
         });
         socket.on('typing', (data) => socket.to(room).emit('typingResponse', data));
         socket.on('message', (msg) => {
-            console.log('message in socket', msg);
             socket.to(room).emit('message', msg);
             httpSaveMessage(msg);
         });
@@ -32,7 +30,6 @@ function startSocket() {
         socket.on('disconnect', () => {
             console.log('user with id', socket.id, 'has disconnected..');
             delete onlineUsers[socket.id];
-            console.log('left', onlineUsers);
             io.emit('online_list', onlineUsers);
             socket.leave(room);
         });

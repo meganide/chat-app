@@ -2,7 +2,6 @@ import { getMessages, saveMessage } from "../../models/messages.model.js";
 import { iChannelData, iMsg } from "../../socket.js";
 
 async function httpSaveMessage(msg: iMsg) {
-  console.log(msg)
   await saveMessage(msg)
 }
 

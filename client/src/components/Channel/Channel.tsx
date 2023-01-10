@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useContext } from 'react';
+
 import { ChannelContext, IChannelContext } from '../../contexts/ChannelContext';
 import { ISidebarContext, SidebarContext } from '../../contexts/SidebarContext';
 import { ISocketContext, SocketContext } from '../../contexts/SocketContext';
@@ -20,19 +21,23 @@ function Channel({ name, description, setSearchChannelQuery }: iProps) {
   const [thumbnailName, setThumbnailName] = useState('C');
 
   useEffect(() => {
-    if (channelNameRef) {
-      const firstLetters =
-        channelNameRef.current?.innerText
-          .split(' ')
-          .map((word, index) => {
-            if (index < 3) {
-              return word[0]
-            }
-          })
-          .join('') || 'C';
+    function createChannelThumbnail() {
+      if (channelNameRef) {
+        const firstLetters =
+          channelNameRef.current?.innerText
+            .split(' ')
+            .map((word, index) => {
+              if (index < 3) {
+                return word[0];
+              }
+            })
+            .join('') || 'C';
 
-      setThumbnailName(firstLetters);
+        setThumbnailName(firstLetters);
+      }
     }
+
+    createChannelThumbnail()
   }, []);
 
   function handleJoinChannel() {

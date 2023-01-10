@@ -132,8 +132,6 @@ function register(req, res, user) {
                     console.log(err);
                     return res.sendStatus(500);
                 }
-                console.log('req.user', req.user);
-                console.log('redirect');
                 res.redirect('/');
             });
         });

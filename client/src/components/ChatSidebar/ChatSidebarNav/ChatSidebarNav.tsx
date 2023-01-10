@@ -1,19 +1,19 @@
 import { useContext } from 'react';
-import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContext';
 import { useMediaQuery } from 'react-responsive';
 
+import { ISidebarContext, SidebarContext } from '../../../contexts/SidebarContext';
 import './chatsidebarnav.css';
 import CloseIcon from '@mui/icons-material/Close';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import AddIcon from '@mui/icons-material/Add';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 function ChatSidebarNav() {
-  const { setIsOpenSidebar, setIsShowChannels, isShowChannels, setShowAddNewChannel, showAddNewChannel } = useContext(
+  const { setIsOpenSidebar, setIsShowChannels, isShowChannels, setShowAddNewChannel } = useContext(
     SidebarContext
   ) as ISidebarContext;
+  
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1000px)' });
 
-  
   return (
     <section className="chat-sidebar__nav chat-sidebar__nav--sidebar">
       <ArrowBackIosNewIcon
