@@ -71,6 +71,7 @@ async function verifyCallback(accessToken: any, refreshToken: any, profile: any,
 function isAuthenticated(req: any, res: any) {
   const isAuthenticated = req.isAuthenticated();
   const userId = req.user;
+  
   console.log('userid from isauth is: ', userId);
   return res.status(200).json({ isAuthenticated, userId });
 }
